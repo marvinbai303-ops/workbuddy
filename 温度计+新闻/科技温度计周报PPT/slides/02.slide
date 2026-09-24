@@ -1,0 +1,66 @@
+<Slide style={{ width: 1280, height: 720, background: '#F4F6F9', fontFamily: 'PingFang SC', display: 'flex', flexDirection: 'column' }}>
+
+  <Box style={{ height: 88, background: '#1F3A6E', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box>
+      <Text style={{ fontSize: 25, fontWeight: '600', color: '#FFFFFF' }}>低温买入产业趋势组合：历史胜率与赔率</Text>
+      <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.75)', marginTop: 5 }}>科技温度计跌破 40° 当日买入　|　事件口径，21 次信号　|　窗口 2023-09-25 ~ 2026-09-18　|　持有期不足的样本剔除</Text>
+    </Box>
+    <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)' }}>研究结论</Text>
+  </Box>
+
+  <Box style={{ padding: '12px 40px 0', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box style={{ background: '#FFFFFF', border: '1px solid #E5E8EE', borderRadius: 12, padding: '8px 10px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Image src="assets/p2_events.png" style={{ width: 860, height: 343 }} />
+    </Box>
+
+    <Table
+      style={{ width: 1160, height: 148, marginTop: 12 }}
+      defaultTextStyle={{ fontSize: 13, textAlign: 'center', color: '#1A1D26' }}
+      defaultCellStyle={{
+        border: {
+          left: { width: 1, color: '#E5E8EE' },
+          right: { width: 1, color: '#E5E8EE' },
+          top: { width: 1, color: '#E5E8EE' },
+          bottom: { width: 1, color: '#E5E8EE' },
+        },
+      }}
+      cells={[
+        [
+          { text: '持有期', textStyle: { bold: true, color: '#FFFFFF', fontSize: 13 }, cellStyle: { background: { color: '#1F3A6E' } } },
+          { text: '样本数', textStyle: { bold: true, color: '#FFFFFF', fontSize: 13 }, cellStyle: { background: { color: '#1F3A6E' } } },
+          { text: '胜率（收益>0）', textStyle: { bold: true, color: '#FFFFFF', fontSize: 13 }, cellStyle: { background: { color: '#1F3A6E' } } },
+          { text: '平均年化', textStyle: { bold: true, color: '#FFFFFF', fontSize: 13 }, cellStyle: { background: { color: '#1F3A6E' } } },
+          { text: '年化中位数', textStyle: { bold: true, color: '#FFFFFF', fontSize: 13 }, cellStyle: { background: { color: '#1F3A6E' } } },
+          { text: '平均绝对收益', textStyle: { bold: true, color: '#FFFFFF', fontSize: 13 }, cellStyle: { background: { color: '#1F3A6E' } } },
+          { text: '收益最高买入点', textStyle: { bold: true, color: '#FFFFFF', fontSize: 13 }, cellStyle: { background: { color: '#1F3A6E' } } },
+        ],
+        [
+          { text: '半年', textStyle: { bold: true } }, '18', { text: '94%（17/18）' }, { text: '+139.3%', textStyle: { color: '#D93636', bold: true } }, '+150.3%', '+50.6%', '2025-04-07（+105.6%）',
+        ],
+        [
+          { text: '一年', textStyle: { bold: true }, cellStyle: { background: { color: '#F7F9FC' } } },
+          { text: '18', cellStyle: { background: { color: '#F7F9FC' } } },
+          { text: '94%（17/18）', cellStyle: { background: { color: '#F7F9FC' } } },
+          { text: '+98.6%', textStyle: { color: '#D93636', bold: true }, cellStyle: { background: { color: '#F7F9FC' } } },
+          { text: '+98.5%', cellStyle: { background: { color: '#F7F9FC' } } },
+          { text: '+98.4%', cellStyle: { background: { color: '#F7F9FC' } } },
+          { text: '2025-06-20（+224.6%）', cellStyle: { background: { color: '#F7F9FC' } } },
+        ],
+        [
+          { text: '两年', textStyle: { bold: true } }, '9', { text: '100%（9/9）', textStyle: { bold: true } }, { text: '+63.9%', textStyle: { color: '#D93636', bold: true } }, '+69.6%', '+171.1%', '2024-05-29（+243.4%）',
+        ],
+      ]}
+    />
+
+    <Box style={{ marginTop: 10, width: 1160, background: '#FFFAF0', border: '1px solid #F6E0B5', borderRadius: 10, padding: '8px 18px' }}>
+      <Text style={{ fontSize: 12, color: '#7A5A20', lineHeight: 1.5 }}>
+        最佳买点集中在恐慌最深处（2025-04 关税冲击）与牛市前磨底期（2024-04~05）；持有越久总收益越高、年化越低。注意：21 次信号仅来自 3 个低温带且持仓期高度重叠，胜率不能视作独立重复胜率；模拟组合回测，未计申赎费与冲击成本。
+      </Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 30, background: '#1F3A6E', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 40px' }}>
+    <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)' }}>02 / 02</Text>
+  </Box>
+
+</Slide>
