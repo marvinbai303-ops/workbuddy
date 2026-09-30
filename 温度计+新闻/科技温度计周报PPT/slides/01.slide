@@ -3,39 +3,34 @@
   <Box style={{ height: 88, background: '#1F3A6E', padding: '0 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
     <Box>
       <Text style={{ fontSize: 25, fontWeight: '600', color: '#FFFFFF' }}>科技温度计周报｜市场情绪监测</Text>
-      <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.75)', marginTop: 5 }}>信号源：科技温度计　|　标的：产业趋势组合（模拟）　|　数据截至 2026-09-22</Text>
+      <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.75)', marginTop: 5 }}>信号源：科技温度计　|　标的：产业趋势组合（模拟）　|　数据截至 2026-09-24</Text>
     </Box>
-    <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)' }}>2026 年第 39 周</Text>
+    <Text style={{ fontSize: 13, color: 'rgba(255,255,255,0.85)' }}>2026 年第 40 周</Text>
   </Box>
 
   <Box style={{ padding: '14px 40px 0' }}>
-    <Box style={{ display: 'flex', gap: 14, height: 86 }}>
-      <Box style={{ flex: 1, background: '#FFFFFF', border: '1px solid #E5E8EE', borderRadius: 12, padding: '12px 20px' }}>
-        <Text style={{ fontSize: 12, color: '#7B8494' }}>当前温度计读数（09-22）</Text>
-        <Text style={{ fontSize: 34, fontWeight: '600', color: '#2F6FED', marginTop: 2 }}>41.8°</Text>
+    <Box style={{ display: 'flex', gap: 16, height: 88 }}>
+      <Box style={{ flex: 1, background: '#FFFFFF', border: '1px solid #E5E8EE', borderRadius: 12, padding: '13px 24px' }}>
+        <Text style={{ fontSize: 12, color: '#7B8494' }}>当前温度计读数（09-24）</Text>
+        <Text style={{ fontSize: 36, fontWeight: '600', color: '#2F6FED', marginTop: 2 }}>33.6°</Text>
       </Box>
-      <Box style={{ flex: 1, background: '#FFFFFF', border: '1px solid #E5E8EE', borderRadius: 12, padding: '12px 20px' }}>
-        <Text style={{ fontSize: 12, color: '#7B8494' }}>上周五读数（09-18）</Text>
-        <Text style={{ fontSize: 34, fontWeight: '600', color: '#4A5464', marginTop: 2 }}>40.4°</Text>
+      <Box style={{ flex: 1, background: '#FFFFFF', border: '1px solid #E5E8EE', borderRadius: 12, padding: '13px 24px' }}>
+        <Text style={{ fontSize: 12, color: '#7B8494' }}>上周读数（周一 09-21）</Text>
+        <Text style={{ fontSize: 36, fontWeight: '600', color: '#4A5464', marginTop: 2 }}>39.9°</Text>
       </Box>
-      <Box style={{ flex: 1, background: '#FFF7F7', border: '1px solid #F2D4D4', borderRadius: 12, padding: '12px 20px' }}>
-        <Text style={{ fontSize: 12, color: '#7B8494' }}>边际变化（较上周五）</Text>
-        <Text style={{ fontSize: 34, fontWeight: '600', color: '#D93636', marginTop: 2 }}>+1.4° ↑ 回升</Text>
-      </Box>
-      <Box style={{ flex: 1.15, background: '#FFFFFF', border: '1px solid #E5E8EE', borderRadius: 12, padding: '12px 20px' }}>
-        <Text style={{ fontSize: 12, color: '#7B8494' }}>所处区间（40° 为低温阈值）</Text>
-        <Text style={{ fontSize: 16, fontWeight: '600', color: '#1A1D26', marginTop: 8 }}>已回升至 40° 上方，脱离低温触发区</Text>
-        <Text style={{ fontSize: 11.5, color: '#9AA3B2', marginTop: 2 }}>上周五尚在触发区边缘（40.4°）</Text>
+      <Box style={{ flex: 1, background: '#F1FAF3', border: '1px solid #CFE9D6', borderRadius: 12, padding: '13px 24px' }}>
+        <Text style={{ fontSize: 12, color: '#7B8494' }}>边际变化（较上周一）</Text>
+        <Text style={{ fontSize: 36, fontWeight: '600', color: '#16A34A', marginTop: 2 }}>−6.3° ↓ 下降</Text>
       </Box>
     </Box>
 
     <Box style={{ marginTop: 12, background: '#FFFFFF', border: '1px solid #E5E8EE', borderRadius: 12, padding: '10px 12px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <Image src="assets/p1_temp_tmt.png" style={{ width: 1046, height: 417 }} />
+      <Image src="assets/p1_temp_tmt.png" style={{ width: 1027, height: 400 }} />
     </Box>
 
-    <Box style={{ marginTop: 8, background: '#EFF4FE', borderRadius: 10, padding: '9px 18px' }}>
-      <Text style={{ fontSize: 12.5, color: '#1A1D26', lineHeight: 1.55 }}>
-        <Text style={{ fontWeight: '600', color: '#1F3A6E' }}>本周解读：</Text>温度计较上周五回升 1.4°，主要由「上涨股票占比」（18.8→26.1，+7.3pt）与「250日月跌幅均指滚动百分位」（29.7→34.9，+5.2pt）两项因子得分修复驱动，行业拥挤度（77.1→72.6，−4.5pt）回落形成部分对冲。温度计为 10 因子等权合成，周内对比区间 2026-09-18 → 2026-09-22。
+    <Box style={{ marginTop: 8, background: '#EFF4FE', borderRadius: 10, padding: '8px 18px' }}>
+      <Text style={{ fontSize: 12.5, color: '#1A1D26', lineHeight: 1.5 }}>
+        <Text style={{ fontWeight: '600', color: '#1F3A6E' }}>本周解读：</Text>温度计较上周一回落 6.3°，当前 33.6° 已跌破 40° 低温触发区；回落主要由「行业拥挤度」（59.0→41.3，−17.7pt）与「250日月跌幅均指滚动百分位」（36.5→22.0，−14.5pt）两项得分走低拖累，10 个因子中 8 项下滑。温度计为 10 因子等权合成，对比区间 2026-09-21 → 2026-09-24。
       </Text>
     </Box>
   </Box>
