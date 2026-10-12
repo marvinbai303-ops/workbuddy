@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科伦博泰生物 · 临床试验可监控目录（预览）</title>
+<style>
+:root{--bg:#1E1E1E;--bg2:#161616;--panel:#232323;--panel2:#2a2a2a;--green:#00E676;--green-dim:#00b85a;--green-dark:#0a3d24;--text:#E0E0E0;--text-dim:#9e9e9e;--text-faint:#6a6a6a;--red:#ff5c5c;--yellow:#ffd54f;--blue:#64b5f6;--border:#333;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"SF Mono","Menlo","Consolas","PingFang SC","Microsoft YaHei",monospace;line-height:1.7;font-size:14px;padding-bottom:60px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:26px 0;margin-bottom:28px}
+h1{color:var(--green);font-size:21px;font-weight:700}
+.sub{color:var(--text-dim);font-size:12px;margin-top:6px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border:1px solid var(--green);color:var(--green);border-radius:3px;margin-right:6px}
+h2{color:var(--green);font-size:16px;margin:32px 0 14px;padding-left:12px;border-left:3px solid var(--green)}
+h3{color:var(--green-dim);font-size:14px;margin:20px 0 10px}
+.section{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:18px;margin:12px 0}
+.exec{background:var(--green-dark);border:1px solid var(--green);border-radius:6px;padding:16px 18px;margin:14px 0}
+.kv b{color:var(--green)}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}
+th{background:var(--panel2);color:var(--green);text-align:left;padding:7px 9px;border:1px solid var(--border);font-weight:600;white-space:nowrap}
+td{padding:6px 9px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:rgba(255,255,255,0.015)}
+.num{font-family:"SF Mono","Consolas",monospace;color:var(--green);white-space:nowrap}
+.dim{color:var(--text-dim);white-space:nowrap}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;white-space:nowrap}
+.tg-g{background:#0a3d24;color:#00E676;border:1px solid #00E676}
+.tg-y{background:#3d340a;color:#ffd54f;border:1px solid #ffd54f}
+.tg-r{background:#3d0a0a;color:#ff5c5c;border:1px solid #ff5c5c}
+.tg-b{background:#0a1f3d;color:#64b5f6;border:1px solid #64b5f6}
+.note{background:var(--bg2);border-left:3px solid var(--yellow);padding:10px 14px;margin:12px 0;font-size:12.5px;color:var(--text-dim)}
+.note-g{background:var(--bg2);border-left:3px solid var(--green);padding:10px 14px;margin:12px 0;font-size:12.5px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:12px;text-align:center}
+.kpi .lbl{font-size:10px;color:var(--text-faint)}
+.kpi .vl{font-size:22px;color:var(--green);font-weight:700;margin-top:3px}
+.footer{margin-top:36px;padding-top:14px;border-top:1px solid var(--border);font-size:11px;color:var(--text-faint)}
+</style></head><body>
+<header><div class="wrap">
+<h1>科伦博泰生物 · 临床试验可监控目录 <span class="dim">（预览版 · 未落盘）</span></h1>
+<div class="sub"><span class="badge">6990.HK</span><span class="badge">biotech-clinical-monitor</span>数据源：ClinicalTrials.gov API v2 ｜ 检索时点：2026-10-11 ｜ 范围界定预览</div>
+</div></header>
+<div class="wrap">
+
+<div class="exec">
+<div class="kv">
+<b>目录预览结论：</b>双轨检索（申办方名 + 药物代号）共去重命中 <b>165 项</b>试验，其中<b>活跃监控对象 151 项</b>、终态（COMPLETED/TERMINATED）14 项。<br>
+<b>监控核心：</b>① <b>C2 境内三期/注册 12 项</b>（sac-TMT/A166/A140/KL-A167 关键注册性）；② <b>C5 中默沙东主导的 32 项 sac-TMT/MK-2870 全球 III 期</b>（海外兑现主战场）。<br>
+<span class="dim">⚠️ 本文件为<b>范围预览</b>，尚未落盘基线、未创建自动化任务——待你确认范围后再定稿。</span>
+</div>
+</div>
+
+<h2>一、六类分布概览</h2>
+<div class="kpi-grid">
+<div class="kpi"><div class="lbl">合计</div><div class="vl">165</div></div>
+<div class="kpi"><div class="lbl">活跃</div><div class="vl">151</div></div>
+<div class="kpi"><div class="lbl">终态</div><div class="vl">14</div></div>
+<div class="kpi"><div class="lbl">C1 全球三期</div><div class="vl">0</div></div>
+<div class="kpi"><div class="lbl">C2 境内三期</div><div class="vl">12</div></div>
+<div class="kpi"><div class="lbl">C3 全球早期</div><div class="vl">2</div></div>
+<div class="kpi"><div class="lbl">C4 境内早期</div><div class="vl">44</div></div>
+<div class="kpi"><div class="lbl">C5 全球IIT/合作</div><div class="vl">43</div></div>
+<div class="kpi"><div class="lbl">C6 境内IIT/合作</div><div class="vl">64</div></div>
+</div>
+<table>
+<tr><th>代码</th><th>类别</th><th>项数</th><th>说明</th></tr>
+<tr><td>C1</td><td>全球三期/注册（公司自主）</td><td class="num">0</td><td>科伦博泰无自研全球 III 期（sac-TMT 海外权已授默沙东）</td></tr>
+<tr><td>C2</td><td>境内三期/注册（公司自主）</td><td class="num">12</td><td>核心注册资产，重点监控</td></tr>
+<tr><td>C3</td><td>全球早期（公司自主/Klus Pharma）</td><td class="num">2</td><td>SKB264 篮式/伞式研究</td></tr>
+<tr><td>C4</td><td>境内早期（公司自主）</td><td class="num">44</td><td>SKB571/SKB118/SKB315 等 I/II 期</td></tr>
+<tr><td>C5</td><td>全球 IIT/合作方主导</td><td class="num">43</td><td>含默沙东 32 项全球 III 期 + 海外 IIT</td></tr>
+<tr><td>C6</td><td>境内 IIT/合作方主导</td><td class="num">64</td><td>医院/研究者发起的 sac-TMT 探索性研究</td></tr>
+</table>
+
+<h2>二、双轨检索词（范围界定依据）</h2>
+<div class="section">
+<h3>申办方名变体</h3>
+<p class="dim">Sichuan Kelun-Biotech Biopharmaceutical Co., Ltd.（主）｜ Klus Pharma Inc.（美国关联申办方）｜ Sichuan Kelun（科伦集团）</p>
+<h3>药物代号 / 通用名</h3>
+<table>
+<tr><th>资产</th><th>靶点/机制</th><th>检索代号</th></tr>
+<tr><td>芦康沙妥珠单抗（核心）</td><td>TROP2 ADC</td><td>SKB264 / MK-2870 / sacituzumab tirumotecan / sac-TMT</td></tr>
+<tr><td>博度曲妥珠单抗</td><td>HER2 ADC</td><td>A166</td></tr>
+<tr><td>塔戈利单抗</td><td>PD-L1</td><td>KL-A167 / tagitanlimab</td></tr>
+<tr><td>西妥昔单抗 N01</td><td>EGFR 单抗</td><td>A140</td></tr>
+<tr><td>SKB571</td><td>EGFR/c-MET 双抗 ADC</td><td>SKB571</td></tr>
+<tr><td>SKB118</td><td>PD-1/VEGF 双抗</td><td>SKB118 / MK-2010</td></tr>
+<tr><td>SKB315 / SKB410</td><td>CLDN18.2 / Nectin-4 ADC</td><td>SKB315 / SKB410 / MK-3120</td></tr>
+<tr><td>仑博替尼</td><td>RET 抑制剂</td><td>A400 / KL590586 / EP0031</td></tr>
+</table>
+<div class="note">🔴 双轨纪律：单用申办方名会漏掉默沙东/医院主导的 sac-TMT 试验；单用代号会漏掉申办方名的拼写变体。本轮两轨均跑满。</div>
+</div>
+
+<h2>三、C2 境内三期/注册明细（12 项）</h2>
+<div class="section">
+<table><tr><th>NCT</th><th>试验</th><th>状态</th><th>入组</th><th>更新日期</th></tr>
+<tr><td class='num'>NCT06670196</td><td>A Study of SKB264 in Combination With Osimertinib Versus Osimertinib i</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>420</td><td class='dim'>2026-07-10</td></tr><tr><td class='num'>NCT06711900</td><td>A Study of SKB264 in Combination With Pembrolizumab Versus Chemotherap</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>432</td><td class='dim'>2026-07-08</td></tr><tr><td class='num'>NCT03426371</td><td>Epidermal Growth Factor Receptor (EGFR) Antagonist Chimeric Anti-EGFR </td><td><span class='tag tg-r'>TERMINATED</span></td><td class='num'>52</td><td class='dim'>2026-05-12</td></tr><tr><td class='num'>NCT06081959</td><td>Study of SKB264 for Locally Advanced, Recurrent or Metastatic HR+/HER2</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>376</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT06968585</td><td>A Study of A166 Versus Trastuzumab Emtansine (T-DM1) in Patients With </td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>365</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT07071337</td><td>A Study of SKB264 Versus Investigator's Choice of Chemotherapy in Subj</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>430</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT06448312</td><td>A Study of SKB264 in Combination With Pembrolizumab Versus Pembrolizum</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>406</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT05870319</td><td>A Phase III Study of SKB264 for EGFR Mutant NSCLC Patients</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>376</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT05347134</td><td>SKB264 Injection vs Investigator Selected Regimens to Treat Locally Ad</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>254</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT04835142</td><td>Comparison of A140 and Erbitux Combined With mfolfox6 to Evaluate Effi</td><td><span class='tag tg-b'>COMPLETED</span></td><td class='num'>688</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT05294172</td><td>KL-A167 Injection Combined With Cisplatin and Gemcitabine vs Placebo C</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>295</td><td class='dim'>2026-05-08</td></tr><tr><td class='num'>NCT06279364</td><td>A Study of SKB264 Versus Investigator's Choice Chemotherapy in Patient</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>524</td><td class='dim'>2026-05-08</td></tr>
+</table>
+</div>
+
+<h2>四、默沙东主导全球 III 期（C5 中 32 项 · 海外主战场）</h2>
+<div class="section">
+<table><tr><th>NCT</th><th>试验</th><th>状态</th><th>更新日期</th></tr>
+<tr><td class='num'>NCT07785609</td><td>A Clinical Trial of MK-2010 With Sacituzumab Tirumotecan (Sac-TMT) in </td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>200</td><td class='dim'>2026-10-09</td></tr><tr><td class='num'>NCT05319730</td><td>A Study to Evaluate Investigational Agents With or Without Pembrolizum</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>230</td><td class='dim'>2026-10-07</td></tr><tr><td class='num'>NCT06469944</td><td>Substudy 06C: A Study of Investigational Agents With Pembrolizumab (MK</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>160</td><td class='dim'>2026-10-07</td></tr><tr><td class='num'>NCT06966700</td><td>A Clinical Study of Sacituzumab Tirumotecan (Sac-TMT, MK-2870) in Peop</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>2400</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT07216703</td><td>A Clinical Study of Sacituzumab Tirumotecan (MK-2870) in Combination W</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>1023</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06637423</td><td>A Clinical Study of Sacituzumab Tirumotecan (MK-2870) in Patients With</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>32</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT07318558</td><td>A Clinical Trial of Sac-TMT in People With Non-HRD Positive Advanced O</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>900</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06312176</td><td>A Study of Sacituzumab Tirumotecan (MK-2870) as a Single Agent and in </td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>1200</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06952504</td><td>A Study to Compare Sacituzumab Tirumotecan (MK-2870) in Combination Wi</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>1123</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT07419295</td><td>A Clinical Trial of Sacituzumab Tirumotecan (Sac-TMT, MK-2870) to Trea</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>590</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06841354</td><td>A Study of Sacituzumab Tirumotecan (Sac-TMT, MK-2870) as Monotherapy a</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>1000</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06428409</td><td>A Clinical Study of MK-2870 Alone or With Other Treatments to Treat Ga</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>220</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06824467</td><td>A Study to Evaluate the Efficacy and Safety of Sacituzumab Tirumotecan</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>770</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06422143</td><td>Pembrolizumab With or Without Maintenance Sacituzumab Tirumotecan (Sac</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>851</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06393374</td><td>Sacituzumab Tirumotecan (MK-2870) Plus Pembrolizumab Versus TPC in TNB</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>1530</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06818643</td><td>A Study to Evaluate the Safety and Efficacy of MK-3120 in Participants</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>—</td><td class='dim'>2026-10-06</td></tr><tr><td class='num'>NCT06780111</td><td>Substudy 06E: Umbrella Study of Combination Therapies in Esophageal Ca</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>298</td><td class='dim'>2026-10-02</td></tr><tr><td class='num'>NCT07286149</td><td>A Clinical Study of MK-1084 With Other Treatments for Non-small Cell L</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>140</td><td class='dim'>2026-10-01</td></tr><tr><td class='num'>NCT06788912</td><td>Pembrolizumab (MK-3475) Plus Investigational Agents in Resectable Non-</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>60</td><td class='dim'>2026-09-28</td></tr><tr><td class='num'>NCT06312137</td><td>A Study to Assess Efficacy and Safety of Pembrolizumab With or Without</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>780</td><td class='dim'>2026-09-25</td></tr><tr><td class='num'>NCT06170788</td><td>Sacituzumab Tirumotecan (MK-2870) in Combination With Pembrolizumab Ve</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>614</td><td class='dim'>2026-09-25</td></tr><tr><td class='num'>NCT07829783</td><td>A Clinical Trial of Sacituzumab Tirumotecan (Sac-TMT, MK-2870) and Pem</td><td><span class='tag tg-y'>NOT_YET_RECRUITING</span></td><td class='num'>400</td><td class='dim'>2026-09-21</td></tr><tr><td class='num'>NCT06305754</td><td>Sacituzumab Tirumotecan (MK-2870) Versus Pemetrexed and Carboplatin Co</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>550</td><td class='dim'>2026-09-11</td></tr><tr><td class='num'>NCT07222488</td><td>A Clinical Study of MK-3120 in People With Bladder Cancer (MK-3120-003</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>—</td><td class='dim'>2026-09-11</td></tr><tr><td class='num'>NCT06445972</td><td>Substudy 06D: Combination Therapies in Second Line (2L) Gastroesophage</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>210</td><td class='dim'>2026-09-03</td></tr><tr><td class='num'>NCT06049212</td><td>Sacituzumab Tirumotecan (MK-2870) as Monotherapy and in Combination Wi</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>30</td><td class='dim'>2026-09-02</td></tr><tr><td class='num'>NCT07252739</td><td>KEYMAKER-U01 Substudy 01J: A Study of Pembrolizumab Plus MK-1084 in Pa</td><td><span class='tag tg-g'>RECRUITING</span></td><td class='num'>140</td><td class='dim'>2026-09-02</td></tr><tr><td class='num'>NCT06132958</td><td>Sacituzumab Tirumotecan (MK-2870) in Post Platinum and Post Immunother</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>710</td><td class='dim'>2026-08-28</td></tr><tr><td class='num'>NCT06459180</td><td>A Study to Compare Sacituzumab Tirumotecan (MK-2870) Monotherapy Versu</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>686</td><td class='dim'>2026-08-28</td></tr><tr><td class='num'>NCT06074588</td><td>Sacituzumab Tirumotecan (MK-2870) Versus Chemotherapy in Previously Tr</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>556</td><td class='dim'>2026-08-14</td></tr><tr><td class='num'>NCT06356311</td><td>A Study to Evaluate Sacituzumab Tirumotecan (MK-2870) in Advanced/Meta</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>450</td><td class='dim'>2026-02-27</td></tr><tr><td class='num'>NCT06483334</td><td>A Study of Efficacy and Safety of Sacituzumab Tirumotecan (MK-2870) Pl</td><td><span class='tag tg-b'>ACTIVE_NOT_RECRUITING</span></td><td class='num'>38</td><td class='dim'>2026-02-18</td></tr>
+</table>
+<div class="note-g">这是 sac-TMT 海外价值的兑现载体——TroFuse-005（子宫内膜癌双阳性）即在此列。监控这些试验的状态迁移与主要完成日期，是捕捉海外 royalty/里程碑兑现节奏的关键。</div>
+</div>
+
+<h2>五、待确认项（需你拍板）</h2>
+<div class="section">
+<ol>
+<li><b>地域待确认 27 项</b>：注册库未填 locations，按 leadSponsor 属地兜底，需二次核验（详见下表）。</li>
+<li><b>默沙东 3 项</b>（NCT07829783 / NCT06818643 / NCT07222488，MK-3120 等）：CT.gov 未填 locations，暂按全球归 C5，待 CTIS/locations 更新复核。</li>
+<li><b>检索噪音</b>：tirumotecan 关键词误命中 3 项无关试验（NCT00555425 丁丙诺啡 / NCT04023318 / NCT04594902），建议<b>剔除</b>（待你确认）。</li>
+<li><b>终态试验 14 项</b>（COMPLETED/TERMINATED）：是否保留监控或移入归档，<b>待你确认</b>（不默认剔除）。</li>
+<li><b>ChiCTR 境内登记</b>：本轮仅扫 CT.gov；公司官网管线页另有大量 CTR 编号（境内登记），是否纳入监控需你确认。</li>
+</ol>
+</div>
+
+<div class="footer">biotech-clinical-monitor · 范围界定预览 ｜ 本文件为预览，尚未落盘基线文件、未创建自动化任务 ｜ 数据源：ClinicalTrials.gov API v2（2026-10-11）</div>
+</div></body></html>

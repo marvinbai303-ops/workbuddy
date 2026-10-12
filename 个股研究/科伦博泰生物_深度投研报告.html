@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科伦博泰生物（6990.HK）深度投研报告</title>
+<style>
+:root{
+  --bg:#1E1E1E; --bg2:#161616; --panel:#232323; --panel2:#2a2a2a;
+  --green:#00E676; --green-dim:#00b85a; --green-dark:#0a3d24;
+  --text:#E0E0E0; --text-dim:#9e9e9e; --text-faint:#6a6a6a;
+  --red:#ff5c5c; --yellow:#ffd54f; --blue:#64b5f6;
+  --border:#333;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"SF Mono","Menlo","Consolas","PingFang SC","Microsoft YaHei",monospace;line-height:1.7;font-size:14px;padding:0 0 80px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:28px 0;margin-bottom:32px}
+h1{color:var(--green);font-size:22px;font-weight:700;letter-spacing:1px}
+.sub{color:var(--text-dim);font-size:12px;margin-top:6px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border:1px solid var(--green);color:var(--green);border-radius:3px;margin-right:6px}
+h2{color:var(--green);font-size:17px;margin:40px 0 16px;padding-left:12px;border-left:3px solid var(--green)}
+h3{color:var(--green-dim);font-size:15px;margin:24px 0 10px}
+h4{color:var(--text);font-size:13px;margin:16px 0 8px}
+p{margin:8px 0}
+a{color:var(--blue);text-decoration:none}
+.section{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:20px;margin:14px 0}
+.exec{background:var(--green-dark);border:1px solid var(--green);border-radius:6px;padding:18px 20px;margin:16px 0}
+.exec h3{color:var(--green);margin-top:0}
+.exec .kv{font-size:13px}
+.kv b{color:var(--green)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12.5px}
+th{background:var(--panel2);color:var(--green);text-align:left;padding:8px 10px;border:1px solid var(--border);font-weight:600}
+td{padding:8px 10px;border:1px solid var(--border);vertical-align:top}
+tr:nth-child(even) td{background:rgba(255,255,255,0.015)}
+.num{font-family:"SF Mono","Consolas",monospace;color:var(--green)}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;margin-right:4px;white-space:nowrap}
+.tg-g{background:#0a3d24;color:#00E676;border:1px solid #00E676}
+.tg-y{background:#3d340a;color:#ffd54f;border:1px solid #ffd54f}
+.tg-r{background:#3d0a0a;color:#ff5c5c;border:1px solid #ff5c5c}
+.tg-b{background:#0a1f3d;color:#64b5f6;border:1px solid #64b5f6}
+.hl{color:var(--green);font-weight:600}
+.warn{color:var(--yellow)}
+.danger{color:var(--red)}
+.dim{color:var(--text-dim)}
+.faint{color:var(--text-faint)}
+.note{background:var(--bg2);border-left:3px solid var(--yellow);padding:10px 14px;margin:12px 0;font-size:12.5px;color:var(--text-dim)}
+.note-g{background:var(--bg2);border-left:3px solid var(--green);padding:10px 14px;margin:12px 0;font-size:12.5px}
+ul,ol{margin:8px 0 8px 22px}
+li{margin:4px 0}
+/* 滑块 */
+.slider-box{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:16px;margin:12px 0}
+.slider-row{display:flex;align-items:center;gap:14px;margin:10px 0}
+.slider-row label{width:150px;font-size:12.5px;color:var(--text-dim);flex-shrink:0}
+.slider-row input[type=range]{flex:1;accent-color:var(--green)}
+.slider-row .val{width:80px;text-align:right;color:var(--green);font-weight:700;font-size:13px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:16px 0}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center}
+.kpi .lbl{font-size:11px;color:var(--text-faint)}
+.kpi .vl{font-size:20px;color:var(--green);font-weight:700;margin-top:4px}
+.kpi .dv{font-size:11px;color:var(--text-dim);margin-top:2px}
+.legend{font-size:11px;color:var(--text-faint);margin:10px 0}
+.revlog{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:12px 16px;font-size:11.5px;color:var(--text-dim);margin:16px 0}
+.revlog b{color:var(--yellow)}
+.footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text-faint)}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+  <h1>科伦博泰生物 <span class="dim">Sichuan Kelun-Biotech Biopharmaceutical</span></h1>
+  <div class="sub">
+    <span class="badge">6990.HK</span><span class="badge">SKBBIO</span>
+    创新药 · 生物制药深度投研 ｜ 报告时点：2026-10-11 ｜ 数据截至：2026-10-02 收盘
+  </div>
+</div>
+</header>
+
+<div class="wrap">
+
+<!-- 修订日志 -->
+<div class="revlog">
+<b>📝 修订日志</b><br>
+· v1（2026-10-11）：初始版本，覆盖公司概况 / sac-TMT 临床证据 / 竞争格局 / 财务与两分法估值 / 风险；关键判定置信度 🟢（财务与获批为官方公告）🟡（估值与峰值测算为模型假设）
+</div>
+
+<!-- 执行摘要 -->
+<div class="exec">
+  <h3>◆ 执行摘要（结论一句话 + 关键数字）</h3>
+  <div class="kv">
+    科伦博泰是一家<b>「ADC 平台型 + 默沙东深度绑定」</b>的国产创新药企：核心资产 TROP2 ADC <b>芦康沙妥珠单抗（sac-TMT/SKB264/MK-2870）</b>是国内唯一进医保的 TROP2 ADC、全球首个获批肺癌的 TROP2 ADC，默沙东已启动 <b>17 项全球 III 期</b>；2026 年公司进入<b>「摘 B + 商业化放量 + 全球临床兑现」</b>三重拐点。<br><br>
+    <b>关键数字：</b>2026H1 药品销售 6.57 亿（+112%）、净利润 3.88 亿首次扭亏；市值 ≈ <span class="num">1038 亿人民币</span>（1128.67 亿港元）；两分法估值<b>中性 EV ≈ 728 亿 / 股权 ≈ 799 亿人民币</b>，<span class="warn">EV/市值 = 0.70</span>——市场当前定价已基本反映中性预期，<b>上行弹性主要来自海外峰值与一线放量的超预期</b>（Bull 情景股权 +18%）。<br><br>
+    <b>一句话结论：</b>这是一家<b>基本面已进入收获期、但股价已较大程度 price-in 中性预期</b>的公司——适合作为「海外数据/医保放量超预期」的期权式配置，而非显著低估的深度价值标的。
+  </div>
+</div>
+
+<!-- ============ 一、公司概况 ============ -->
+<h2>一、公司概况与股权结构</h2>
+<div class="section">
+  <table>
+    <tr><th style="width:160px">项目</th><th>内容</th></tr>
+    <tr><td>公司名称</td><td>四川科伦博泰生物医药股份有限公司（科伦药业控股子公司）</td></tr>
+    <tr><td>成立 / 上市</td><td>2016-11 成立；2023-07-11 港交所主板上市，IPO 净募约 12.59 亿港元</td></tr>
+    <tr><td>股票代码</td><td>6990.HK；2026-04-14 起摘除「B」标记，英文简称 SKBBIO，中文简称「科伦博泰生物」</td></tr>
+    <tr><td>总部</td><td>成都市温江区</td></tr>
+    <tr><td>员工数</td><td>约 2300 人（2026H1，同比 +23%）</td></tr>
+    <tr><td>技术平台</td><td>OptiDC™ ADC 及新型偶联药物平台；「生物靶向药物国家工程研究中心」</td></tr>
+    <tr><td>管线规模</td><td>30+ 重点创新药项目；4 款产品 8 项适应症获批，2 款 3 项 NDA，10+ 临床阶段</td></tr>
+  </table>
+
+  <h3>股权结构（🟢 官方口径）</h3>
+  <table>
+    <tr><th>股东</th><th>持股</th><th>角色</th></tr>
+    <tr><td>科伦药业（002422.SZ）</td><td class="num">52.11%</td><td>控股股东，绝对控股，提供研发/生产/商业化协同</td></tr>
+    <tr><td>默沙东（MSD）</td><td class="num">5.77%</td><td>第三大股东 + 战略合作伙伴，深度参与 sac-TMT 全球开发</td></tr>
+    <tr><td>其他（含员工持股平台、机构投资者）</td><td class="num">~42%</td><td>—</td></tr>
+  </table>
+  <div class="note">治理观察：控股股东持股 >50% 结构稳定，默沙东作为产业方股东形成「研发-商业化」双向背书；2026-07 完成 H 股配售净募约 27.23 亿港元，现金储备进一步增厚。</div>
+</div>
+
+<!-- ============ 二、核心资产 sac-TMT ============ -->
+<h2>二、核心资产：芦康沙妥珠单抗（sac-TMT）—— Q1 临床证据</h2>
+<div class="section">
+  <h3>2.1 分子结构（Q3 机制维度）</h3>
+  <table>
+    <tr><th>维度</th><th>sac-TMT 设计</th><th>含义</th></tr>
+    <tr><td>靶点</td><td>TROP2（TACSTD2，实体瘤高表达跨膜糖蛋白）</td><td>覆盖 TNBC/HR+HER2-/NSCLC/妇科/尿路上皮等大适应症</td></tr>
+    <tr><td>抗体</td><td>重组人源化抗 TROP2 单抗</td><td>—</td></tr>
+    <tr><td>连接子</td><td>双功能连接子（抗体端不可逆连接 + 溶酶体 pH 敏感裂解）</td><td>平衡血浆稳定性与胞内释放</td></tr>
+    <tr><td>载荷</td><td>KL610023（belotecan 衍生物，拓扑异构酶 I 抑制剂）</td><td>活性介于 SN-38 与 DXd 之间，膜通透 → 旁观者效应</td></tr>
+    <tr><td>DAR</td><td class="num">7.4</td><td>高载药，杀伤强度与骨髓毒性之间取平衡</td></tr>
+  </table>
+  <div class="note-g"><b>机制要点：</b>载荷膜通透带来<b>旁观者效应</b>（可杀伤邻近 TROP2 低表达肿瘤细胞），这是 TROP2 ADC 在异质性实体瘤中仍能起效的关键；但其代价是「旁观者毒性」无法被裸抗占位消除，口腔炎/骨髓抑制需靠剂量与支持治疗管理。</div>
+
+  <h3>2.2 已获批适应症（🟢 官方）</h3>
+  <table>
+    <tr><th>适应症</th><th>获批时间</th><th>医保</th><th>备注</th></tr>
+    <tr><td>2L+ 三阴乳腺癌（TNBC）</td><td>2024-11-27</td><td>✅ 2025 医保</td><td>首个国产 TROP2 ADC、首个完全获批的国产 ADC</td></tr>
+    <tr><td>2L EGFRmut NSCLC（TKI 治疗后进展）</td><td>2025-03</td><td>—</td><td>全球首个肺癌获批 TROP2 ADC</td></tr>
+    <tr><td>3L EGFRmut NSCLC（TKI+含铂化疗后）</td><td>2025-03</td><td>✅ 2025 医保</td><td>—</td></tr>
+    <tr><td>2L+ HR+/HER2- 乳腺癌</td><td>2026-02-06</td><td>—</td><td>不受 HER2 表达影响（HER2-zero 与 low 均获益）</td></tr>
+  </table>
+
+  <h3>2.3 关键临床数据（SOC 对标）</h3>
+  <table>
+    <tr><th>试验 / 适应症</th><th>对照</th><th>mPFS</th><th>PFS HR</th><th>mOS / OS HR</th><th>ORR</th><th>分层判定</th></tr>
+    <tr><td>OptiTROP-Breast01（3L TNBC）</td><td>化疗</td><td>6.7 vs 2.5 月</td><td class="num">0.32</td><td>NR vs 9.4 月 / 0.53</td><td>45.4% vs 12%</td><td><span class="tag tg-g">梦幻线</span></td></tr>
+    <tr><td>2L+ HR+/HER2- BC</td><td>ICC</td><td>8.3 vs 4.1 月</td><td class="num">0.35</td><td>HR 0.33（趋势）</td><td>41.5% vs 24.1%</td><td><span class="tag tg-g">梦幻线</span></td></tr>
+    <tr><td>OptiTROP-Lung04（EGFR-TKI 耐药）</td><td>含铂化疗</td><td>8.3 vs 4.3 月</td><td class="num">0.49</td><td>NR vs 17.4 月 / 0.60</td><td>—</td><td><span class="tag tg-g">稳赢线</span></td></tr>
+    <tr><td>OptiTROP-Lung05（1L PD-L1+ NSCLC 联K）</td><td>K 单药</td><td>—</td><td class="num">0.35</td><td>HR 0.55（趋势）</td><td>—</td><td><span class="tag tg-g">梦幻线</span></td></tr>
+  </table>
+  <div class="note">数据来源分级 🟢：OptiTROP-Breast01 已发表于 Nature Medicine（2025-04）与 ASCO 2024；Lung04 发表于 NEJM；Lung05 为 ASCO 2026 口头报告并同步 Lancet。<b>Topline 降级提示：</b>Lung05/Lung06 部分绝对值（mPFS）尚未完全成熟，HR 方向性事实确凿，精确数值以大会全文为准。</div>
+
+  <h3>2.4 在研注册性里程碑（Q1 读出窗口）</h3>
+  <table>
+    <tr><th>适应症 / 试验</th><th>状态</th><th>读出 / 监管时点</th></tr>
+    <tr><td>1L TNBC</td><td>NDA 已受理</td><td>预计 2026 年内落地</td></tr>
+    <tr><td>1L PD-L1+ NSCLC（联 K 药，OptiTROP-Lung05）</td><td>NDA 已受理（优先审评）</td><td>预计 2026 年内获批</td></tr>
+    <tr><td>1L PD-L1− nsqNSCLC（联 K 药，OptiTROP-Lung06）</td><td>III 期达 PFS 主要终点（2026-07-14）</td><td>CDE 沟通中</td></tr>
+    <tr><td>1L EGFRmut NSCLC（联奥希替尼）</td><td>III 期推进中</td><td>2027+</td></tr>
+    <tr><td>2L+ 子宫内膜癌（TroFuse-005，全球）</td><td><span class="hl">OS/PFS 双终点阳性</span></td><td>计划 2026 年底向 FDA 提交 BLA</td></tr>
+    <tr><td>1L HR+/HER2- BC</td><td>III 期推进中</td><td>2027+</td></tr>
+  </table>
+  <div class="note-g"><b>关键催化：</b>TroFuse-005 是<b>全球首个在子宫内膜癌取得 OS+PFS 双阳性的 TROP2 ADC III 期</b>——这是 sac-TMT 从「中国后线」迈向「全球前/后线」的定性拐点，一旦 FDA 获批 BLA，海外 royalty 与里程碑的估值权重将显著上移。</div>
+</div>
+
+<!-- ============ 三、竞争格局 ============ -->
+<h2>三、TROP2 ADC 竞争格局与第二曲线（Q3）</h2>
+<div class="section">
+  <h3>3.1 全球 TROP2 ADC「三足鼎立」（🟢/🟡）</h3>
+  <table>
+    <tr><th>药物</th><th>公司</th><th>载荷 / DAR</th><th>获批版图</th><th>权益状态</th></tr>
+    <tr><td>Trodelvy（戈沙妥珠单抗）</td><td>吉利德</td><td>SN-38 / 7.6</td><td>2L+ TNBC、HR+/HER2- BC（尿路上皮癌 2024-11 撤回）</td><td>全球自持</td></tr>
+    <tr><td>Datroway（Dato-DXd）</td><td>第一三共/阿斯利康</td><td>DXd / 4</td><td>HR+/HER2- BC、EGFRmut NSCLC、<b>1L TNBC（2026-05，全球首个）</b></td><td>全球自持</td></tr>
+    <tr><td><b>sac-TMT（芦康沙妥珠单抗）</b></td><td><b>科伦博泰/默沙东</b></td><td><b>belotecan / 7.4</b></td><td>中国 4 项获批（TNBC/EGFRmut NSCLC/HR+HER2- BC）</td><td>大中华区自持 + 海外默沙东</td></tr>
+  </table>
+  <div class="note">竞争要点：① Trodelvy 在尿路上皮癌（TROPiCS-04 OS 未达）与 1L 肺癌（EVOKE-01/联合试验）接连折戟，治疗窗口偏窄；② Datroway 率先拿下 1L TNBC，但被指 ILD/口腔炎安全性隐患；③ sac-TMT 的差异化在于<b>适应症广度 + 与帕博利珠单抗（K 药）的 IO 组合先发卡位</b>——Lung05/Lung06 是全球首个「ADC+IO」一线 NSCLC III 期阳性，而吉利德/第一三共的同类窗口正在关闭。</div>
+
+  <h3>3.2 第二增长曲线（🟡 早期，期权价值）</h3>
+  <table>
+    <tr><th>资产</th><th>靶点/机制</th><th>阶段</th><th>定位</th></tr>
+    <tr><td>博度曲妥珠单抗（A166）</td><td>HER2 ADC</td><td>已获批（2L+ HER2+ BC，2025-10）</td><td>第二商业化 ADC</td></tr>
+    <tr><td>SKB571</td><td>EGFR/c-MET 双抗 ADC</td><td>II 期</td><td>潜在 FIC/BIC，临床前抗瘤活性优于海外对标</td></tr>
+    <tr><td>SKB118（CR-001）</td><td>PD-1/VEGF 双抗</td><td>IND/1-2 期</td><td>IO 2.0，与 sac-TMT 联用；大中华区权益</td></tr>
+    <tr><td>SKB315</td><td>CLDN18.2 ADC</td><td>I/II 期</td><td>胃癌（ESMO 2025 ORR 37.5% 第一梯队）</td></tr>
+    <tr><td>SKB410 / SKB535</td><td>Nectin-4 ADC / 未披露</td><td>早期</td><td>与默沙东合作开发</td></tr>
+    <tr><td>SKB105（CR-003）</td><td>ITGB6 ADC</td><td>IND/1-2 期</td><td>与 Crescent Biopharma 双向授权</td></tr>
+    <tr><td>SKB575 / SKB378</td><td>TSLP 双抗 / 单抗</td><td>I 期 / II-III 期</td><td>自免（特应性皮炎/哮喘/COPD）延伸</td></tr>
+  </table>
+</div>
+
+<!-- ============ 四、财务 ============ -->
+<h2>四、财务与商业化（Q2）</h2>
+<div class="section">
+  <h3>4.1 核心财务指标（🟢 公告口径）</h3>
+  <table>
+    <tr><th>指标</th><th>2024A</th><th>2025A</th><th>2026H1</th></tr>
+    <tr><td>营业收入</td><td class="num">19.33 亿</td><td class="num">20.58 亿（+6.5%）</td><td class="num">9.78 亿（+2.9%）</td></tr>
+    <tr><td>— 药品销售收入</td><td class="num">~0.5 亿</td><td class="num">5.43 亿（+950%）</td><td class="num">6.57 亿（+112%）</td></tr>
+    <tr><td>— 许可及合作收入</td><td class="num">—</td><td class="num">14.98 亿（−19.6%）</td><td class="num">3.15 亿（−49.9%）</td></tr>
+    <tr><td>毛利率</td><td class="num">65.9%</td><td class="num">71.9%</td><td class="num">75.3%</td></tr>
+    <tr><td>归母净利润</td><td class="num">−2.67 亿</td><td class="num">−3.82 亿</td><td class="num">+3.88 亿（扭亏）</td></tr>
+    <tr><td>经营现金流净额</td><td class="num">—</td><td class="num">—</td><td class="num">+3.39 亿（去年同期 −3.73 亿）</td></tr>
+    <tr><td>现金及金融资产</td><td class="num">30.76 亿</td><td class="num">45.59 亿</td><td class="num">>45 亿（+7 月配售 ~25 亿）</td></tr>
+  </table>
+
+  <div class="note"><b>⚠️ 数字自洽提示（重要）：</b>2026H1 净利润 3.88 亿中，包含 <b>7.03 亿宜联生物一次性和解收入</b>（计入其他净收入）与 <b>1.40 亿预扣税退税</b>，属<b>非经常性</b>；剔除后<b>调整后利润约 4.79 亿</b>（仍为正），但<b>经常性经营层面尚未真正盈利</b>。券商共识预计 2026 全年归母净利约 −0.93 亿，2027 年转正（+3.0 亿）。</div>
+
+  <h3>4.2 商业化矩阵</h3>
+  <table>
+    <tr><th>产品</th><th>靶点</th><th>商品名</th><th>获批</th><th>医保</th></tr>
+    <tr><td>芦康沙妥珠单抗</td><td>TROP2 ADC</td><td>佳泰莱®</td><td>4 项适应症</td><td>2 项进医保（唯一 TROP2 ADC）</td></tr>
+    <tr><td>博度曲妥珠单抗</td><td>HER2 ADC</td><td>舒泰莱®</td><td>2L+ HER2+ BC</td><td>—</td></tr>
+    <tr><td>塔戈利单抗</td><td>PD-L1</td><td>科泰莱®</td><td>1L 鼻咽癌</td><td>✅</td></tr>
+    <tr><td>西妥昔单抗 N01</td><td>EGFR 单抗</td><td>达泰莱®</td><td>1L RAS wt mCRC</td><td>✅</td></tr>
+    <tr><td>富马酸仑博替尼</td><td>RET 抑制剂</td><td>宁泰莱®</td><td>NDA 受理（2025-09）</td><td>—（预计 2027 上市）</td></tr>
+  </table>
+  <div class="note">商业化网络：800+ 人团队（同比近翻倍），覆盖 30 省份、300+ 地级市、2000+ 医院，60+ 一级经销商、400+ DTP 药房。</div>
+
+  <h3>4.3 默沙东交易结构（🟢 公告口径，权益核查硬卡）</h3>
+  <table>
+    <tr><th>交易</th><th>时间</th><th>资产</th><th>首付款</th><th>里程碑上限</th><th>分成</th></tr>
+    <tr><td>第一笔</td><td>2022-05</td><td>SKB264（TROP2 ADC）海外独家</td><td class="num">4700 万美元</td><td class="num">~13.6-14 亿美元</td><td>净销售额个位数~低双位数</td></tr>
+    <tr><td>第二笔</td><td>2022-07</td><td>SKB315（CLDN18.2 ADC）</td><td class="num">3500 万美元</td><td class="num">~9.01 亿美元</td><td>净销售额提成</td></tr>
+    <tr><td>第三笔</td><td>2022-12</td><td>7 款临床前 ADC 全球独家</td><td class="num">1.75 亿美元</td><td class="num">~93 亿美元</td><td>分层净销售额提成</td></tr>
+    <tr><td><b>合计</b></td><td>—</td><td>—</td><td class="num">~2.57 亿美元</td><td class="num">~118 亿美元</td><td>—</td></tr>
+  </table>
+  <div class="note-g"><b>权益边界（估值关键）：</b>sac-TMT 大中华区（含港澳台）权益归科伦博泰自持，海外归默沙东。因此建模时：<b>中国节点 = 自持净捕获</b>（按自建商业化净额），<b>海外节点 = royalty 运行率</b>（个位数~低双位数），两者不重复、capture 不再二次打折。</div>
+</div>
+
+<!-- ============ 五、估值 ============ -->
+<h2>五、两分法估值（Q2 · 含三滑块模拟器）</h2>
+<div class="section">
+  <h3>5.1 估值方法说明</h3>
+  <p>采用<b>两分法 rNPV</b>：<b>Part A</b>（已获批后线资产，收入 DCF，r=10%）+ <b>Part B</b>（在研注册性资产，逐试验 rNPV，r=12%）。海外按 royalty 运行率处理，capture 恒 = 1.0。金额统一「亿人民币」。</p>
+
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <h3>5.2 敏感性模拟器（拖动滑块实时重算）</h3>
+  <div class="slider-box">
+    <div class="slider-row">
+      <label>默沙东海外峰值（亿美元）</label>
+      <input type="range" id="sOverseas" min="50" max="200" step="5" value="120">
+      <span class="val" id="vOverseas">120</span>
+    </div>
+    <div class="slider-row">
+      <label>royalty 率（%）</label>
+      <input type="range" id="sRoyalty" min="6" max="14" step="0.5" value="10">
+      <span class="val" id="vRoyalty">10%</span>
+    </div>
+    <div class="slider-row">
+      <label>全球 PoS 乘数（×）</label>
+      <input type="range" id="sPos" min="0.6" max="1.4" step="0.05" value="1.0">
+      <span class="val" id="vPos">1.00×</span>
+    </div>
+    <div class="slider-row">
+      <label>折现率 r_pipe（%）</label>
+      <input type="range" id="sRate" min="9" max="16" step="0.5" value="12">
+      <span class="val" id="vRate">12%</span>
+    </div>
+  </div>
+
+  <div class="note-g" id="reconcile"></div>
+
+  <h3>5.3 估值拆解表（基准参数）</h3>
+  <table id="valTable"></table>
+
+  <div class="note">
+    <b>市值对账卡：</b>当前市值 1128.67 亿港元 × 0.92 = <span class="num">1038 亿人民币</span>。中性 EV/市值 ≈ 0.70，落在「0.7~1.5 合理区间」下沿。含义：<b>市场已 price-in 大部分中性预期</b>，若 EV/市值 持续 < 0.7 才需检查漏计（本模型未漏计已商业化资产与海外 royalty）。卖方 DCF 给 1300-1680 亿（中性约 1500 亿），与市值的关系反映卖方比市场更乐观——差异主要在海外峰值与一线放量斜率。
+  </div>
+</div>
+
+<!-- ============ 六、风险 ============ -->
+<h2>六、风险与模型漏洞（诚实边界）</h2>
+<div class="section">
+  <ol>
+    <li><span class="danger">海外审批与放量风险：</span>TroFuse-005 子宫内膜癌虽双阳性，但 FDA BLA 尚待提交；17 项全球 III 期多数仍在推进，任一主要适应症失败都将重估海外 royalty 节点。</li>
+    <li><span class="warn">竞争加剧：</span>Datroway 已占 1L TNBC 先机，Trodelvy 也在 TNBC 深耕；sac-TMT 海外上市后面临与两大 MNC 的正面价格/份额竞争。</li>
+    <li><span class="warn">盈利质量：</span>2026H1 扭亏依赖一次性收入，经常性盈利尚待医保放量与规模效应兑现；若销售费用前置过快，利润率爬坡可能慢于模型假设。</li>
+    <li><span class="warn">医保降价：</span>新增适应症进医保的降价幅度直接影响峰值与斜率，模型峰值以医保后净价估算，存在双向不确定性。</li>
+    <li><span class="dim">估值局限（必标）：</span>本模型为<b>定性框架 + 可调假设</b>，非精确预测；Part B 各试验 PoS 为阶段基准+资产调整的主观判断；海外峰值 80-160 亿美元为区间假设（未逐适应症 bottoms-up）；第二曲线期权（50-60 亿）为简化打包值。</li>
+  </ol>
+</div>
+
+<!-- ============ 七、信息源 ============ -->
+<h2>七、信息源与置信度分级</h2>
+<div class="section">
+  <table>
+    <tr><th>来源</th><th>层级</th><th>用途</th></tr>
+    <tr><td>港交所披露易（2025 年报 2026-03-23、2026 中报 2026-08-17）</td><td><span class="tag tg-g">一级</span></td><td>财务数据、管线、获批、交易结构</td></tr>
+    <tr><td>公司官网管线页 / PR Newswire 中报新闻稿</td><td><span class="tag tg-g">一级</span></td><td>临床进展、商业化网络、适应症</td></tr>
+    <tr><td>Nature Medicine / NEJM / Lancet（OptiTROP-Breast01 / Lung04 / Lung05）</td><td><span class="tag tg-g">一级</span></td><td>关键临床数据</td></tr>
+    <tr><td>ASCO 2026 / SGO 2026 / ESMO 2025 摘要与口头报告</td><td><span class="tag tg-g">一级</span></td><td>读出数据</td></tr>
+    <tr><td>券商研报（华安/中信/银河/国联民生，2026）</td><td><span class="tag tg-y">二级</span></td><td>盈利预测、DCF 估值参照（卖方观点，含利益冲突）</td></tr>
+    <tr><td>每经 / 21财经 / 中证报等财经媒体</td><td><span class="tag tg-y">二级</span></td><td>中报解读、股价、市值</td></tr>
+    <tr><td>Investing.com / 富途（行情）</td><td><span class="tag tg-y">二级</span></td><td>股价/市值/目标价（2026-10-02）</td></tr>
+  </table>
+  <div class="legend">置信度标识：🟢 高（官方/顶刊） ｜ 🟡 中（券商/财经媒体，多方印证） ｜ 🔴 低（待核实）。本报告基于公开信息整理，<b>不构成投资建议</b>。</div>
+</div>
+
+<div class="footer">
+  创新药·生物制药深度投研（v4.10 四问脊柱框架）｜ 报告生成：2026-10-11 ｜ 数据时点：财务以公告董事会审议日为准，行情截至 2026-10-02 收盘 ｜ 本报告为研究性输出，非交易决策型报告
+</div>
+
+</div>
+
+<script>
+// ===== 两分法 rNPV 估值引擎 =====
+const FX = 0.92;
+const MKT_CNY = 1128.67e8 * FX; // 市值(人民币)
+const CASH = 45.59e8 + 27.23e8*FX; // 2025末现金 + 2026配售
+
+function dcf(peak, launch, pos, margin, r){
+  let yrs = [];
+  for(let i=0;i<3;i++) yrs.push([launch+i, peak*(i+1)/3]);
+  for(let i=0;i<10;i++) yrs.push([launch+3+i, peak]);
+  for(let i=0;i<5;i++) yrs.push([launch+13+i, peak*(1-0.18*(i+1))]);
+  let v = 0;
+  for(const [t, rev] of yrs) v += rev*margin/Math.pow(1+r, t);
+  return v * pos;
+}
+
+// Part A 已获批（后线）——固定，不受滑块影响
+const PART_A = dcf(60, 0, 0.95, 0.35, 0.10);
+
+// Part B1 中国一线新增（固定参数）
+const B1_ITEMS = [
+  ["1L TNBC", 22, 1, 0.90],
+  ["1L PD-L1+ NSCLC 联K", 32, 1, 0.90],
+  ["1L PD-L1- nsqNSCLC", 20, 2, 0.85],
+  ["1L EGFRmut 联奥希", 18, 3, 0.60],
+  ["1L HR+/HER2- BC", 16, 3, 0.60],
+];
+
+function compute(){
+  const overseas = +document.getElementById('sOverseas').value; // 亿美元
+  const royalty = +document.getElementById('sRoyalty').value / 100;
+  const posMult = +document.getElementById('sPos').value;
+  const rPipe = +document.getElementById('sRate').value / 100;
+
+  // B1
+  let b1 = 0, b1rows = [];
+  for(const [n,p,ly,pos] of B1_ITEMS){
+    const v = dcf(p, ly, pos, 0.35, rPipe);
+    b1 += v;
+    b1rows.push([n, p, ly, pos, v]);
+  }
+
+  // B2 海外 royalty
+  const handPeak = overseas * 7.1 * royalty; // 亿人民币
+  const ec = dcf(handPeak*0.25, 1, 0.90*posMult, 1.0, rPipe);
+  const other = dcf(handPeak*0.75, 3, 0.55*posMult, 1.0, rPipe);
+  const b2 = ec + other;
+
+  // 里程碑 + 第二曲线
+  const b3 = 70, b4 = 60;
+
+  const ev = PART_A + b1 + b2 + b3 + b4;
+  const eq = ev + CASH;
+  const evMkt = ev / MKT_CNY;
+  const upside = eq/MKT_CNY - 1;
+
+  return {overseas, royalty, posMult, rPipe, handPeak, b1, b1rows, ec, other, b2, ev, eq, evMkt, upside};
+}
+
+function fmt(x){ // 亿 -> 显示
+  if(x >= 1e8) return (x/1e8).toFixed(0) + ' 亿';
+  return x.toFixed(1);
+}
+function fmtY(x){ return (x/1e8).toFixed(0) + ' 亿'; }
+
+function render(){
+  const d = compute();
+  // 滑块数值显示
+  document.getElementById('vOverseas').textContent = d.overseas + ' 亿';
+  document.getElementById('vRoyalty').textContent = (d.royalty*100).toFixed(1) + '%';
+  document.getElementById('vPos').textContent = d.posMult.toFixed(2) + '×';
+  document.getElementById('vRate').textContent = (d.rPipe*100).toFixed(0) + '%';
+
+  // KPI
+  const kpi = document.getElementById('kpiGrid');
+  kpi.innerHTML = `
+    <div class="kpi"><div class="lbl">Part A 已获批</div><div class="vl">${fmtY(PART_A)}</div><div class="dv">后线商业化 DCF</div></div>
+    <div class="kpi"><div class="lbl">Part B1 中国一线</div><div class="vl">${fmtY(d.b1)}</div><div class="dv">5 项注册性 rNPV</div></div>
+    <div class="kpi"><div class="lbl">Part B2 海外 royalty</div><div class="vl">${fmtY(d.b2)}</div><div class="dv">到手峰值 ${fmtY(d.handPeak)}</div></div>
+    <div class="kpi"><div class="lbl">EV 合计</div><div class="vl">${fmtY(d.ev)}</div><div class="dv">+里程碑70亿+第二曲线60亿</div></div>
+    <div class="kpi"><div class="lbl">股权价值</div><div class="vl">${fmtY(d.eq)}</div><div class="dv">EV + 净现金 ${fmtY(CASH)}</div></div>
+    <div class="kpi"><div class="lbl">隐含空间</div><div class="vl" style="color:${d.upside>=0?'var(--green)':'var(--red)'}">${(d.upside*100).toFixed(0)}%</div><div class="dv">vs 市值 ${fmtY(MKT_CNY)}</div></div>
+  `;
+
+  // 对账
+  const rec = document.getElementById('reconcile');
+  let status, color;
+  if(d.evMkt > 1.5){ status = '⚠️ EV/市值 > 1.5，需自查捕获率/峰值/PoS 是否过松'; color='var(--yellow)'; }
+  else if(d.evMkt < 0.7){ status = '⚠️ EV/市值 < 0.7，需检查是否漏计已商业化资产或海外收入'; color='var(--yellow)'; }
+  else { status = '✅ 落在 0.7~1.5 合理区间'; color='var(--green)'; }
+  rec.innerHTML = `<b>市值对账卡</b>：EV = <span class="num">${fmtY(d.ev)}</span>，股权价值 = <span class="num">${fmtY(d.eq)}</span>，当前市值 = <span class="num">${fmtY(MKT_CNY)}</span>（1128.67 亿港元），隐含上行 <span class="num">${(d.upside*100).toFixed(0)}%</span>，EV/市值 = <span class="num">${d.evMkt.toFixed(2)}</span> ｜ <span style="color:${color}">${status}</span>`;
+
+  // 拆解表
+  const tb = document.getElementById('valTable');
+  let rows = `
+    <tr><th>分部</th><th>资产/适应症</th><th>峰值（亿）</th><th>PoS</th><th>上市年</th><th>rNPV（亿）</th></tr>
+    <tr><td>A</td><td>已获批后线组合（4 适应症 + 博度曲妥珠等）</td><td class="num">60</td><td class="num">95%</td><td class="num">已上市</td><td class="num">${fmtY(PART_A)}</td></tr>`;
+  for(const [n,p,ly,pos,v] of d.b1rows){
+    rows += `<tr><td>B1</td><td>${n}</td><td class="num">+${p}</td><td class="num">${(pos*100).toFixed(0)}%</td><td class="num">+${ly} 年</td><td class="num">${fmtY(v)}</td></tr>`;
+  }
+  rows += `
+    <tr><td>B2</td><td>海外 EC（TroFuse-005 阳性）</td><td class="num">${fmtY(d.handPeak*0.25)}</td><td class="num">${(0.90*d.posMult*100).toFixed(0)}%</td><td class="num">+1 年</td><td class="num">${fmtY(d.ec)}</td></tr>
+    <tr><td>B2</td><td>海外其他适应症</td><td class="num">${fmtY(d.handPeak*0.75)}</td><td class="num">${(0.55*d.posMult*100).toFixed(0)}%</td><td class="num">+3 年</td><td class="num">${fmtY(d.other)}</td></tr>
+    <tr><td>B3</td><td>里程碑 + 其他 BD 收入（现值）</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">70</td></tr>
+    <tr><td>B3</td><td>第二曲线期权（SKB571/SKB118 等）</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">60</td></tr>
+    <tr><td><b>合计</b></td><td><b>EV</b></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num" style="color:var(--green)"><b>${fmtY(d.ev)}</b></td></tr>`;
+  tb.innerHTML = rows;
+}
+
+['sOverseas','sRoyalty','sPos','sRate'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', render);
+});
+render();
+</script>
+</body>
+</html>
