@@ -1,0 +1,128 @@
+[idx] 2020-1 parse err '000510.SH'
+2020-01 done
+[idx] 2020-2 parse err '000510.SH'
+2020-02 done
+[idx] 2020-3 parse err '000510.SH'
+2020-03 done
+2020-04 done
+[idx] 2020-5 parse err '000510.SH'
+2020-05 done
+[idx] 2020-6 parse err '000510.SH'
+2020-06 done
+[idx] 2020-7 parse err '000510.SH'
+2020-07 done
+2020-08 done
+2020-09 done
+[idx] 2020-10 parse err '000510.SH'
+2020-10 done
+[idx] 2020-11 parse err '000510.SH'
+2020-11 done
+[idx] 2020-12 parse err '000510.SH'
+2020-12 done
+[idx] 2021-1 parse err '000510.SH'
+2021-01 done
+[idx] 2021-2 parse err '000510.SH'
+2021-02 done
+[idx] 2021-3 parse err '000510.SH'
+2021-03 done
+[idx] 2021-4 parse err '000510.SH'
+2021-04 done
+[idx] 2021-5 parse err '000510.SH'
+2021-05 done
+[idx] 2021-6 parse err '000510.SH'
+2021-06 done
+[idx] 2021-7 parse err '000510.SH'
+2021-07 done
+2021-08 done
+2021-09 done
+[idx] 2021-10 parse err '000510.SH'
+2021-10 done
+[idx] 2021-11 parse err '000510.SH'
+2021-11 done
+[idx] 2021-12 parse err '000510.SH'
+2021-12 done
+[idx] 2022-1 parse err '000510.SH'
+2022-01 done
+[idx] 2022-2 parse err '000510.SH'
+2022-02 done
+[idx] 2022-3 parse err '000510.SH'
+2022-03 done
+2022-04 done
+[idx] 2022-5 parse err '000510.SH'
+2022-05 done
+[idx] 2022-6 parse err '000510.SH'
+2022-06 done
+[idx] 2022-7 parse err '000510.SH'
+2022-07 done
+2022-08 done
+[idx] 2022-9 parse err '000510.SH'
+2022-09 done
+[idx] 2022-10 parse err '000510.SH'
+2022-10 done
+[idx] 2022-11 parse err '000510.SH'
+2022-11 done
+2022-12 done
+[idx] 2023-1 parse err '000510.SH'
+2023-01 done
+[idx] 2023-2 parse err '000510.SH'
+2023-02 done
+[idx] 2023-3 parse err '000510.SH'
+2023-03 done
+2023-04 done
+[idx] 2023-5 parse err '000510.SH'
+2023-05 done
+[idx] 2023-6 parse err '000510.SH'
+2023-06 done
+[idx] 2023-7 parse err '000510.SH'
+2023-07 done
+2023-08 done
+2023-09 done
+[idx] 2023-10 parse err '000510.SH'
+2023-10 done
+2023-11 done
+[idx] 2023-12 parse err '000510.SH'
+2023-12 done
+[idx] 2024-1 parse err '000510.SH'
+2024-01 done
+[idx] 2024-2 parse err '000510.SH'
+2024-02 done
+2024-03 done
+[idx] 2024-4 parse err '000510.SH'
+2024-04 done
+2024-05 done
+2024-06 done
+[idx] 2024-7 parse err '000510.SH'
+2024-07 done
+2024-08 done
+2024-09 done
+2024-10 done
+2024-11 done
+2024-12 done
+2025-01 done
+2025-02 done
+2025-03 done
+2025-04 done
+[idx] 2025-5 parse err '000510.SH'
+2025-05 done
+2025-06 done
+[idx] 2025-7 parse err '000510.SH'
+2025-07 done
+[idx] 2025-8 parse err '000510.SH'
+2025-08 done
+2025-09 done
+2025-10 done
+2025-11 done
+[idx] 2025-12 parse err '000510.SH'
+2025-12 done
+[idx] 2026-1 parse err '000510.SH'
+2026-01 done
+2026-02 done
+2026-03 done
+2026-04 done
+2026-05 done
+2026-06 done
+[idx] 2026-7 parse err '000510.SH'
+2026-07 done
+2026-08 done
+2026-09 done
+ALL DONE
