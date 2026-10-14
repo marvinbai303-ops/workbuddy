@@ -47,7 +47,7 @@ def color_of(x):
 
 
 def main():
-    R = json.load(open(os.path.join(HERE, "result.json"), encoding="utf-8"))
+    R = json.load(open(os.path.join(HERE, "result_daily.json"), encoding="utf-8"))
 
     # ===================== Excel =====================
     from openpyxl import Workbook
@@ -70,23 +70,24 @@ def main():
             cell.alignment = Alignment(horizontal="center", vertical="center")
             cell.border = border
 
-    # --- Sheet1 组合净值 ---
+    # --- Sheet1 组合净值（日频） ---
     ws = wb.active
     ws.title = "组合净值"
-    ws["A1"] = "守正组合回测净值（2020-01-02 ~ 2026-09-30，月频，含年度动平衡）"
+    ws["A1"] = "守正组合回测净值（2020-01-02 ~ 2026-09-30，日频，含年度动平衡）"
     ws["A1"].font = title_font
     ws.append([])
-    ws.append(["日期", "组合净值", "组合月度收益", "基准净值(同花顺全A等权)", "基准月度收益"])
+    ws.append(["日期", "组合净值", "组合日收益", "基准净值(同花顺全A(加权))", "基准日收益"])
     style_header(ws, 3, 5)
     nav_dict = dict(R["nav"])
     bench_raw = [v for _, v in R["benchmark"]["nav"]]
     b0 = bench_raw[-1] / (1 + R["benchmark"]["total_return"])   # 基日(2020-01-02)基准值
     bench_norm = [v / b0 for v in bench_raw]                     # 归一到基日=1
-    bench_dict = dict(zip([d for d, _ in R["benchmark"]["nav"]], bench_norm))
-    mret_dict = dict(R["monthly_returns"])
-    bmret_dict = dict(R["benchmark"]["monthly_returns"])
+    bdates = [d for d, _ in R["benchmark"]["nav"]]
+    bench_dict = dict(zip(bdates, bench_norm))
+    mret_dict = dict(R["daily_returns"])
+    bmret = {bdates[i]: bench_norm[i] / bench_norm[i - 1] - 1 for i in range(1, len(bdates))}
     for i, (d, v) in enumerate(R["nav"]):
-        ws.append([d, round(v, 6), mret_dict.get(d), round(bench_dict.get(d, 0), 4), bmret_dict.get(d)])
+        ws.append([d, round(v, 6), mret_dict.get(d), round(bench_dict.get(d, 0), 4), bmret.get(d)])
         r = ws.max_row
         ws.cell(r, 1).font = cell_font
         ws.cell(r, 2).number_format = "0.0000"
@@ -188,22 +189,22 @@ def main():
 
     # --- Sheet4 关键指标 ---
     ws = wb.create_sheet("关键指标")
-    ws["A1"] = "关键指标（月频口径）"
+    ws["A1"] = "关键指标（日频口径）"
     ws["A1"].font = title_font
     ws.append([])
     metrics = [
         ("回测区间", f"{R['base']} ~ {R['end']}", ""),
-        ("月度数", R["months"], ""),
+        ("交易日数", R["days"], ""),
         ("累计收益", R["total_return"], R["benchmark"]["total_return"]),
         ("年化收益", R["annualized_return"], R["benchmark"]["annualized_return"]),
         ("年化波动率", R["annualized_volatility"], R["benchmark"]["annualized_volatility"]),
         ("区间最大回撤", R["max_drawdown"], R["benchmark"]["max_drawdown"]),
         ("夏普比率(无风险0%)", R["sharpe"], ""),
-        ("月度胜率", R["month_win_rate"], ""),
-        ("正收益月数", R["positive_months"], ""),
+        ("日胜率", R["day_win_rate"], ""),
+        ("正收益日数", R["positive_days"], ""),
         ("动平衡次数", R["rebalance_count"], ""),
     ]
-    ws.append(["指标", "守正组合", "基准(同花顺全A等权)"])
+    ws.append(["指标", "守正组合", "基准(同花顺全A(加权))"])
     style_header(ws, 3, 3)
     for name, v, b in metrics:
         ws.append([name, v, b])
@@ -280,7 +281,7 @@ def gen_ppt(R):
     bv = [x / _b0 for x in _bvals]   # 基准归一到基日=1
     fig, ax = plt.subplots(figsize=(7.8, 3.6), dpi=200)
     ax.plot(dates, v, color=BLUE, lw=2, label="守正组合净值")
-    ax.plot(dates, bv, color=ORANGE, lw=1.6, ls="--", label="同花顺全A等权")
+    ax.plot(dates, bv, color=ORANGE, lw=1.6, ls="--", label="同花顺全A(加权)")
     ax.axhline(1.0, color="#B0AFA8", lw=0.8, ls=":")
     ax.set_xlim(dates[0], dates[-1])
     ax.grid(True, color="#EAE8E1", lw=0.6)
@@ -295,7 +296,7 @@ def gen_ppt(R):
     ax.set_xticklabels([d[2:7].replace("-", "/") for d in ticks], fontsize=8, color=GRAY)
     ax.tick_params(axis="y", labelsize=8, colors=GRAY)
     ax.legend(fontsize=8, loc="upper left", frameon=False)
-    ax.set_title("守正组合 vs 同花顺全A等权（净值归一，起点=1）", fontsize=10, color=BLUE)
+    ax.set_title("守正组合 vs 同花顺全A(加权)", fontsize=10, color=BLUE)
     fig.tight_layout()
     chart_path = os.path.join(OUT, "nav_chart.png")
     fig.savefig(chart_path, facecolor="white")
@@ -370,7 +371,7 @@ def gen_ppt(R):
     add_title(s1, "3.1", "基于基金池的业绩模拟：守正组合（风险级别 R4）")
     # 配置表（左）
     add_table(s1, [
-        ["", "守正组合", "同花顺全A等权"],
+        ["", "守正组合", "同花顺全A(加权)"],
         ["目标权重", "100%", "—"],
         ["动平衡规则", "定期动平衡：频率1年；定幅动平衡：无", ""],
     ], 0.67, 1.55, 7.2, [1.6, 3.2, 2.4], row_h=0.4)
@@ -401,7 +402,7 @@ def gen_ppt(R):
         r2.font.size = Pt(14); r2.font.bold = True; r2.font.name = FONT
         r2.font.color.rgb = RED_C if num > 0 else GREEN_C
         p.space_after = Pt(10)
-    add_footnote(s1, "注：数据来源为腾讯 NeoData/同花顺 iFinD。策略历史表现不构成对未来业绩的承诺。统计区间为2020年1月2日-2026年9月30日（月频）。计算夏普比例时，无风险收益按0%计。基金成立满1个月后接续基金净值，此前用跟踪指数（价格指数）代替。")
+    add_footnote(s1, "注：数据来源为腾讯 NeoData/同花顺 iFinD。策略历史表现不构成对未来业绩的承诺。统计区间为2020年1月2日-2026年9月30日（日频）。计算夏普比例时，无风险收益按0%计。基金成立满1个月后接续基金净值，此前用跟踪指数（价格指数）代替。")
 
     # ---------- 第 2 页（对标 p20） ----------
     s2 = prs.slides.add_slide(prs.slide_layouts[6])
@@ -412,7 +413,10 @@ def gen_ppt(R):
     pos_years = sum(1 for y in full_years if R["annual_returns"].get(y, 0) > 0)
     annual_vals = [R["annual_returns"][y] for y in full_years]
     max_a, min_a = max(annual_vals), min(annual_vals)
-    mrets = [r for _, r in R["monthly_returns"]]
+    mrets = []
+    for y in sorted(matrix.keys()):
+        for mo in sorted(matrix[y]["months"].keys()):
+            mrets.append(matrix[y]["months"][mo])
     pos_m = sum(1 for r in mrets if r > 1e-9)
     summary = (f"{len(full_years)}个完整年度有{pos_years}年为正收益。"
                f"最高年度收益{pct(max_a)}，最低年度收益{pct(min_a)}，年化收益率{pct(R['annualized_return'])}。"
@@ -453,7 +457,7 @@ def gen_ppt(R):
             for r in p.runs:
                 r.font.color.rgb = RED_C if av > 0 else GREEN_C
                 r.font.bold = True
-    add_footnote(s2, "数据来源：腾讯 NeoData/同花顺 iFinD。回测区间为2020/1/2-2026/9/30（月频）。历史回测不代表未来表现，以上涉及的相关数据均为假设条件或虚拟回测，仅为实现策略举例说明之目的、用于投资者教育，不涉及任何具体产品信息及其宣传推介，历史业绩不预示未来表现。", top=6.8)
+    add_footnote(s2, "数据来源：腾讯 NeoData/同花顺 iFinD。回测区间为2020/1/2-2026/9/30（日频）。历史回测不代表未来表现，以上涉及的相关数据均为假设条件或虚拟回测，仅为实现策略举例说明之目的、用于投资者教育，不涉及任何具体产品信息及其宣传推介，历史业绩不预示未来表现。", top=6.8)
 
     pptx_path = os.path.join(OUT, "守正组合业绩模拟两页.pptx")
     prs.save(pptx_path)

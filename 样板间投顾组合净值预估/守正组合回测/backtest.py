@@ -83,7 +83,7 @@ def interp(series, d):
 def main():
     fund_month = json.load(open(os.path.join(HERE, "fund_month.json"), encoding="utf-8"))
     index_month = json.load(open(os.path.join(HERE, "index_month.json"), encoding="utf-8"))
-    bench_raw = json.load(open(os.path.join(HERE, "benchmark.json"), encoding="utf-8"))["700082.TI"]
+    bench_raw = json.load(open(os.path.join(HERE, "benchmark.json"), encoding="utf-8"))["700001.TI"]
     base = json.load(open(os.path.join(HERE, "base.json"), encoding="utf-8"))
     # 货币基金（NeoData 无数据，走 iFinD 采样点插值）
     fund_917 = json.load(open(os.path.join(HERE, "fund_000917.json"), encoding="utf-8"))["000917.OF"]
@@ -275,7 +275,7 @@ def main():
     print(f"累计收益 {total_ret*100:.2f}%，年化 {ann_ret*100:.2f}%")
     print(f"年化波动率 {vol*100:.2f}%，最大回撤 {mdd*100:.2f}%，夏普 {sharpe:.2f}")
     print(f"月胜率 {win_rate*100:.1f}%（{pos}/{m}），动平衡 {result['rebalance_count']} 次")
-    print(f"基准(同花顺全A等权) 累计 {bench_ret_total*100:.2f}%，年化 {bench_ann*100:.2f}%")
+    print(f"基准(同花顺全A加权 700001.TI) 累计 {bench_ret_total*100:.2f}%，年化 {bench_ann*100:.2f}%")
     print("年度收益：", {k: f"{v*100:.2f}%" for k, v in annual.items()})
 
 
