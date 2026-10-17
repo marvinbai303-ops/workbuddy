@@ -1,0 +1,33 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '44px 56px 0 56px' }}>
+  <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+    <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#061F32', lineHeight: 1.3 }}>
+      买全指 = 买流动性回暖：四次典型拐点后 60 日，全指平均<span style={{ color: '#C0392B' }}> +19.5%</span>、全部上涨
+    </Text>
+    <Text style={{ fontSize: 13, color: '#8a8a8a', marginBottom: 4 }}>中证全指 · 2020-01 ~ 2026-10</Text>
+  </Box>
+  <Box style={{ height: 1, background: '#1a1a1a', marginTop: 8, width: '100%' }} />
+  <Box style={{ marginTop: 10, width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+    <Image src="assets/p1_chart.png" style={{ width: 1040, height: 497 }} />
+  </Box>
+  <Box style={{ marginTop: 8, width: '100%', height: 52, background: '#F4F6F9', borderLeft: '4px solid #061F32', flexDirection: 'row', alignItems: 'center', padding: '0 20px' }}>
+    <Text style={{ fontSize: 16, color: '#061F32', flex: 1, lineHeight: 1.35 }}>
+      疫情后复苏、2022 大底、924 政策底、贸易战冲击——<span style={{ fontWeight: 'bold' }}>四次资金面拐点四次上涨</span>，量能回暖即风险偏好回暖，买全指即可参与反弹。
+    </Text>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+      <Box style={{ flexDirection: 'column', alignItems: 'flex-end', marginRight: 28 }}>
+        <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#C0392B' }}>+19.5%</Text>
+        <Text style={{ fontSize: 11.5, color: '#8a8a8a' }}>60 日平均涨幅</Text>
+      </Box>
+      <Box style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#061F32' }}>4/4</Text>
+        <Text style={{ fontSize: 11.5, color: '#8a8a8a' }}>事件全部为正</Text>
+      </Box>
+    </Box>
+  </Box>
+  <Box style={{ position: 'absolute', bottom: 8, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+    <Text style={{ fontSize: 11, color: '#8a8a8a', width: 1060, lineHeight: 1.35 }}>
+      数据来源：NeoData 行情接口（指数日线，不复权收盘价），数据截至 2026-10-16；"全A成交额"以中证全指成分股成交额合计近似；事件涨跌幅为事件日后 60 个交易日区间涨跌幅；成交额回暖段为 20 日均线自事件日附近低点回升至阶段高点的区间，转暖幅度为该区间均线增幅。历史表现不预示未来，不构成投资建议。
+    </Text>
+    <Text style={{ fontSize: 13, color: '#8a8a8a' }}>1 / 2</Text>
+  </Box>
+</Slide>

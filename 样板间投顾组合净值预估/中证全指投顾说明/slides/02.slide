@@ -1,0 +1,33 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', padding: '44px 56px 0 56px' }}>
+  <Box style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+    <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#061F32', lineHeight: 1.3 }}>
+      买全指 = 每轮上涨不落空：五轮行情<span style={{ color: '#C0392B' }}>全部正收益</span>、平均 +30%
+    </Text>
+    <Text style={{ fontSize: 13, color: '#8a8a8a', marginBottom: 4 }}>中证全指 vs 主流行业 · 2020-2026</Text>
+  </Box>
+  <Box style={{ height: 1, background: '#1a1a1a', marginTop: 8, width: '100%' }} />
+  <Box style={{ marginTop: 10, width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+    <Image src="assets/p2_chart.png" style={{ width: 1000, height: 487 }} />
+  </Box>
+  <Box style={{ marginTop: 8, width: '100%', height: 52, background: '#F4F6F9', borderLeft: '4px solid #061F32', flexDirection: 'row', alignItems: 'center', padding: '0 20px' }}>
+    <Text style={{ fontSize: 15.5, color: '#061F32', flex: 1, lineHeight: 1.35 }}>
+      最强行业每轮轮换（医药→新能源→新能源→半导体→中证TMT），全指每轮仍跑赢当期最弱行业 17~39 个百分点——<span style={{ fontWeight: 'bold' }}>不押赛道，一样跟住市场</span>。
+    </Text>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+      <Box style={{ flexDirection: 'column', alignItems: 'flex-end', marginRight: 28 }}>
+        <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#C0392B' }}>5/5</Text>
+        <Text style={{ fontSize: 11.5, color: '#8a8a8a' }}>行情全部正收益</Text>
+      </Box>
+      <Box style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Text style={{ fontSize: 23, fontWeight: 'bold', color: '#061F32' }}>+27pct</Text>
+        <Text style={{ fontSize: 11.5, color: '#8a8a8a' }}>平均跑赢最弱行业</Text>
+      </Box>
+    </Box>
+  </Box>
+  <Box style={{ position: 'absolute', bottom: 8, left: 56, right: 56, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+    <Text style={{ fontSize: 11, color: '#8a8a8a', width: 1060, lineHeight: 1.35 }}>
+      数据来源：NeoData 行情接口（指数日线，不复权收盘价），数据截至 2026-10-16；区间涨跌幅按各指数自身交易日对齐区间首尾；行业对比含医药、新能源、半导体（国证芯片）、中证TMT、黄金ETF、恒生指数、恒生科技、通信设备（中证全指通信设备指数替代 CPO 主题）。历史表现不预示未来，不构成投资建议。
+    </Text>
+    <Text style={{ fontSize: 13, color: '#8a8a8a' }}>2 / 2</Text>
+  </Box>
+</Slide>
