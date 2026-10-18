@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>益方生物（688382.SH）深度投研报告</title>
+<style>
+:root{--bg:#1E1E1E;--bg2:#161616;--panel:#232323;--panel2:#2a2a2a;--green:#00E676;--green-dim:#00b85a;--green-dark:#0a3d24;
+--text:#E0E0E0;--dim:#9e9e9e;--faint:#6a6a6a;--red:#ff5c5c;--yellow:#ffd54f;--blue:#64b5f6;--border:#333}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"SF Mono","Menlo","Consolas","PingFang SC","Microsoft YaHei",monospace;line-height:1.7;font-size:14px;padding:0 0 80px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:28px 0;margin-bottom:28px}
+h1{color:var(--green);font-size:22px;font-weight:700;letter-spacing:1px}
+.sub{color:var(--dim);font-size:12px;margin-top:6px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border:1px solid var(--green);color:var(--green);border-radius:3px;margin-right:6px}
+h2{color:var(--green);font-size:17px;margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--green)}
+h3{color:var(--green-dim);font-size:15px;margin:24px 0 10px}
+h4{color:var(--text);font-size:13px;margin:16px 0 8px}
+p{margin:8px 0} a{color:var(--blue)}
+.section{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:20px;margin:14px 0}
+.exec{background:var(--green-dark);border:1px solid var(--green);border-radius:6px;padding:18px 20px;margin:16px 0}
+.exec h3{color:var(--green);margin-top:0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:12.5px}
+th{background:var(--panel2);color:var(--green);text-align:left;padding:9px 8px;border:1px solid var(--border);font-weight:600;white-space:nowrap}
+td{padding:8px;border:1px solid var(--border);vertical-align:top}
+td.num{text-align:right} td.mono{font-size:11.5px;white-space:nowrap} .dim{color:var(--faint)}
+tr:nth-child(even) td{background:#212121}
+.tag{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:3px;margin-right:4px}
+.t-g{background:#0a3d24;color:#00E676;border:1px solid #00E676}
+.t-y{background:#3d320a;color:#ffd54f;border:1px solid #ffd54f}
+.t-r{background:#3d0a0a;color:#ff5c5c;border:1px solid #ff5c5c}
+.t-b{background:#0a243d;color:#64b5f6;border:1px solid #64b5f6}
+.st{font-size:10.5px;padding:1px 6px;border-radius:3px;border:1px solid var(--border);color:var(--dim)}
+.st-RECRUITING{color:#00E676;border-color:#00E676}
+.st-COMPLETED{color:#9e9e9e} .st-TERMINATED{color:#ff5c5c;border-color:#ff5c5c}
+.st-NOT_YET_RECRUITING{color:#64b5f6;border-color:#64b5f6}
+.st-ACTIVE_NOT_RECRUITING{color:#ffd54f;border-color:#ffd54f}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--panel2);border:1px solid var(--border);border-radius:5px;padding:14px}
+.card .lbl{font-size:11px;color:var(--faint)} .card .val{font-size:20px;color:var(--green);font-weight:700;margin-top:4px}
+.card .note{font-size:11px;color:var(--dim);margin-top:4px;line-height:1.5}
+.slider{width:100%;margin:6px 0} .sl-row{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:12px;margin:10px 0}
+.sl-val{color:var(--green);font-size:13px;text-align:right;font-weight:700}
+.sim{background:#0d2b1a;border:1px solid var(--green);border-radius:6px;padding:18px;margin:16px 0}
+.sim .big{font-size:26px;color:var(--green);font-weight:700}
+ul{margin:8px 0 8px 22px} li{margin:5px 0}
+.warn{background:#3d0a0a;border-left:3px solid var(--red);padding:12px 14px;margin:12px 0;font-size:12.5px}
+.ok{background:#0a3d24;border-left:3px solid var(--green);padding:12px 14px;margin:12px 0;font-size:12.5px}
+.info{background:#0a243d;border-left:3px solid var(--blue);padding:12px 14px;margin:12px 0;font-size:12.5px}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);color:var(--faint);font-size:11px}
+.small{font-size:11.5px;color:var(--dim)}
+</style></head><body>
+<header><div class="wrap">
+<h1>益方生物（688382.SH）· 深度投研报告</h1>
+<div class="sub">
+<span class="badge">研究型 · 非交易决策</span>
+<span class="badge">四问脊柱 Q1–Q4</span>
+<span class="badge">v1.0 首版</span>
+行情截至 2026-10-16 收盘 ｜ 财务以 2026 中报（2026-08-21）与 2025 年报为准 ｜ 临床数据截至 CT.gov 2026-10-18
+</div></div></header>
+<div class="wrap">
+
+<div class="exec">
+<h3>置顶结论（10 行内）</h3>
+<p><b>一句话</b>：益方生物的价值几乎<b>不</b>来自两款已上市产品——它们的经济权益被授权协议"封顶"（未来可兑现现金流合计仅约 4–5 亿元）；全部价值押在<b>尚未授权、自持全球权益</b>的 D-2570（TYK2）与 D-0502（口服 SERD）上，且这两项注册 III 期的读出窗口就在<b>未来 3–9 个月</b>。</p>
+<p><b>估值对账</b>：两分法中性 EV ≈ <b>64.8 亿元</b>（Part A 3.4 + Part B 48.2 + 净现金 13.3），对应隐含股价 <b>11.19 元</b>；当前市值 <b>89.49 亿元</b>（15.44 元），EV/市值 = <b>0.72</b>——市场定价比中性假设乐观约 38%，已部分 price-in D-2570 的 BIC 与出海预期。Bear 26.3 亿（−71%）／Bull 172.0 亿（+92%），离散度极大，本质是<b>二元事件驱动的期权</b>。</p>
+<p><b>最临近催化</b>：① D-0502 乳腺癌 III 期 PCD 2026-11-30（Topline 2026Q4–2027Q1）；② D-2570 银屑病注册 III 期 PCD 2027-07-28；③ D-2570 头对头氘可来昔替尼 III 期 PCD 2027-07-12；④ D-2570 UC II 期已于 2026-07 完成，数据 2026H2–2027 读出。</p>
+<p><b>最硬的风险</b>：现金跑道。经营净流出约 3.5 亿/年，13.27 亿类现金仅够约 <b>3.5 年</b>——2028 年末即降至约 4.2 亿元触及安全线，<b>H 股 18A 上市从"战略选择"变成"财务刚需"</b>。</p>
+</div>
+
+<div class="section">
+<h3>修订日志</h3>
+<table><tr><th style="width:80px">版本</th><th style="width:110px">日期</th><th>变更内容</th><th style="width:130px">触发源</th><th style="width:90px">置信度</th></tr>
+<tr><td>v1.0</td><td>2026-10-18</td><td>首版：完成 Q1–Q4 四问脊柱全量梳理，建立两分法 rNPV（Part A 引入<b>授权协议金额封顶约束</b>）、46 项 CT.gov 试验六类分类、财务前瞻与现金跑道测算</td><td>用户首次委托</td><td>🟢 财务/临床登记｜🟡 峰值与 PoS（自建假设）</td></tr>
+</table>
+</div>
+
+<h2>一、公司画像：License-out 型药企的"天花板"问题</h2>
+<div class="section">
+<h3>1.1 商业模式</h3>
+<p>益方生物成立于 2013 年，2022-07 登陆科创板（688382.SH），2026-01 首次递表港交所、2026-08-21 <b>二次递表</b>（18A，独家保荐中信证券）。公司不建销售团队（2025 年末员工仅 <b>182 人</b>，无销售费用），两款上市产品的中国大陆权益全部对外授权，自身仅收取首付款、里程碑与销售分成。</p>
+<p><b>这一模式的关键后果，是两笔授权协议都写死了金额上限</b>——这直接决定了 Part A 的天花板：</p>
+<table>
+<tr><th>产品</th><th>合作方</th><th>授权范围</th><th>协议金额</th><th>已确认/已收</th><th>未来可兑现上限</th></tr>
+<tr><td><b>贝福替尼</b><br><span class="small dim">赛美纳® / BPI-D0316<br>三代 EGFR-TKI</span></td><td>贝达药业<br><span class="small dim">2018-12 签约</span></td><td>中国内地 + 中国香港 + 中国台湾</td><td><b>2.3 亿</b>首付+研发里程碑，另享 <b>10%–15%</b> 销售提成；协议总额上限 <b>4–6 亿元</b></td><td>首付款 5,530 万；监管里程碑 1.8 亿已触发（二线 8,000 万 + 一线 1 亿），<b>2025-12-26 仅收到 8,000 万</b>，剩余 1 亿仍在协商</td><td>约 <b>1.65–3.65 亿</b>（提成剩余空间）+ 待收 1 亿 <span class="tag t-r">回收存疑</span></td></tr>
+<tr><td><b>格索雷塞</b><br><span class="small dim">安方宁® / D-1553<br>KRAS G12C</span></td><td>正大天晴<br><span class="small dim">2023-08 签约</span></td><td>中国大陆独家开发/注册/生产/商业化</td><td><b>2.6 亿</b>首付+研发里程碑，+ 最高 <b>2.9 亿</b>商业化里程碑与销售提成</td><td>2024 年确认约 1.51 亿研发里程碑</td><td>约 <b>3.5 亿</b>（剩余研发里程碑 + 商业化里程碑/提成）</td></tr>
+</table>
+<div class="warn"><b>估值硬约束（§3.0 前置硬卡 B：权益事实核查）</b>：两款已上市产品未来可兑现现金流合计仅约 <b>4–5 亿元</b>。任何把"两款进医保产品"当作收入成长股来外推的模型都会<b>系统性高估</b>。媒体对益方"卖青苗"的质疑，其财务本质正在于此。</div>
+<div class="info"><b>治理实证（Q4）</b>：贝达药业 1.8 亿监管里程碑逾期近 2 年，益方 2024 年按 10% 计提 <b>1,800 万元</b>坏账准备；贝达在其港股招股书中确认该争议仍在协商，并坦承"无法保证不会升级至需要采用其他解决机制的程度"。这是 License-out 模式的<b>结构性代价</b>——收入确认与现金到账完全不由自己控制。</div>
+
+<h3>1.2 财务轨迹（人民币亿元）</h3>
+<table>
+<tr><th>科目</th><th>2023</th><th>2024</th><th>2025</th><th>2025H1</th><th>2026H1</th><th>趋势判读</th></tr>
+<tr><td>营业收入</td><td class="num">1.855</td><td class="num">1.688</td><td class="num">0.373</td><td class="num">0.192</td><td class="num"><b>0.533</b></td><td>2025 断崖 −77.9%（无大额里程碑落地），2026H1 +178.2% 回升</td></tr>
+<tr><td>毛利</td><td class="num">—</td><td class="num">1.65</td><td class="num">0.322</td><td class="num">—</td><td class="num">0.503</td><td>毛利率 97.6% → 86.2% → <b>94.3%</b>（近乎纯分成收入）</td></tr>
+<tr><td>研发费用</td><td class="num">4.429</td><td class="num">3.843</td><td class="num">3.258</td><td class="num">1.155</td><td class="num"><b>1.847</b></td><td>2026H1 +59.98%，占营收 <b>346%</b></td></tr>
+<tr><td>管理费用</td><td class="num">0.609</td><td class="num">0.525</td><td class="num">0.453</td><td class="num">0.221</td><td class="num">0.165</td><td>持续压缩（股权激励费用减少）</td></tr>
+<tr><td>归母净利润</td><td class="num">−2.84</td><td class="num">−2.40</td><td class="num">−3.17</td><td class="num">−1.19</td><td class="num"><b>−1.37</b></td><td>2025 亏损扩大（收入塌缩 + 研发刚性）</td></tr>
+<tr><td>经营现金流净额</td><td class="num">−3.08</td><td class="num">−2.42</td><td class="num">−1.55</td><td class="num">−1.07</td><td class="num">−1.88</td><td>2026H1 净流出同比 <b>+75.2%</b></td></tr>
+<tr><td>总资产 / 净资产</td><td class="num">21.62 / 19.98</td><td class="num">19.21 / 18.11</td><td class="num">17.04 / 15.36</td><td class="num">18.13 / 17.18</td><td class="num">15.22 / 14.11</td><td>净资产年化消耗约 1.3–1.6 亿</td></tr>
+<tr><td>货币资金</td><td class="num">19.19</td><td class="num">15.86</td><td class="num">13.81</td><td class="num">14.30</td><td class="num">11.74</td><td>货币资金+交易性金融资产 <b>13.27 亿</b>（2026H1 末）</td></tr>
+</table>
+<p class="small dim">来源：东方财富数据浏览器（妙想）/ iFinD，报告期以公告披露为准。2025 年报数据经 iFinD 与港股招股书双重交叉验证（0.373 亿、−3.17 亿一致）。</p>
+<div class="info"><b>收入质量分层（§3.1）</b>：2023 = 贝福替尼 1.8 亿研发里程碑（占 96%，销售提成仅 552.7 万 / 3.2%）；2024 = 格索雷塞 1.51 亿里程碑，销售提成升至 1,784.7 万 / 10.7%；2025 = <b>全部为销售提成</b>（前三季 3,089 万，同比 +61.3%）；2026H1 = 正大天晴 3,680 万（68.9%）+ 客户 B 1,660 万（31.1%，招股书表述为"授出一款商业化产品的许可"<span class="tag t-y">性质待核实</span>）。最大客户占比 2024/2025/2026H1 = 90.3% / 75.1% / 68.9%，集中度在下降但仍极高。</div>
+</div>
+
+<h2>二、Q3 管线全景与竞争格局</h2>
+<div class="section">
+<h3>2.1 资产表与权益归属（§3.0 硬卡 B 核查结果）</h3>
+<table>
+<tr><th>资产</th><th>靶点/机制</th><th>核心适应症</th><th>阶段</th><th>中国大陆权益</th><th>境外权益</th><th>估值捕获率假设</th></tr>
+<tr><td><b>贝福替尼</b> BPI-D0316</td><td>三代 EGFR-TKI</td><td>NSCLC 二线/一线</td><td class="tag t-g">已上市+医保</td><td>贝达药业（封顶 4–6 亿）</td><td>未开发</td><td>royalty 10–15%（已封顶）</td></tr>
+<tr><td><b>格索雷塞</b> D-1553</td><td>KRAS G12C</td><td>NSCLC 2L；CRC/胰腺癌拓展</td><td class="tag t-g">已上市+医保</td><td>正大天晴（封顶 5.5 亿）</td><td><b>自持，无 BD 落地</b></td><td>境内分成；境外 15%</td></tr>
+<tr><td><b>D-2570</b></td><td>TYK2 变构抑制剂<br><span class="small dim">JAK1 选择性 ~1000×</span></td><td>银屑病（注册 III）；UC / PsA / SLE / 白癜风（II）</td><td class="tag t-y">注册 III 期</td><td colspan="2" style="text-align:center"><b>自持全球（含美国 II 期已获 FDA 批准）</b></td><td>中国 45%（自建/合作之间）；海外按 BD 期权单列</td></tr>
+<tr><td><b>泰瑞司群</b> D-0502</td><td>口服 SERD<br><span class="small dim">taragarestrant</span></td><td>HR+/HER2− 乳腺癌 2L+<br>+JSKN016 联合</td><td class="tag t-y">注册 III 期</td><td colspan="2" style="text-align:center"><b>自持全球</b></td><td>中国 45%</td></tr>
+<tr><td><b>达比诺雷</b> D-0120</td><td>URAT1</td><td>痛风 / 高尿酸血症</td><td class="tag t-b">IIb 完成·无 III 期</td><td colspan="2" style="text-align:center">自持（中美 II 期均已完成）</td><td>15%（大概率授权）</td></tr>
+<tr><td>YF087 / YF550 / YF057</td><td>WRN / KIF18A / STAT6 降解剂</td><td>MSI-H 实体瘤等</td><td class="tag t-b">临床前 → YF087 已登记 Ph1</td><td colspan="2" style="text-align:center">自持</td><td>计入平台期权</td></tr>
+</table>
+<div class="ok"><b>核查结论</b>：益方把<b>最早期、天花板最低</b>的两款产品卖了（且卖成了固定金额），把<b>最有价值的两款（D-2570 / D-0502）留在手里且自持全球</b>。这在估值是<b>正面</b>的——Part B 的净捕获率显著高于 Part A 的 royalty 路线；但同时也意味着<b>公司至今没有任何自主商业化经验</b>（182 人、零销售费用），首次自建团队的执行风险必须计入。</div>
+
+<h3>2.2 D-2570（TYK2）竞争格局</h3>
+<table>
+<tr><th>药物</th><th>公司</th><th>阶段</th><th>关键数据</th><th>对 D-2570 的威胁</th></tr>
+<tr><td><b>D-2570</b></td><td>益方生物</td><td>中国注册 III（390 例）+ 头对头 III（477 例）；美国 Ph2</td><td><b>II 期 12 周 PASI75 85.0–90.0%</b>（安慰剂 12.5%）；PASI90 70.7–77.5%；PASI100 39.0–50.0%；sPGA 0/1 80.5–87.5%；JAK1 选择性近 1000 倍；安全性上未见同类报告的视力障碍/心动过缓</td><td>—</td></tr>
+<tr><td>氘可来昔替尼<br>deucravacitinib</td><td>BMS</td><td>已上市（Sotyktu），全球年销 &gt;20 亿美元</td><td>POETYK PSO-1/2：12 周 PASI75 约 58–64%，PASI90 约 35–40%，PASI100 约 12–16%</td><td><span class="tag t-r">直接头对头对手</span> 已建立商业化与医生心智；D-2570 需靠优效数据夺份额</td></tr>
+<tr><td>zasocitinib (TAK-279)</td><td>武田</td><td>III 期</td><td>TYK2 变构抑制剂，与 D-2570 同机制</td><td><span class="tag t-y">海外 BD 的直接可比锚</span>；决定益方海外交易估值区间</td></tr>
+<tr><td>生物制剂（IL-17/IL-23）</td><td>诺华 / 强生 / 礼来等</td><td>已上市，医保大幅降价</td><td>PASI90 可达 70–80%+，但需注射</td><td><span class="tag t-r">疗效天花板</span>；D-2570 的口服便利性优势需对冲注射剂的疗效优势</td></tr>
+<tr><td>阿普米司特 / JAK 抑制剂</td><td>安进 / 艾伯维等</td><td>已上市</td><td>口服但 PASI75 普遍 &lt;50%（阿普米司特）</td><td><span class="tag t-g">口服赛道内 D-2570 优势明显</span></td></tr>
+</table>
+<p class="small dim">⚠️ <b>跨试验比较声明</b>：D-2570 II 期（n=161，中国）与 POETYK（全球多中心，n&gt;1,600）非头对头，人群基线、地域、样本量均不同，<b>不可直接得出"疗效优于氘可来昔替尼"的结论</b>。这正是 NCT07326813 头对头 III 期存在的意义。</p>
+
+<h3>2.3 D-0502（口服 SERD）竞争格局 ——  hardest 定价环境</h3>
+<table>
+<tr><th>药物</th><th>公司</th><th>阶段</th><th>关键数据 / 状态</th></tr>
+<tr><td><b>D-0502 泰瑞司群</b></td><td>益方生物</td><td>中国 2L+ 注册 III（640 例，头对头氟维司群，PCD 2026-11-30）</td><td>国内首个进入 2L 治疗 III 期的口服 SERD；未见同类报告的视力障碍/心动过缓</td></tr>
+<tr><td>依仑司群 imlunestrant</td><td>礼来</td><td><b>已获批</b>（2026-06 NMPA）；全球第二款</td><td>联合阿贝西利全人群 mPFS 10.9 vs 5.5 月（HR 0.59）；ESR1m 亚组 11.0 vs 5.6 月（HR 0.55）</td></tr>
+<tr><td>卡米司群 camizestrant</td><td>阿斯利康</td><td>SERENA-6 已成功，上市审评中</td><td><b>mPFS 16.8 vs 9.2 月（HR 0.45）</b>；30 月 PFS 率 30.4% vs 2.7%；PFS2 25.7 月；ctDNA 清除 51% vs 2%</td></tr>
+<tr><td>giredestrant</td><td>罗氏</td><td>一线 persevERA 失败；辅助 lidERA 成功</td><td>辅助治疗侵袭性复发/死亡风险降 30%，已获 FDA 优先审评</td></tr>
+<tr><td>HRS-8080</td><td>恒瑞医药</td><td>III 期（一线 + 辅助）</td><td>I 期 ESR1m 亚组 ORR 34.4%、mPFS 7.2 月、DCR 75%</td></tr>
+<tr><td>SIM0270</td><td>先声药业</td><td>III 期（联合依维莫司）</td><td>III 期全人群 mPFS 约 9 个月；主打脑穿透、不强制 ESR1 检测</td></tr>
+<tr><td>TFX06</td><td>浙江扬厉</td><td>I/II 期</td><td>氟维司群经治人群颅内 DCR 87.5%、颅内 ORR 37.5%</td></tr>
+</table>
+<div class="warn"><b>定价天花板风险（比临床风险更致命）</b>：氟维司群集采中标最低 <b>255.5 元/支</b>（原研医保价 2,306 元/支），按 500mg/月 计年治疗费用已压缩至约 <b>6 千元</b>级别。口服 SERD 的"便利性替代"定价逻辑在此失效——<b>D-0502 必须在疗效上建立定价权</b>，且竞品（礼来/阿斯利康/罗氏/恒瑞/先声）同期涌入。此外 camizestrant 依赖 Guardant360 CDx 每 2–3 个月检测 ESR1，<b>检测可及性与支付体系将成为商业化的第一道卡</b>。</div>
+
+<h3>2.4 格索雷塞（KRAS G12C）—— 价格战已打响</h3>
+<table>
+<tr><th>产品</th><th>公司</th><th>医保支付价</th><th>年治疗费用（估）</th><th>2026 年放量参照</th></tr>
+<tr><td><b>格索雷塞（安方宁）</b></td><td>益方 / <b>正大天晴</b></td><td><b>2,562 元/瓶 × 4 瓶/月</b></td><td>约 <b>12.3 万元</b>（三款最低）</td><td>—</td></tr>
+<tr><td>戈来雷塞（艾瑞凯）</td><td>加科思 / 艾力斯</td><td>4,000 元/盒 × 3 盒/月</td><td>约 14.4 万元</td><td><b>2025 全年 4,046.7 万 → 2026H1 1.302 亿</b>（Q1 6,170.7 万 / Q2 6,853.0 万）</td></tr>
+<tr><td>氟泽雷塞（达伯特）</td><td>劲方 / 信达</td><td>5,790.4 元/盒 × 2 盒/月</td><td>约 13.9 万元</td><td>—</td></tr>
+<tr><td>西美雷塞（济乐美）</td><td>济煜</td><td>12,800 元/盒（未进医保）</td><td>—</td><td>—</td></tr>
+</table>
+<p><b>对标锚</b>：戈来雷塞医保落地后 H1 即做到 1.3 亿元。格索雷塞价格最低（−36% vs 戈来雷塞），若份额相近，2026 年销售有望落在 <b>1.5–2.5 亿元</b>区间。沙利文预测中国 KRAS G12C 市场 2025 年 32 亿 → 2030 年 215 亿元（<span class="tag t-y">该预测偏乐观，本报告中按 2030 年 60–100 亿建模</span>）。</p>
+<h4>格索雷塞的差异化不在 NSCLC 二线，而在联合用药</h4>
+<ul>
+<li><b>一线 NSCLC</b>：+ ifebemtinib（IN10018，FAK 抑制剂，应世生物）ORR <b>90.3%</b>、DCR 96.8%、<b>mPFS 22.14 个月</b>（2026 ASCO 壁报）；III 期由应世生物主导（NCT07174908，400 例，2026-03 启动）</li>
+<li><b>CRC</b>：联合用药 ORR 44.4%（vs 单药 16.7%），mOS 16.4 vs 7.8 个月；联合西妥昔单抗 ORR 45.2%</li>
+<li><b>胰腺癌</b>：ORR 45.5%</li>
+<li><b>+ 帕博利珠单抗 + 含铂化疗一线</b>：Ib 期 ORR 59%、mPFS 7.4 个月（<i>JTO</i>）</li>
+</ul>
+<p class="small dim">⚠️ 以上联合用药数据来自单臂/小样本 Ib-II 期，<b>不可与随机 III 期数据横向比较</b>；且组合疗法中搭档药由合作方主导，益方仅通过格索雷塞销售分成间接受益。</p>
+</div>
+
+<h2>三、Q1 临床证据：读出时间线与稳赢门槛</h2>
+<div class="section">
+<h3>3.1 关键读出时间线（未来 24 个月）</h3>
+<table>
+<tr><th>时点</th><th>试验</th><th>事件</th><th>状态依据（CT.gov）</th><th>分级</th></tr>
+<tr><td><b>2026-11-30</b></td><td>NCT06954961 · D-0502 乳腺癌 2L+ 注册 III（640 例，头对头氟维司群）</td><td><b>主要终点完成（PCD）</b>，Topline 预计 2026Q4–2027Q1</td><td>Last Update 2026-03-31；Primary Completion 2026-11-30；Completion 2028-12-31</td><td><span class="tag t-r">P0 · 最临近</span></td></tr>
+<tr><td>2026H2–2027</td><td>NCT07035041 · D-2570 溃疡性结肠炎 II 期（120 例）</td><td>数据读出</td><td>PCD 2026-07-30 已过；状态 ACTIVE_NOT_RECRUITING；LU 2026-07-17</td><td><span class="tag t-r">P0</span></td></tr>
+<tr><td>2027-07-12</td><td>NCT07326813 · D-2570 <b>头对头</b>氘可来昔替尼 III 期（477 例）</td><td>PCD —— 决定 BIC 定位与海外 BD 估值</td><td>RECRUITING；LU 2026-04-29</td><td><span class="tag t-r">P0</span></td></tr>
+<tr><td>2027-07-28</td><td>NCT07130604 · D-2570 银屑病注册 III 期（390 例）</td><td>PCD —— 决定 NDA 时点</td><td>2026-03 完成全部入组；LU 2025-12-09</td><td><span class="tag t-r">P0</span></td></tr>
+<tr><td>2027-08</td><td>NCT07489885 · D-2570 美国银屑病 II 期（75 例）</td><td>PCD —— 海外数据首秀</td><td>RECRUITING；LU 2026-07-09</td><td><span class="tag t-y">P1</span></td></tr>
+<tr><td>2027-08-15</td><td>NCT07315061 · D-2570 PsA II 期（222 例）</td><td>PCD</td><td>RECRUITING；LU 2026-04-22</td><td><span class="tag t-y">P1</span></td></tr>
+<tr><td>2027-11</td><td>NCT07625891 · D-2570 白癜风 II 期（160 例）</td><td>PCD</td><td>RECRUITING；LU 2026-07-15</td><td><span class="tag t-y">P1</span></td></tr>
+<tr><td>2028-08-31</td><td>NCT07311200 · D-2570 SLE II 期（120 例）</td><td>PCD</td><td>RECRUITING；LU 2026-04-24</td><td><span class="tag t-b">P2</span></td></tr>
+</table>
+<p class="small dim">读出时间口径说明：PCD（Primary Completion Date）为最后一名受试者完成主要终点测量的时点，<b>Topline 通常滞后 1–4 个月</b>（数据清理与揭盲）。PFS 类终点比 OS 早 6–12 个月；ORR/PASI 类终点最快。</p>
+
+<h3>3.2 D-2570 银屑病注册 III 期：四层稳赢门槛（对照臂＝安慰剂，12 周）</h3>
+<p><b>门槛设计方法</b>：内部锚（益方 II 期）→ 外部锚（氘可来昔替尼 POETYK 同类人群）→ 竞品锚（生物制剂疗效天花板）。<span class="tag t-y">以下为定性框架，非官方终点，公司未公开 III 期统计假设</span>。</p>
+<table>
+<tr><th>层级</th><th>PASI 75</th><th>PASI 90</th><th>PASI 100</th><th>sPGA 0/1</th><th>判读</th></tr>
+<tr><td><b>内部锚</b>（益方 II 期，n=161）</td><td>85.0–90.0%</td><td>70.7–77.5%</td><td>39.0–50.0%</td><td>80.5–87.5%</td><td class="dim">安慰剂 12.5% / 5.0% / 2.5% / 20.0%</td></tr>
+<tr><td><b>外部锚</b>（氘可来昔替尼 POETYK）</td><td>约 58–64%</td><td>约 35–40%</td><td>约 12–16%</td><td>—</td><td class="dim">已上市 TYK2 的实际水位</td></tr>
+<tr><td class="t-g" style="color:#00E676"><b>及格线</b></td><td>≥ 65%</td><td>≥ 45%</td><td>≥ 15%</td><td>≥ 60%</td><td>足以支持 NDA，但商业化定位平庸</td></tr>
+<tr><td style="color:#00E676"><b>稳赢线</b></td><td>≥ 75%</td><td>≥ 55%</td><td>≥ 25%</td><td>≥ 70%</td><td>显著优于已上市 TYK2，可支撑定价与份额</td></tr>
+<tr><td style="color:#00E676"><b>梦幻线</b></td><td>≥ 85%</td><td>≥ 70%</td><td>≥ 40%</td><td>≥ 80%</td><td>复制 II 期结果 → 触及生物制剂疗效带 → 海外 BD 大幅抬价</td></tr>
+</table>
+<div class="warn"><b>三个必须警惕的陷阱</b>：<br>
+① <b>ORR/PASI 陷阱</b>：PASI 75 是最易达成的终点，<b>关键看 PASI 90 / PASI 100</b>——生物制剂已把医生的疗效预期抬到 PASI 90 以上，仅 PASI 75 达标不足以夺份额。<br>
+② <b>小样本到 III 期的回归</b>：II 期 n=161（每剂量约 40 例）置信区间宽，III 期 n=390 时点估计通常会向均值回归。<br>
+③ <b>安全性才是 TYK2 的差异化战场</b>：D-2570 宣称 JAK1 选择性近 1000 倍且未见同类报告的视力障碍/心动过缓。若 III 期证实更宽的安全窗，在需长期服药的自免领域比 PASI 数字更重要。</div>
+
+<h3>3.3 D-0502 乳腺癌 III 期：四层稳赢门槛（对照臂＝氟维司群，2L+）</h3>
+<table>
+<tr><th>层级</th><th>mPFS（试验臂 vs 对照）</th><th>HR</th><th>判读</th></tr>
+<tr><td><b>对照臂基准</b></td><td colspan="2">氟维司群在 CDK4/6i 经治的 HR+/HER2− 晚期人群，mPFS 约 4–5 个月（ESR1 突变亚组更短）</td><td class="dim">D-0502 是单药 vs 氟维司群单药，<b>非</b> vs 当前 SOC（内分泌 + CDK4/6i 或 + 靶向）</td></tr>
+<tr><td class="t-g" style="color:#00E676"><b>及格线</b></td><td>约 6.5 vs 5.0 月</td><td>≤ 0.85</td><td>统计学阳性，但临床价值边际，难以支撑定价</td></tr>
+<tr><td style="color:#00E676"><b>稳赢线</b></td><td>约 8.5 vs 5.5 月（Δ ≥ 3 月）</td><td>≤ 0.70</td><td>可对标 imlunestrant 单药水平，支撑国产替代逻辑</td></tr>
+<tr><td style="color:#00E676"><b>梦幻线</b></td><td>约 12 vs 5.5 月</td><td>≤ 0.55</td><td>接近 camizestrant 在 ESR1m 人群的 HR 0.45（人群不同，<b>不可直接套用</b>）</td></tr>
+</table>
+<div class="info"><b>关键提醒</b>：D-0502 真正的商业风险<b>不在统计显著性，而在支付端</b>。氟维司群集采后年费约 6 千元，即便 D-0502 拿到 HR 0.70，医保谈判能给的溢价也有限。<b>该试验成功 ≠ 该资产值钱</b>——这是本报告中 D-0502 峰值只给 8 亿元（bull 20 亿）的核心原因。</div>
+</div>
+
+<h2>四、Q2 估值：财务前瞻 + 两分法 rNPV</h2>
+<div class="section">
+<h3>4.1 财务前瞻 P&amp;L（人民币亿元，自建口径）</h3>
+<table>
+<tr><th>科目</th><th>2026E</th><th>2027E</th><th>2028E</th><th>2029E</th><th>2030E</th><th>假设说明</th></tr>
+<tr><td>营业收入</td><td class="num">1.45</td><td class="num">2.20</td><td class="num">3.50</td><td class="num">5.00</td><td class="num">6.50</td><td>H1 已 0.533；格索雷塞医保放量 + 里程碑；<b>D-2570 若 2028 上市</b>开始贡献</td></tr>
+<tr><td>营业成本</td><td class="num">0.10</td><td class="num">0.16</td><td class="num">0.55</td><td class="num">0.90</td><td class="num">1.20</td><td>自主销售后毛利率下降</td></tr>
+<tr><td><b>毛利</b></td><td class="num">1.35</td><td class="num">2.04</td><td class="num">2.95</td><td class="num">4.10</td><td class="num">5.30</td><td>毛利率 93% → 82%</td></tr>
+<tr><td>研发费用</td><td class="num">3.60</td><td class="num">4.00</td><td class="num">4.20</td><td class="num">4.30</td><td class="num">4.40</td><td>H1 1.847（+59.98%）；III 期 + 多适应症并行</td></tr>
+<tr><td>管理费用</td><td class="num">0.35</td><td class="num">0.38</td><td class="num">0.45</td><td class="num">0.55</td><td class="num">0.65</td><td>随规模小幅增长</td></tr>
+<tr><td>销售费用</td><td class="num">0.00</td><td class="num">0.20</td><td class="num">0.80</td><td class="num">1.30</td><td class="num">1.70</td><td><b>2027 起自建团队</b>（公司无销售历史，属新增成本）</td></tr>
+<tr><td>财务费用</td><td class="num">−0.13</td><td class="num">−0.10</td><td class="num">−0.06</td><td class="num">−0.03</td><td class="num">0.00</td><td>以利息收入为主，随现金消耗递减</td></tr>
+<tr><td><b>归母净利润</b></td><td class="num" style="color:#ff5c5c">−2.47</td><td class="num" style="color:#ff5c5c">−2.44</td><td class="num" style="color:#ff5c5c">−2.44</td><td class="num" style="color:#ff5c5c">−2.02</td><td class="num" style="color:#ff5c5c">−1.45</td><td><b>2030 年前不具备盈利可能</b>（不含海外 BD 一次性收入）</td></tr>
+</table>
+<p class="small dim">交叉验证：东北证券 2026-10-14 首次覆盖预测 2026–2028 营收 1.48 / 2.71 / 4.26 亿元（明确"暂不考虑 D-2570 潜在海外 BD 等一次性收入"）。本报告自建口径<b>低于</b>卖方约 2–18%，差异主要来自我对 D-2570 上市首年放量的保守处理与自建团队成本的前置。</p>
+
+<h3>4.2 现金跑道 —— 最硬的约束</h3>
+<table>
+<tr><th>时点</th><th>类现金余额（亿元）</th><th>状态</th></tr>
+<tr><td>2026H1 末（实际）</td><td class="num">13.27</td><td>货币资金 11.74 + 交易性金融资产；无银行借款</td></tr>
+<tr><td>2026 年末 E</td><td class="num">9.77</td><td>年经营净流出约 3.5 亿</td></tr>
+<tr><td>2027 年末 E</td><td class="num">6.77</td><td>正常</td></tr>
+<tr><td>2028 年末 E</td><td class="num" style="color:#ffd54f">4.17</td><td><b>触及安全线</b>（&lt; 5 亿）</td></tr>
+<tr><td>2029 年末 E</td><td class="num" style="color:#ff5c5c">2.57</td><td>若不融资将难以为继</td></tr>
+</table>
+<div class="warn"><b>结论</b>：13.27 亿类现金 ÷ 约 3.5 亿/年 = <b>约 3.5 年跑道</b>。港股 18A 上市（2026-08-21 二次递表）从"拓展国际融资渠道"的<b>战略叙事</b>，实际上是<b>财务刚需</b>。若 2027 年前未能完成 H 股发行，公司将面临被迫削减研发投入或折价 BD 的压力。同时需注意：公司目前仍将 <b>9 亿元</b>闲置募集资金用于现金管理（2026-08-20 董事会决议额度上限），存在"账上有钱却要融资"的质疑。</div>
+
+<h3>4.3 两分法 rNPV（逐试验，PoS 逐项填写）</h3>
+<h4>Part A —— 已商业化（收入 DCF，r_comm = 10.5%，经营利润率 85%，PoS 0.92）</h4>
+<table>
+<tr><th>项目</th><th>现金流基础</th><th>封顶约束</th><th>PV（亿元）</th></tr>
+<tr><td>贝福替尼（贝达药业）</td><td>未来销售提成流 1.28 亿（2026–2033）+ 待收里程碑 1 亿 × 80% 回收概率</td><td>协议总额上限 4–6 亿，已确认 2.353 亿 → 提成剩余空间 ≤ 2.65 亿</td><td class="num"><b>1.42</b></td></tr>
+<tr><td>格索雷塞（正大天晴）</td><td>商业化里程碑 + 销售提成 2.90 亿（2027–2035）+ 剩余研发里程碑 0.70 亿</td><td>商业化里程碑与提成上限 <b>2.9 亿</b>（已触顶建模）</td><td class="num"><b>1.96</b></td></tr>
+<tr><td colspan="3"><b>Part A 合计</b></td><td class="num" style="color:#00E676"><b>3.38</b></td></tr>
+</table>
+<h4>Part B —— 在研管线（逐试验 rNPV，r_pipe = 12%）</h4>
+<table>
+<tr><th>试验 / 资产节点</th><th>PoS</th><th>中国峰值销售</th><th>净捕获率</th><th>上市→达峰</th><th>PV（亿元）</th><th>PoS 依据</th></tr>
+<tr><td><b>D-2570 银屑病 注册 III</b></td><td class="num">68%</td><td class="num">18 亿</td><td class="num">45%</td><td>2028→2034</td><td class="num" style="color:#00E676"><b>17.63</b></td><td>Ph3 基准 55–65%；TYK2 机制经氘可来昔替尼验证（+）；II 期 PASI75 85–90% 强信号（+）；II 期 n=161 且跨试验比较（−）</td></tr>
+<tr><td><b>D-2570 头对头 III（增量）</b></td><td class="num">55%</td><td class="num">10 亿</td><td class="num">45%</td><td>2029→2035</td><td class="num" style="color:#00E676"><b>6.83</b></td><td>头对头非劣概率高但优效不确定；<b>仅计份额提升增量以防双计</b></td></tr>
+<tr><td><b>D-2570 海外权益（BD 期权）</b></td><td class="num">40%</td><td class="num">—</td><td class="num">—</td><td>2029 发生</td><td class="num" style="color:#00E676"><b>7.12</b></td><td>自持全球 + 美国 II 期已获批；但尚无 BD 落地，达成概率给 40%；未折现基数 25 亿（首付+里程碑+royalty 期权）</td></tr>
+<tr><td>D-2570 溃疡性结肠炎 II 期</td><td class="num">22%</td><td class="num">6 亿</td><td class="num">45%</td><td>2030→2036</td><td class="num">1.46</td><td>Ph2 基准 16–20%；TYK2 在 UC 有先例（+）；UC II 期失败率高（−）</td></tr>
+<tr><td>D-2570 银屑病关节炎 II 期</td><td class="num">18%</td><td class="num">5 亿</td><td class="num">45%</td><td>2030→2036</td><td class="num">1.00</td><td>Ph2 基准；PsA 赛道拥挤（−）</td></tr>
+<tr><td>D-2570 系统性红斑狼疮 II 期</td><td class="num">12%</td><td class="num">6 亿</td><td class="num">45%</td><td>2031→2037</td><td class="num">0.71</td><td>SLE II 期历史上失败率极高（−）</td></tr>
+<tr><td>D-2570 非节段型白癜风 II 期</td><td class="num">15%</td><td class="num">5 亿</td><td class="num">45%</td><td>2031→2037</td><td class="num">0.74</td><td>剂量优化设计，TYK2 在白癜风证据有限（−）</td></tr>
+<tr><td><b>D-0502 乳腺癌 2L+ 注册 III</b></td><td class="num">55%</td><td class="num">8 亿</td><td class="num">45%</td><td>2028→2034</td><td class="num" style="color:#00E676"><b>6.34</b></td><td>口服 SERD 机制已验证（+）；氟维司群集采压制定价（−）；5+ 竞品同期（−）</td></tr>
+<tr><td>D-0502 + JSKN016 联合</td><td class="num">15%</td><td class="num">5 亿</td><td class="num">45%</td><td>2030→2036</td><td class="num">0.83</td><td>Ph1/2 早期，联合用药主导方为康宁杰瑞（−）</td></tr>
+<tr><td>D-0120 URAT1 痛风</td><td class="num">25%</td><td class="num">8 亿</td><td class="num">15%</td><td>2030→2036</td><td class="num">0.77</td><td>Ph2 完成基准约 30%；<b>无 III 期登记、无 partner 公告 → 下调</b></td></tr>
+<tr><td>D-1553 海外 + 适应症扩展</td><td class="num">30%</td><td class="num">6 亿</td><td class="num">15%</td><td>2029→2035</td><td class="num">0.75</td><td>一线 ORR 90.3% 强信号（+）；海外开发与授权均未落地（−）</td></tr>
+<tr><td>临床前 / 平台期权（YF087·YF550·YF057·ADC·默沙东合作）</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td>—</td><td class="num">4.00</td><td>打包处理，避免对早期资产给出虚假精度</td></tr>
+<tr><td colspan="5"><b>Part B 合计</b></td><td class="num" style="color:#00E676"><b>48.18</b></td><td></td></tr>
+</table>
+
+<div class="sim">
+<h3 style="margin-top:0">4.4 敏感性模拟器（三滑块 What-if）</h3>
+<div class="sl-row"><label>在研管线折现率 r_pipe</label><input type="range" class="slider" id="s1" min="8" max="18" step="0.5" value="12"><span class="sl-val" id="v1">12.0%</span></div>
+<div class="sl-row"><label>PoS 整体乘数</label><input type="range" class="slider" id="s2" min="0.6" max="1.4" step="0.05" value="1.00"><span class="sl-val" id="v2">1.00×</span></div>
+<div class="sl-row"><label>中国净捕获率</label><input type="range" class="slider" id="s3" min="25" max="70" step="1" value="45"><span class="sl-val" id="v3">45%</span></div>
+<div class="grid" style="margin-top:16px">
+<div class="card"><div class="lbl">Part B（在研管线）</div><div class="val" id="oB">—</div><div class="note">逐试验 rNPV 之和</div></div>
+<div class="card"><div class="lbl">企业价值 EV</div><div class="val" id="oEV">—</div><div class="note">Part A 3.38 + Part B + 净现金 13.27</div></div>
+<div class="card"><div class="lbl">EV / 市值</div><div class="val" id="oR">—</div><div class="note">市值 89.49 亿（15.44 元）</div></div>
+<div class="card"><div class="lbl">隐含股价</div><div class="val" id="oP">—</div><div class="note">总股本 5.796 亿股</div></div>
+</div>
+<p class="small dim" id="hint">拖动滑块实时切换 Bear ↔ Bull。注：本模拟器仅联动 r_pipe / PoS / 中国净捕获率三个变量，峰值销售与协议封顶保持不变——这是<b>有意的保守设计</b>，因为这三个变量恰恰是最不确定的。</p>
+</div>
+
+<h3>4.5 三情景汇总与市值对账</h3>
+<table>
+<tr><th>情景</th><th>Part A</th><th>Part B</th><th>净现金</th><th>EV / 股权</th><th>隐含股价</th><th>vs 现价 15.44 元</th><th>EV/市值</th></tr>
+<tr><td><b>Bear</b>（III 期不及预期 + 出海无果）</td><td class="num">1.94</td><td class="num">11.05</td><td class="num">13.27</td><td class="num">26.26</td><td class="num">4.53</td><td class="num" style="color:#00E676">−70.7%</td><td class="num">0.29</td></tr>
+<tr style="background:#0a3d24"><td><b>Base</b>（中性）</td><td class="num">3.38</td><td class="num">48.18</td><td class="num">13.27</td><td class="num"><b>64.84</b></td><td class="num"><b>11.19</b></td><td class="num" style="color:#00E676">−27.5%</td><td class="num"><b>0.72</b></td></tr>
+<tr><td><b>Bull</b>（头对头优效 + 海外 BD 落地 + 多适应症开花）</td><td class="num">4.02</td><td class="num">154.74</td><td class="num">13.27</td><td class="num">172.03</td><td class="num">29.68</td><td class="num" style="color:#ff5c5c">+92.2%</td><td class="num">1.92</td></tr>
+</table>
+<div class="info"><b>市值对账卡（护栏①：rNPV ≪ 市值时先自查，不直接喊低估）</b><br>
+EV/市值 = 0.72 意味着市场比我的中性假设乐观约 38%。自查三项后仍未消除差距，因此<b>不下"低估"结论</b>，而是说明市场多定价的部分对应什么预期：<br>
+① <b>捕获率</b>：我给中国净捕获率 45%（自建团队与授权合作之间）。若市场按纯自建、经营利润率 55%+ 定价，可解释约 +0.08。<br>
+② <b>D-2570 峰值与海外</b>：我给中国银屑病峰值 18 亿、海外 BD 期权未折现 25 亿。若市场参照武田/其他 TYK2 交易（首付+里程碑总额可达数十亿美元）定价海外，可解释 +0.15 至 +0.35。<b>这是最大的差距来源。</b><br>
+③ <b>PoS</b>：我给注册 III 68%。若市场按 II 期数据外推给到 80%+，可解释约 +0.12。<br>
+<b>诚实结论</b>：市场定价落在 Base 与 Bull 之间，隐含假设是"D-2570 头对头优效 + 海外 BD 在 2029 年前落地"。这<b>不是</b>不合理，但意味着现价已<b>提前支付</b>了这两件事的成功——若 2026-11 的 D-0502 或 2027-07 的 D-2570 读出不及预期，回撤空间显著（Bear −71%）。</div>
+</div>
+
+<h2>五、Q4 股东结构、治理与资本动作</h2>
+<div class="section">
+<table>
+<tr><th>维度</th><th>事实（截至最新披露）</th><th>判读</th></tr>
+<tr><td>实际控制人</td><td>王耀林（Yaolin Wang）、江岳恒（Yueheng Jiang）、代星（Xing Dai）三位博士构成<b>单一最大股东集团，合计约 27.19%</b> 投票权</td><td>三人系跨国药企（先灵葆雅/默沙东等）背景海归，控制权稳定但比例不高</td></tr>
+<tr><td>主要股东</td><td>InventisBio Hong Kong Limited <b>19.04%</b>；YUEHENG JIANG LLC 4.63%；XING DAI LLC 3.53%；ABA-Bio (HK) 1.85%；LAV Apex HK（礼来亚洲基金）1.55%；汇添富创新医药 2.77%；香港中央结算 1.55%</td><td>机构持股比例不低（2026-06-30 十大股东中公募占 4 席）</td></tr>
+<tr><td>解禁与减持</td><td>2026-01 控股股东及部分高管约 <b>1.61 亿股</b>解禁；2025 年礼来亚洲基金、ABA-Bio 分别套现约 <b>2.65 亿 / 1.9 亿元</b></td><td><span class="tag t-y">股权结构持续分散</span>；公司称"解禁非减持信号"，但历史减持已发生</td></tr>
+<tr><td>全流通</td><td>总股本 5.796 亿股，<b>已 100% 流通</b>（2026-05-29）</td><td>无解禁时间表约束，但也无锁定期缓冲</td></tr>
+<tr><td>股东户数</td><td>2026-06-30 为 1.48 万户，较上期 <b>−16.70%</b>；人均流通股 +20.30%</td><td>筹码集中化（散户减少）</td></tr>
+<tr><td>关联交易 / 回款</td><td>贝达药业 1.8 亿监管里程碑逾期近 2 年，2024 计提 1,800 万坏账，2025-12 收回 8,000 万，<b>剩余 1 亿未决</b></td><td><span class="tag t-r">治理风险实证</span>：License-out 模式下收入确认与现金到账脱节</td></tr>
+<tr><td>资本动作</td><td>2026-01 首次递表港股（已失效）→ 2026-08-21 <b>二次递表</b>（18A，中信证券独家保荐）；募资用于 D-2570 / D-0502 临床开发、临床前研发、<b>ADC 技术平台</b>开发及营运资金</td><td><span class="tag t-b">ADC 平台为新增方向</span>——与现有小分子能力不完全同源，需观察投入产出</td></tr>
+<tr><td>股价异动</td><td>2026-07-01~07-03 连续 3 日涨幅偏离累计超 30%（异常波动公告）；2026-09-22 最高 20.98 元；2026-10-16 收 15.44 元，较 9 月高点 <b>−26.4%</b></td><td>短期波动大，筹码平均成本约 20.3 元（<span class="tag t-y">媒体口径</span>），多数近期买入者浮亏</td></tr>
+</table>
+<div class="ok"><b>2026-08-10 默沙东合作</b>：默沙东研发（中国）与益方签署合作协议，共同推进<b>肿瘤领域小分子药物</b>的临床开发，依托默沙东中国创新合作中心（MCICC）。<span class="tag t-y">未披露具体候选药物、交易金额与权益划分</span>——本报告<b>未将其计入 Base 估值</b>，仅在 Bull 的平台期权中体现。这是"平台价值被 MNC 认可"的正面信号，但在金额披露前不构成可量化价值。</div>
+</div>
+
+<h2>六、模型漏洞、数据局限与自审结果</h2>
+<div class="section">
+<h3>6.1 数字自洽审计（四关，v4.5）</h3>
+<table>
+<tr><th>关卡</th><th>检查内容</th><th>结果</th></tr>
+<tr><td>① 逐表加总复核</td><td>Part B 11 个节点 PV 加总 + 平台期权 4.00 = 48.18 亿；Part A 1.42 + 1.96 = 3.38 亿；EV = 3.38 + 48.18 + 13.27 = 64.84 亿</td><td class="t-g"><b>PASS</b>（脚本重算，非目测）</td></tr>
+<tr><td>② 增长率反算</td><td>营收 2026E 1.45 → 2030E 6.50，CAGR = (6.50/1.45)^(1/4) − 1 = <b>45.5%</b>；表格年数标注 2026→2030 共 4 个增长区间，与括号一致</td><td class="t-g"><b>PASS</b>（已反算并标注）</td></tr>
+<tr><td>③ 跨节交叉对账</td><td>§1.2 货币资金 11.74 亿 vs §4.2 类现金 13.27 亿 —— <b>口径不同</b>：后者含交易性金融资产；已在两处分别标注口径<br>§1.1 贝福替尼"未来可兑现 1.65–3.65 亿" vs §4.3 建模取 1.28 亿 + 待收 1 亿 —— 建模取协议上限区间的<b>中段偏保守</b>，已说明</td><td class="t-y"><b>PASS（口径差异已写明成因与以谁为准）</b></td></tr>
+<tr><td>④ 区间端点语义</td><td>Bear/Base/Bull 的"峰值销售"均为<b>该资产单年销售峰值</b>，<b>不等于</b>公司年度收入合计；三情景 EV 为公司层面股权价值，可直接与市值比较</td><td class="t-g"><b>PASS</b>（已标注，防"峰值加总＝年度合计"误读）</td></tr>
+</table>
+
+<h3>6.2 模型漏洞（诚实列出）</h3>
+<ul>
+<li><b>Part B 单一资产集中度过高</b>：D-2570 相关三个节点合计 PV <b>31.58 亿</b>，占 Part B 的 <b>65.5%</b>、占 EV 的 <b>48.7%</b>。这不是一个分散化管线，而是<b>"D-2570 一只资产的期权"</b>。D-2570 的任何一个 III 期失败，Bear 情景即被触发。</li>
+<li><b>海外 BD 期权是"拍"出来的</b>：未折现基数 25 亿元（首付+里程碑+royalty 期权）没有可锚定的公开可比交易（益方未披露过任何海外交易）。TYK2 领域确有武田 zasocitinib 等大额交易，但标的阶段、权益范围均不同。<b>置信度 🟡。</b></li>
+<li><b>峰值销售均为自建假设</b>：中国银屑病药物市场、HR+ 乳腺癌内分泌治疗市场、痛风用药市场的规模与 D-2570/D-0502/D-0120 的份额，<b>全部为分析师估算，无公司指引</b>。公司从未给出峰值销售指引。<b>置信度 🟡。</b></li>
+<li><b>净捕获率 45% 缺乏公司口径支撑</b>：公司仅表述"计划择机在中国境内筹建自主销售团队"，未给出商业化模式（自建 vs 合作）的最终决策。若最终仍走授权路线，捕获率应降至 20–25%，Part B 将缩水约 <b>40%</b>。<b>这是本模型最大的单点敏感性。</b></li>
+<li><b>H 股发行的稀释未建模</b>：二次递表若成功，将新增 H 股。<b>本报告按现有 5.796 亿股计算每股价值，未考虑稀释</b>——实际隐含股价应更低。</li>
+<li><b>未纳入 D-0120 的 III 期启动风险</b>：中美两个 II 期均已完成超过 12 个月而未见 III 期登记，这是<b>推进迟滞信号</b>。我已下调 PoS 至 25%，但若公司已实质搁置该资产，其价值应为 0。</li>
+<li><b>协议封顶的解读存在不确定性</b>：媒体转述的"贝福替尼协议总额上限 4–6 亿（含销售里程碑+特许权使用费）"来自贝达药业招股书表述，<b>与"另享 10%–15% 销售提成"的表述存在张力</b>（提成是否计入上限未明确）。若提成不计入上限，Part A 贝福替尼可上调约 1–2 亿元。</li>
+</ul>
+
+<h3>6.3 待核实清单（🔴 无法确认，需后续追踪）</h3>
+<table>
+<tr><th>事项</th><th>为何重要</th><th>验证路径</th></tr>
+<tr><td>2026H1"客户 B"1,660 万元收入的性质</td><td>招股书表述为"向客户 B 授出一款商业化产品的许可"——若为新的授权交易，可能意味着<b>新的 BD 落地</b>（重大正面）；若为贝达的里程碑尾款，则无新增信息</td><td>查阅 H 股招股书"收入"附注 / 半年报分客户披露</td></tr>
+<tr><td>默沙东合作的标的药物、金额与权益划分</td><td>若为实质性授权交易，应立即计入估值；若仅为临床协作（默沙东提供资源），价值有限</td><td>公司公告 / H 股招股书"重大合同"章节</td></tr>
+<tr><td>D-2570 中国商业化的最终模式（自建 vs 授权）</td><td>直接决定净捕获率 45% 还是 20%，影响 Part B 约 ±40%</td><td>业绩说明会问答 / H 股招股书"商业化策略"章节</td></tr>
+<tr><td>贝达药业剩余 1 亿元里程碑的最终回收结果</td><td>影响 Part A 约 0.8–1.0 亿元，且是合作关系的风向标</td><td>后续季报应收账款与坏账计提</td></tr>
+<tr><td>格索雷塞 2026 全年销售额</td><td>验证我对 Part A 提成流（royalty 8%）的假设是否合理</td><td>正大天晴（中国生物制药 1177.HK）年报 / 2026 年报</td></tr>
+<tr><td>D-0502 III 期的具体终点设计与统计假设</td><td>本报告门槛为定性框架；官方终点（PFS vs OS、α 分配、事件数）公布后可校准</td><td>CDE 登记公示 / Topline 公告</td></tr>
+<tr><td>ChiCTR / CDE 登记的国内试验</td><td><b>本报告仅覆盖 CT.gov 的 46 项</b>，纯国内登记的试验（如部分 IIT、D-0502 联合用药）可能未纳入</td><td>ChiCTR、CDE 药物临床试验登记与信息公示平台</td></tr>
+</table>
+</div>
+
+<h2>七、一句话总结</h2>
+<div class="exec">
+<p>益方生物是一家<b>"卖了早期、留了后期"</b>的小分子创新药企：两款已上市产品的经济权益被授权协议封顶在约 4–5 亿元，已不构成估值主体；全部价值押在自持全球的 <b>D-2570（TYK2）</b>与 <b>D-0502（口服 SERD）</b>上，二者注册 III 期的读出窗口就在未来 3–9 个月。中性 EV 64.8 亿元 vs 市值 89.5 亿元（EV/市值 0.72），市场已提前支付"头对头优效 + 海外 BD 落地"的预期；Bear −71% / Bull +92% 的极端离散度说明这本质上是一个<b>二元事件驱动的期权，而非可线性外推的成长股</b>。最硬的约束是现金跑道仅约 3.5 年，港股 18A 上市是刚需而非选项。<b>跟踪优先级：2026-11-30 D-0502 III 期 PCD → 2026H2/2027 D-2570 UC II 期数据 → 2027-07 D-2570 双 III 期 PCD。</b></p>
+</div>
+
+<footer>
+数据来源与分级：🟢 一级（官方）—— 上交所公告与公司定期报告、港交所招股书、ClinicalTrials.gov API v2（2026-10-18 拉取）、公司官网 inventisbio.com、默沙东中国官网；🟡 二级（权威）—— iFinD、东方财富妙想、券商研报（东北证券 2026-10-14 等）、新浪财经/证券时报/界面新闻等主流财经媒体；🔴 三级 —— 自媒体转述的协议条款与价格信息（已尽量用招股书/公告交叉验证，未能验证者已列入待核实清单）。<br>
+本报告为研究型输出，非投资建议。所有峰值销售、PoS、净捕获率均为分析师假设，未经公司确认。生成时间 2026-10-18。
+</footer>
+</div>
+
+<script>
+const NODES = [{"n": "D-2570 银屑病 注册 III 期（中国）", "p": 0.68, "pk": 18, "l": 2028, "py": 2034, "dc": 8, "cp": 0.45, "note": "NCT07130604 · 390 例 · 安慰剂对照 · 2026-03 完成入组 · PCD 2027-07-28"}, {"n": "D-2570 头对头 III 期 vs 氘可来昔替尼（份额增量）", "p": 0.55, "pk": 10, "l": 2029, "py": 2035, "dc": 7, "cp": 0.45, "note": "NCT07326813 · 477 例 · PCD 2027-07-12"}, {"n": "D-2570 海外权益（BD 期权）", "p": 0.4, "pk": null, "l": 2029, "py": null, "dc": null, "cp": null, "note": "自持全球；美国 II 期已获 FDA 批准；未折现基数 25 亿元"}, {"n": "D-2570 溃疡性结肠炎 II 期", "p": 0.22, "pk": 6, "l": 2030, "py": 2036, "dc": 7, "cp": 0.45, "note": "NCT07035041 · 120 例 · 2026-07 完成 · 2026H2/2027 读出"}, {"n": "D-2570 银屑病关节炎 II 期", "p": 0.18, "pk": 5, "l": 2030, "py": 2036, "dc": 7, "cp": 0.45, "note": "NCT07315061 · 222 例 · 2026-01 启动"}, {"n": "D-2570 系统性红斑狼疮 II 期", "p": 0.12, "pk": 6, "l": 2031, "py": 2037, "dc": 7, "cp": 0.45, "note": "NCT07311200 · 120 例 · 2026-02 启动"}, {"n": "D-2570 非节段型白癜风 II 期", "p": 0.15, "pk": 5, "l": 2031, "py": 2037, "dc": 7, "cp": 0.45, "note": "NCT07625891 · 160 例 · 剂量优化 + 安慰剂"}, {"n": "D-0502 乳腺癌 2L+ 注册 III 期（中国）", "p": 0.55, "pk": 8, "l": 2028, "py": 2034, "dc": 8, "cp": 0.45, "note": "NCT06954961 · 640 例 · 头对头氟维司群 · PCD 2026-11-30"}, {"n": "D-0502 + JSKN016（TROP2/HER3 ADC）联合", "p": 0.15, "pk": 5, "l": 2030, "py": 2036, "dc": 7, "cp": 0.45, "note": "NCT07336771 · Ph1/2 · 康宁杰瑞主导"}, {"n": "D-0120 URAT1 痛风（中国）", "p": 0.25, "pk": 8, "l": 2030, "py": 2036, "dc": 8, "cp": 0.15, "note": "IIb 完成但无 III 期登记"}, {"n": "D-1553 海外权益 + 适应症扩展", "p": 0.3, "pk": 6, "l": 2029, "py": 2035, "dc": 7, "cp": 0.15, "note": "一线 +IN10018 II 期 ORR 90.3%"}];
+const PART_A = 3.38, NET_CASH = 13.27, MKTCAP = 89.49, SHARES = 5.796, BASE_YEAR = 2026;
+const OPTION_NODE = 2; // D-2570 海外 BD 期权索引（不受捕获率影响）
+function ramp(peak, launch, peakyr, decay){
+  let cfs=[]; if(peakyr<=launch) peakyr=launch+1;
+  for(let y=launch;y<=peakyr;y++) cfs.push([y, peak*(y-launch+1)/(peakyr-launch+1)]);
+  for(let k=1;k<=decay;k++) cfs.push([peakyr+k, peak*(1-k/(decay+1))]);
+  return cfs;
+}
+function pv(cfs,r){ return cfs.reduce((s,[t,v])=>s+v/Math.pow(1+r,t-BASE_YEAR),0); }
+function compute(){
+  const r = parseFloat(document.getElementById('s1').value)/100;
+  const pm = parseFloat(document.getElementById('s2').value);
+  const cap = parseFloat(document.getElementById('s3').value)/100;
+  let B = 0;
+  NODES.forEach((n,i)=>{
+    const pos = Math.min(0.95, n.p*pm);
+    if(i===OPTION_NODE){ B += pos*25.0/Math.pow(1+r, 2029-BASE_YEAR); return; }
+    const c = (n.cp===0.15)? Math.max(0.08, cap*0.333) : cap;  // 对外授权类节点按比例联动
+    B += pos*pv(ramp(n.pk,n.l,n.py,n.dc).map(([t,v])=>[t,v*c]), r);
+  });
+  B += 4.0;
+  const EV = PART_A + B + NET_CASH;
+  document.getElementById('v1').textContent = (r*100).toFixed(1)+'%';
+  document.getElementById('v2').textContent = pm.toFixed(2)+'×';
+  document.getElementById('v3').textContent = (cap*100).toFixed(0)+'%';
+  document.getElementById('oB').textContent  = B.toFixed(2)+' 亿';
+  document.getElementById('oEV').textContent = EV.toFixed(2)+' 亿';
+  document.getElementById('oR').textContent  = (EV/MKTCAP).toFixed(2);
+  document.getElementById('oP').textContent  = (EV/SHARES).toFixed(2)+' 元';
+}
+['s1','s2','s3'].forEach(id=>document.getElementById(id).addEventListener('input',compute));
+compute();
+</script>
+</body></html>
