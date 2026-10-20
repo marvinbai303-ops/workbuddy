@@ -2105,6 +2105,45 @@
       "s4": 0.0,
       "stress": 84.6,
       "pcli": 63.03
+    },
+    {
+      "month": "2026-07",
+      "sow": 3720.7,
+      "yoy_sow": -7.95,
+      "yoy_slaughter_ttm": 3.01,
+      "yoy_eff": 11.9,
+      "s1": 97.7,
+      "s2": 70.05,
+      "s3": 25.94,
+      "s4": 0.0,
+      "stress": 70.9,
+      "pcli": 66.67
+    },
+    {
+      "month": "2026-08",
+      "sow": 3661.3,
+      "yoy_sow": -9.33,
+      "yoy_slaughter_ttm": 3.01,
+      "yoy_eff": 13.61,
+      "s1": 100.0,
+      "s2": 76.05,
+      "s3": 25.94,
+      "s4": 0.0,
+      "stress": 69.51,
+      "pcli": 69.2
+    },
+    {
+      "month": "2026-09",
+      "sow": 3602,
+      "yoy_sow": -10.73,
+      "yoy_slaughter_ttm": 2.11,
+      "yoy_eff": 14.38,
+      "s1": 100.0,
+      "s2": 82.76,
+      "s3": 33.13,
+      "s4": 0.0,
+      "stress": 69.85,
+      "pcli": 72.31
     }
   ],
   "backtest": [
@@ -3670,72 +3709,72 @@
     },
     {
       "month": "2026-07",
-      "pcli": null,
-      "status": null,
+      "pcli": 66.67,
+      "status": "WATCH",
       "n": 3,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-07",
-      "pcli": null,
-      "status": null,
+      "pcli": 66.67,
+      "status": "WATCH",
       "n": 6,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-07",
-      "pcli": null,
-      "status": null,
+      "pcli": 66.67,
+      "status": "WATCH",
       "n": 12,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-08",
-      "pcli": null,
-      "status": null,
+      "pcli": 69.2,
+      "status": "WATCH",
       "n": 3,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-08",
-      "pcli": null,
-      "status": null,
+      "pcli": 69.2,
+      "status": "WATCH",
       "n": 6,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-08",
-      "pcli": null,
-      "status": null,
+      "pcli": 69.2,
+      "status": "WATCH",
       "n": 12,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-09",
-      "pcli": null,
-      "status": null,
+      "pcli": 72.31,
+      "status": "ON",
       "n": 3,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-09",
-      "pcli": null,
-      "status": null,
+      "pcli": 72.31,
+      "status": "ON",
       "n": 6,
       "fwd_abs": null,
       "fwd_rel": null
     },
     {
       "month": "2026-09",
-      "pcli": null,
-      "status": null,
+      "pcli": 72.31,
+      "status": "ON",
       "n": 12,
       "fwd_abs": null,
       "fwd_rel": null
