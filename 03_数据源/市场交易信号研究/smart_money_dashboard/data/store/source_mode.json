@@ -1,5 +1,8 @@
 {
- "breadth": "wind",
- "since": null,
- "note": "待 2026-11-19 收盘全量校验；PASS 后由对照任务改为 hithink"
+ "breadth": "hithink",
+ "since": "2026-11-19",
+ "verdict": "PASS",
+ "delta_p": -0.002387,
+ "delta_q": -0.00322,
+ "agree_crit": 99.9782
 }

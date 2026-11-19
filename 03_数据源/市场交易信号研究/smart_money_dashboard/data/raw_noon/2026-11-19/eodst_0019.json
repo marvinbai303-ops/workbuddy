@@ -1,0 +1,1 @@
+{"retrieved_at": "2026-11-19T17:24:25", "symbols": ["688270.SH", "688496.SH", "688622.SH"], "data": {"tables": [["证券代码", "证券简称", "time", "收盘价", "成交量", "成交额", "涨跌", "换手率"]], "symbolMap": {"688270.SH": "ST臻镭", "688622.SH": "*ST禾信", "688496.SH": "*ST清越"}, "indicatorMap": {"成交量": "volume", "成交额": "amount", "涨跌": "change", "收盘价": "close", "换手率": "turnoverRatio"}, "dataVol": "0"}}
