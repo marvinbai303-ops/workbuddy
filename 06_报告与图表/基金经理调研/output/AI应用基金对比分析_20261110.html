@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四类AI应用方向基金对比分析</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --up:#d03030; --down:#1a9850; --ink:#1a1a1a; --sub:#5c6670;
+    --line:#e6e8eb; --bg:#ffffff; --card:#fafbfc; --accent:#2c6fdb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 24px 80px;}
+  header{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:24px;}
+  h1{font-size:26px;font-weight:700;letter-spacing:.5px;}
+  .meta{color:var(--sub);font-size:13px;margin-top:8px;}
+  h2{font-size:19px;font-weight:700;margin:38px 0 14px;padding-left:10px;border-left:4px solid var(--accent);}
+  h3{font-size:16px;font-weight:700;margin:22px 0 10px;}
+  p{margin:8px 0;color:#333;}
+  .tldr{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin-bottom:8px;}
+  .tldr h3{margin-top:0;}
+  .tldr li{margin:7px 0 7px 20px;}
+  .up{color:var(--up);font-weight:600;}
+  .down{color:var(--down);font-weight:600;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top;}
+  th{background:#f2f4f7;font-weight:600;white-space:nowrap;}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr.hl{background:#fff7e6;}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:9px;margin-left:6px;vertical-align:1px;}
+  .tag.warn{background:#fdeaea;color:#b02a2a;border:1px solid #f0c4c4;}
+  .tag.info{background:#eaf1fd;color:#2456a6;border:1px solid #c8d9f5;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0;}
+  .chart{width:100%;height:420px;margin:10px 0;}
+  .note{font-size:12px;color:var(--sub);background:#f7f8fa;border-left:3px solid #c9ced6;padding:8px 12px;margin:12px 0;border-radius:0 6px 6px 0;}
+  .disc{font-size:12px;color:var(--sub);border-top:1px solid var(--line);margin-top:40px;padding-top:14px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  .kpi{display:flex;gap:20px;flex-wrap:wrap;margin:12px 0;}
+  .kpi .box{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;}
+  .kpi .v{font-size:22px;font-weight:700;}
+  .kpi .l{font-size:12px;color:var(--sub);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>四类 AI 应用方向基金对比分析</h1>
+  <div class="meta">数据截至 2026-11-09（净值）· 底层行情/资讯截至 2026-11-10 盘中 · 现任基金经理任职口径 · 数据源：NeoData、Wind、进门投研、域检索</div>
+</header>
+
+<section class="tldr">
+  <h3>结论先行</h3>
+  <ol>
+    <li><strong>九只基金无一能直接用合同基准衡量。</strong>合同基准普遍是宽基（中证800、沪深300、科创综合）或大行业指数（中证医药卫生、中证TMT），与实际持仓方向严重错配。真正决定收益的"贝塔"应按<strong>实际持仓行业</strong>拆分后单独选择。</li>
+    <li><strong>近三个月（2026-08-10 ~ 11-09）四类方向表现剧烈分化：</strong>内容/营销（传媒）独红，端侧次之，企业AI与AIDD深度回撤。招商体育（文仲阳）<span class="up">+6.65%</span>领跑，泰康医疗健康（傅洪哲）<span class="down">-16.68%</span>垫底。</li>
+    <li><strong>11 月初是一轮"端侧AI + 传媒"的结构性催化：</strong>苹果国行 Apple Intelligence 接入通义千问（10/31官宣、11/4推送）+ 北京智能眼镜 15% 国补 + 三星×谷歌眼镜定档。弹性最大的是端侧芯片纯标的（王森·中航远见领航，近一周 <span class="up">+10.78%</span>），其次传媒（胡宜斌 <span class="up">+8.16%</span>、文仲阳 <span class="up">+6.59%</span>）。</li>
+    <li><strong>AIDD 方向同期遭遇的是"负向催化"：</strong>11/3、11/6 创新药/AIDD 标签股被集中杀估值（近岸蛋白"AI业务营收占比不足2%"公告是导火索），傅洪哲、龙宇飞产品单日分别 <span class="down">-5.34%</span>、<span class="down">-5.51%</span>——弹性为负，方向与端侧/传媒完全相反。</li>
+    <li><strong>两点数据提示：</strong>① 龙宇飞的长城医疗先锋（028742）2026-09-15 才成立，无近3月完整区间，业绩参考价值有限；② 张鹏（融通明锐）2025-02-21 才接手，任期约1.5年，历史业绩含前任贡献，需按其任职口径单独看。</li>
+  </ol>
+</section>
+
+<h2>一、四类方向 · 基金画像与贝塔适配</h2>
+<p>以下"建议贝塔"基于 2026Q3 前十大重仓的行业分布推导，<strong>非基金合同基准</strong>。按您的规则，行业型/指数型/指数增强型之外的主动权益基金，合同基准仅作参考，实际配置方向与贝塔选择需与您最终确认。</p>
+
+<table>
+  <tr>
+    <th>方向</th><th>基金 / 经理（代码）</th><th>任职日期</th><th>2026Q3 前十大重仓行业结构</th><th>合同基准</th><th>建议贝塔（实际）</th>
+  </tr>
+  <tr>
+    <td rowspan="3"><strong>企业AI<br>/工业AI</strong></td>
+    <td>申万菱信数字产业<br>梁国柱（018048）</td><td class="num">2023-05-04</td>
+    <td>计算机软件 9/10（鼎捷、万兴、福昕、卓易、深信服、致远、汉得、泛微、税友）+ 半导体1（长鑫）</td>
+    <td>中证TMT产业主题</td>
+    <td><strong>申万计算机（801750）</strong>为主贝塔；中证TMT仅作考核口径<span class="tag info">已核：纪要确认软件70%+</span></td>
+  </tr>
+  <tr>
+    <td>融通明锐<br>张鹏（017735）</td><td class="num">2025-02-21</td>
+    <td>计算机软件 7/10（汉得、鼎捷、税友、卓易、深信服、国能日新、星环）+ 中控技术（工业自动化）+ 传媒2</td>
+    <td>中证800</td>
+    <td><strong>申万计算机 + 工业软件/自动化</strong>混合；中证800明显错配<span class="tag warn">任职仅1.5年</span></td>
+  </tr>
+  <tr>
+    <td>国新国证新锐<br>张洪磊（001068）</td><td class="num">2021-09-07</td>
+    <td>计算机软件 9/10（金山办公、福昕、亚信、三未信安、中望、优刻得、索辰、虹软、青云）+ 传媒1</td>
+    <td>上证科创板综合</td>
+    <td><strong>申万计算机 / 信创+云计算</strong>；科创综合为宽基错配</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><strong>内容创造<br>/营销</strong></td>
+    <td>招商体育文化休闲<br>文仲阳（001628）</td><td class="num">2020-12-02</td>
+    <td>传媒 10/10（上海电影、中文在线、值得买、蓝色光标、捷成、芒果、易点天下、荣信文化、昆仑万维、掌阅）</td>
+    <td>中证申万传媒行业投资</td>
+    <td><strong>中证传媒 / 申万传媒</strong>，合同基准基本贴切</td>
+  </tr>
+  <tr>
+    <td>华安媒体互联网<br>胡宜斌（001071）</td><td class="num">2015-11-26</td>
+    <td>传媒 8/10（芒果、上海电影、昆仑、奥飞、掌阅、易点天下、儒意、中文在线）+ 半导体设备2（拓荆、北方华创）</td>
+    <td>中证互联网60%+中证传媒25%</td>
+    <td><strong>中证传媒 + 半导体设备</strong>；电子暴露高于合同口径</td>
+  </tr>
+  <tr>
+    <td rowspan="2"><strong>AIDD<br>（AI+医药）</strong></td>
+    <td>泰康医疗健康<br>傅洪哲（015139）</td><td class="num">2022-03-08</td>
+    <td>AIDD港股（英矽智能、剂泰科技、晶泰控股、金斯瑞、百奥赛图）+ CXO（药明康德、康龙化成）+ 试剂（百普赛斯、义翘神州、药康）</td>
+    <td>中证医药卫生</td>
+    <td><strong>创新药/AIDD 主题</strong>（如中证创新药），比中证医药卫生更纯</td>
+  </tr>
+  <tr>
+    <td>长城医疗先锋<br>龙宇飞（028742）</td><td class="num">2026-09-15</td>
+    <td>AIDD港股（剂泰科技、英矽智能、金斯瑞、百奥赛图）+ 医药科研上游（百普赛斯、义翘、阿拉丁、奥浦迈、药康）</td>
+    <td>中证医药卫生</td>
+    <td><strong>AIDD + 医药科研上游</strong>；<span class="tag warn">成立仅2月，数据不足</span></td>
+  </tr>
+  <tr>
+    <td rowspan="2"><strong>AI端侧<br>/智能穿戴</strong></td>
+    <td>中航远见领航<br>王森（021491）</td><td class="num">2024-08-30</td>
+    <td>端侧SoC 7/10（晶晨、乐鑫、瑞芯微、星宸、恒玄、全志、富瀚微）+ 通信模组3（移远、广和通、美格智能）</td>
+    <td>沪深300</td>
+    <td><strong>端侧AI/消费电子芯片主题</strong>；沪深300严重错配<span class="tag info">纯端侧，弹性最大</span></td>
+  </tr>
+  <tr>
+    <td>诺安积极回报<br>刘慧影（001706）</td><td class="num">2023-09-29</td>
+    <td>分散：比亚迪（汽车）、金山办公/达梦/海天瑞声/深信服（计算机）、传音/安克（消费电子）、石头（家电）、中文在线（传媒）</td>
+    <td>中证800</td>
+    <td><strong>宽基 + AI应用/消费电子</strong>混合，风格不纯</td>
+  </tr>
+</table>
+
+<div class="note">
+  <strong>关于 ima 知识库调研纪要：</strong>① 梁国柱已有 2026-10-28 的调研纪要（三年内），其"软件单赛道 + 基准错配"的定性判断已直接采信并体现在上表；② 龙宇飞知识库内纪要为 2022-11-23（超三年），且针对的是「长城消费增值」医药+消费大盘判断，与其当前「长城医疗先锋」的 AIDD 定位<strong>产品与方向均已漂移</strong>，仅作历史风格参照、不作当前依据；③ 其余七位经理（张鹏、张洪磊、文仲阳、胡宜斌、傅洪哲、王森、刘慧影）ima 知识库内暂无三年内对应纪要。
+</div>
+
+<h2>二、近三个月表现对比</h2>
+<div class="kpi">
+  <div class="box"><div class="v up">+6.65%</div><div class="l">近3月最优 · 招商体育（文仲阳）</div></div>
+  <div class="box"><div class="v down">-16.68%</div><div class="l">近3月最差 · 泰康医疗健康（傅洪哲）</div></div>
+  <div class="box"><div class="v up">+10.78%</div><div class="l">近1周弹性最大 · 中航远见（王森）</div></div>
+  <div class="box"><div class="v">9 只</div><div class="l">龙宇飞(028742)成立不足3月无区间</div></div>
+</div>
+
+<div id="chart1" class="chart"></div>
+
+<table>
+  <tr><th>基金 / 经理（代码）</th><th class="num">近1周</th><th class="num">近1月</th><th class="num">近3月</th><th class="num">今年以来</th><th class="num">任职以来</th></tr>
+  <tr><td>申万菱信数字产业 · 梁国柱（018048）</td><td class="num up">+1.10%</td><td class="num down">-0.11%</td><td class="num down">-11.54%</td><td class="num down">-12.48%</td><td class="num up">+5.67%</td></tr>
+  <tr><td>融通明锐 · 张鹏（017735）</td><td class="num up">+2.39%</td><td class="num down">-2.95%</td><td class="num down">-13.55%</td><td class="num down">-10.49%</td><td class="num up">+24.04%<span class="tag warn">含前任</span></td></tr>
+  <tr><td>国新国证新锐 · 张洪磊（001068）</td><td class="num up">+3.55%</td><td class="num down">-0.88%</td><td class="num down">-8.59%</td><td class="num down">-10.72%</td><td class="num up">+45.80%</td></tr>
+  <tr class="hl"><td>招商体育文化休闲 · 文仲阳（001628）</td><td class="num up">+6.59%</td><td class="num up">+9.88%</td><td class="num up">+6.65%</td><td class="num down">-5.28%</td><td class="num up">+81.20%</td></tr>
+  <tr><td>华安媒体互联网 · 胡宜斌（001071）</td><td class="num up">+8.16%</td><td class="num up">+4.96%</td><td class="num down">-2.81%</td><td class="num down">-0.55%</td><td class="num up">+297.50%</td></tr>
+  <tr><td>泰康医疗健康 · 傅洪哲（015139）</td><td class="num down">-0.54%</td><td class="num down">-15.48%</td><td class="num down">-16.68%</td><td class="num down">-16.64%</td><td class="num down">-24.23%</td></tr>
+  <tr><td>长城医疗先锋 · 龙宇飞（028742）</td><td class="num down">-1.02%</td><td class="num down">-18.20%</td><td class="num">—</td><td class="num">—</td><td class="num down">-19.63%</td></tr>
+  <tr><td>中航远见领航 · 王森（021491）</td><td class="num up">+10.78%</td><td class="num up">+6.44%</td><td class="num up">+0.90%</td><td class="num up">+9.32%</td><td class="num up">+50.41%</td></tr>
+  <tr><td>诺安积极回报 · 刘慧影（001706）</td><td class="num up">+2.76%</td><td class="num up">+2.46%</td><td class="num down">-8.61%</td><td class="num down">-12.36%</td><td class="num up">+75.20%</td></tr>
+</table>
+<div class="note">收益率均为复权净值口径，截至 2026-11-09（NeoData）。"任职以来"= 现任经理任职起始日至 2026-11-09；张鹏任职 2025-02-21 起，其"任职以来 +24.04%"为基金成立以来口径（含前任张增），需注意区分——基金成立 2023-04-18。</div>
+
+<h2>三、热点催化时的基金弹性（近三个月窗口内）</h2>
+<p>近三个月窗口内最具代表性的板块催化有两组，方向相反，正好构成一次"贝塔纯度"的检验：</p>
+
+<div class="card">
+  <h3 style="margin-top:0">催化 A（正向）· 端侧AI 爆发：11/4 – 11/10</h3>
+  <p><strong>触发链：</strong>苹果国行 Apple Intelligence 接入通义千问（10/31 官宣 → 11/4 随 iOS 27.3 开发者预览版开放）→ 北京智能眼镜 15% 国补（每件最高500元）→ 三星×谷歌 AI 眼镜定档 12/12 → 商务部数据"前三季度智能眼镜销售额同比 +1.1倍"（11/10）。</p>
+  <p><strong>弹性排序（近1周复权收益）：</strong></p>
+  <table>
+    <tr><th>基金</th><th class="num">近1周</th><th>贝塔归属</th></tr>
+    <tr><td>王森 · 中航远见领航（021491）</td><td class="num up">+10.78%</td><td>端侧SoC 纯标的，弹性第一</td></tr>
+    <tr><td>胡宜斌 · 华安媒体互联网（001071）</td><td class="num up">+8.16%</td><td>传媒+半导体设备，双重受益</td></tr>
+    <tr><td>文仲阳 · 招商体育文化休闲（001628）</td><td class="num up">+6.59%</td><td>传媒，内容/营销方向</td></tr>
+    <tr><td>张洪磊 · 国新国证新锐（001068）</td><td class="num up">+3.55%</td><td>计算机软件，间接受益</td></tr>
+    <tr><td>刘慧影 · 诺安积极回报（001706）</td><td class="num up">+2.76%</td><td>含传音/安克等消费电子，弹性有限</td></tr>
+    <tr><td>张鹏 · 融通明锐（017735）</td><td class="num up">+2.39%</td><td>软件+工业自动化，弱相关</td></tr>
+    <tr><td>梁国柱 · 申万菱信数字产业（018048）</td><td class="num up">+1.10%</td><td>软件，弱相关（本人亦自述"锐度不足"）</td></tr>
+  </table>
+  <div class="note">关键日：王森产品 11/5 单日 <span class="up">+5.41%</span>（端侧催化当日）、11/6 <span class="down">-3.33%</span>（高位回吐）——单日波动即反映其端侧贝塔的高弹性。梁国柱产品同区间仅 +1.10%，验证其"软件在端侧/传媒行情中弹性垫底"的判断。</div>
+</div>
+
+<div class="card">
+  <h3 style="margin-top:0">催化 B（负向）· AIDD 杀估值：11/3、11/6</h3>
+  <p><strong>触发链：</strong>前期涨幅过大（7月低点以来 CXO 最大涨约 57%）+ 机构三季报后兑现 + 11/6 近岸蛋白公告"AI 相关业务营收占比不足 2%"证伪式泼冷水 + 美债收益率升至近三年高位（长久期资产杀贴现率）。</p>
+  <table>
+    <tr><th>基金</th><th class="num">11/6 单日</th><th class="num">近1月</th><th>贝塔归属</th></tr>
+    <tr><td>龙宇飞 · 长城医疗先锋（028742）</td><td class="num down">-5.51%</td><td class="num down">-18.20%</td><td>AIDD+科研上游，跌幅最重</td></tr>
+    <tr><td>傅洪哲 · 泰康医疗健康（015139）</td><td class="num down">-5.34%</td><td class="num down">-15.48%</td><td>AIDD+创新药CXO，跌幅第二</td></tr>
+  </table>
+  <div class="note">两只 AIDD 产品对"AI 制药证伪"类消息的敏感度显著高于宽医药：持仓中的英矽智能、剂泰科技、晶泰控股、百普赛斯、义翘神州、药康生物正是 11/3、11/6 被杀估值最狠的标的（百普赛斯 11/3 -19.70%、11/6 -11.03%）。这提示：<strong>AIDD 贝塔的弹性是双向的，正催化（临床/BD兑现）与负催化（叙事证伪）都放大。</strong></div>
+</div>
+
+<div id="chart2" class="chart"></div>
+
+<h2>四、综合评估与使用建议</h2>
+<table>
+  <tr><th>方向</th><th>基金</th><th>贝塔纯度</th><th>近3月</th><th>弹性特征</th><th>适配场景</th></tr>
+  <tr><td rowspan="3">企业AI/工业AI</td>
+    <td>梁国柱·数字产业</td><td>高（软件单赛道）</td><td class="num down">-11.54%</td><td>软件贝塔，端侧/传媒行情中弹性垫底</td><td>看好"软件估值重估"周期，接受高回撤</td></tr>
+  <tr><td>张鹏·融通明锐</td><td>中（软件+工业自动化）</td><td class="num down">-13.55%</td><td>工业软件标签，弹性居中</td><td>企业AI落地+工业软件国产化</td></tr>
+  <tr><td>张洪磊·国新新锐</td><td>中高（软件+信创）</td><td class="num down">-8.59%</td><td>信创/云计算，抗跌性略好</td><td>信创+AI应用，回撤相对可控</td></tr>
+  <tr><td rowspan="2">内容/营销</td>
+    <td>文仲阳·招商体育</td><td>高（纯传媒）</td><td class="num up">+6.65%</td><td>传媒贝塔，本季唯一正收益</td><td>内容/营销/游戏行情的主力工具</td></tr>
+  <tr><td>胡宜斌·华安媒体互联网</td><td>中（传媒+半导体）</td><td class="num down">-2.81%</td><td>传媒+设备双弹性，回撤更小</td><td>传媒行情中兼顾成长与防御</td></tr>
+  <tr><td rowspan="2">AIDD</td>
+    <td>傅洪哲·泰康医疗健康</td><td>高（AIDD+CXO）</td><td class="num down">-16.68%</td><td>双向高弹性，杀估值时跌最重</td><td>深度看多AI制药，能承受剧烈波动</td></tr>
+  <tr><td>龙宇飞·长城医疗先锋</td><td>高（AIDD+上游）</td><td class="num">—</td><td>成立2月，样本不足</td><td>观望，待积累6个月以上业绩</td></tr>
+  <tr><td rowspan="2">AI端侧/穿戴</td>
+    <td>王森·中航远见领航</td><td>最高（纯端侧SoC）</td><td class="num up">+0.90%</td><td>端侧催化弹性第一，双向波动大</td><td>端侧AI/智能眼镜行情的首选工具</td></tr>
+  <tr><td>刘慧影·诺安积极回报</td><td>低（分散）</td><td class="num down">-8.61%</td><td>风格不纯，弹性钝化</td><td>作为AI应用均衡配置，不作纯端侧用</td></tr>
+</table>
+
+<div class="note"><strong>关键提示：</strong>若目标是"在端侧/智能穿戴热点催化时博弹性"，王森（021491）是当前窗口内贝塔最纯、弹性最大的标的；若目标是"传媒/内容催化"，文仲阳（001628）与胡宜斌（001071）更贴切。刘慧影（001706）虽被归入端侧组，但其前十大重仓横跨汽车/计算机/消费电子/家电/传媒，并非端侧纯贝塔，需注意分组与实际敞口的落差。</div>
+
+<div class="disc">
+  <strong>免责声明</strong>：以上内容基于公开数据和量化分析，仅供参考，不构成投资建议。市场有风险，投资需谨慎。任何投资决策应结合个人风险承受能力、资金状况和投资目标独立判断，必要时咨询持牌专业机构。过往表现不预示未来收益。
+  <br><br>
+  <strong>数据口径与来源</strong>：基金净值/阶段收益/重仓股来自腾讯金融科技 NeoData（净值截至 2026-11-09，持仓报告期 2026-09-30）；基金经理任职日期与合同基准来自 Wind；行情与催化事件来自域检索公开财经报道（网易、腾讯新闻、东方财富、新浪、财联社、华盛通等，2026-11-03 ~ 11-10）及 NeoData 行情/资金流向。所有关键数字均已标注来源与时点；个股市盈率、涨跌幅为盘中或收盘口径，以原文为准。
+</div>
+
+</div>
+
+<script>
+var funds = ['梁国柱·数字产业','张鹏·融通明锐','张洪磊·国新新锐','文仲阳·招商体育','胡宜斌·华安媒体','傅洪哲·泰康医疗','龙宇飞·长城医疗','王森·中航远见','刘慧影·诺安积极'];
+var r3m = [-11.54,-13.55,-8.59,6.65,-2.81,-16.68,null,0.90,-8.61];
+var r1m = [-0.11,-2.95,-0.88,9.88,4.96,-15.48,-18.20,6.44,2.46];
+var r1w = [1.10,2.39,3.55,6.59,8.16,-0.54,-1.02,10.78,2.76];
+
+function color(v){ return v==null ? '#c9ced6' : (v>=0 ? '#d03030' : '#1a9850'); }
+
+echarts.init(document.getElementById('chart1')).setOption({
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' },
+    formatter: function(ps){ var s = ps[0].name + '<br>'; ps.forEach(function(p){ s += p.marker + p.seriesName + ': ' + (p.value==null?'—':(p.value>=0?'+':'')+p.value+'%') + '<br>'; }); return s; } },
+  legend: { data: ['近3月','近1月','近1周'], top: 0 },
+  grid: { left: 10, right: 40, top: 40, bottom: 60, containLabel: true },
+  xAxis: { type: 'category', data: funds, axisLabel: { rotate: 30, fontSize: 11 } },
+  yAxis: { type: 'value', name: '%', axisLabel: { formatter: '{value}%' } },
+  series: [
+    { name: '近3月', type: 'bar', data: r3m.map(function(v){ return { value: v, itemStyle: { color: color(v) } }; }), barGap: '10%' },
+    { name: '近1月', type: 'bar', data: r1m.map(function(v){ return { value: v, itemStyle: { color: color(v) } }; }) },
+    { name: '近1周', type: 'bar', data: r1w.map(function(v){ return { value: v, itemStyle: { color: color(v) } }; }) }
+  ]
+});
+
+echarts.init(document.getElementById('chart2')).setOption({
+  tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' },
+    formatter: function(ps){ var s = ps[0].name + '<br>'; ps.forEach(function(p){ s += p.marker + p.seriesName + ': ' + (p.value==null?'—':(p.value>=0?'+':'')+p.value+'%') + '<br>'; }); return s; } },
+  legend: { data: ['11/6单日','近1周'], top: 0 },
+  grid: { left: 10, right: 40, top: 40, bottom: 60, containLabel: true },
+  xAxis: { type: 'category', data: ['傅洪哲·泰康医疗','龙宇飞·长城医疗','王森·中航远见','文仲阳·招商体育','胡宜斌·华安媒体'], axisLabel: { rotate: 20, fontSize: 11 } },
+  yAxis: { type: 'value', name: '%', axisLabel: { formatter: '{value}%' } },
+  series: [
+    { name: '11/6单日', type: 'bar', data: [-5.34,-5.51,-3.33,-1.20,-0.85].map(function(v){ return { value: v, itemStyle: { color: color(v) } }; }) },
+    { name: '近1周', type: 'bar', data: [-0.54,-1.02,10.78,6.59,8.16].map(function(v){ return { value: v, itemStyle: { color: color(v) } }; }) }
+  ]
+});
+</script>
+
+</body>
+</html>

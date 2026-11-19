@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI应用细分方向分析&匹配基金</title>
+<style>
+  :root{
+    --up:#d03030; --down:#1a9850; --ink:#1a1a1a; --sub:#5c6670;
+    --line:#e6e8eb; --bg:#ffffff; --card:#fafbfc; --accent:#2c6fdb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;}
+  .wrap{max-width:1160px;margin:0 auto;padding:32px 24px 80px;}
+  header{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:24px;}
+  h1{font-size:25px;font-weight:700;letter-spacing:.5px;}
+  .subtitle{color:var(--sub);font-size:14px;margin-top:6px;}
+  .meta{color:var(--sub);font-size:12.5px;margin-top:10px;}
+  h2{font-size:19px;font-weight:700;margin:40px 0 14px;padding-left:10px;border-left:4px solid var(--accent);}
+  p{margin:8px 0;color:#333;}
+  .up{color:var(--up);font-weight:600;}
+  .down{color:var(--down);font-weight:600;}
+  table{width:100%;border-collapse:collapse;font-size:12.8px;margin:14px 0;}
+  th,td{border:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:middle;}
+  th{background:#f2f4f7;font-weight:600;white-space:nowrap;}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  tr.group td{background:#eef2f7;font-weight:700;}
+  tr.bench td{background:#fafafa;color:#5c6670;}
+  tr.bench td.bn{font-style:italic;}
+  .tag{display:inline-block;font-size:10.5px;padding:0 6px;border-radius:8px;margin-left:5px;vertical-align:1px;white-space:nowrap;}
+  .tag.warn{background:#fdeaea;color:#b02a2a;border:1px solid #f0c4c4;}
+  .tag.info{background:#eaf1fd;color:#2456a6;border:1px solid #c8d9f5;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0;}
+  .note{font-size:12px;color:var(--sub);background:#f7f8fa;border-left:3px solid #c9ced6;padding:8px 12px;margin:12px 0;border-radius:0 6px 6px 0;}
+  .disc{font-size:12px;color:var(--sub);border-top:1px solid var(--line);margin-top:40px;padding-top:14px;}
+  .kpi{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+  .kpi .box{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;}
+  .kpi .v{font-size:24px;font-weight:700;}
+  .kpi .l{font-size:12.5px;color:var(--sub);margin-top:2px;}
+  .flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin:14px 0;}
+  .flow .step{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .flow .step .t{font-weight:700;font-size:14px;margin-bottom:6px;}
+  .flow .step p{font-size:13px;color:#333;margin:0;}
+  .flow .arrow{align-self:center;font-size:20px;color:#9aa2ac;}
+  .anchor-card{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0;}
+  .anchor-card .ac{border-radius:10px;padding:14px 16px;border:1px solid var(--line);background:var(--card);}
+  .anchor-card .ac .dir{font-weight:700;font-size:14px;margin-bottom:5px;}
+  .anchor-card .ac .row{font-size:12.8px;color:#333;margin:3px 0;}
+  .anchor-card .ac .row b{color:var(--ink);}
+  tr.group td.g-ent{background:#E6F1FB;color:#0C447C;border-left:4px solid #185FA5;}
+  tr.group td.g-con{background:#EEEDFE;color:#3C3489;border-left:4px solid #534AB7;}
+  tr.group td.g-aidd{background:#E1F5EE;color:#085041;border-left:4px solid #0F6E56;}
+  tr.group td.g-edge{background:#FAECE7;color:#712B13;border-left:4px solid #993C1D;}
+  td.cell-ent{background:#E6F1FB;color:#0C447C;font-weight:700;}
+  td.cell-con{background:#EEEDFE;color:#3C3489;font-weight:700;}
+  td.cell-aidd{background:#E1F5EE;color:#085041;font-weight:700;}
+  td.cell-edge{background:#FAECE7;color:#712B13;font-weight:700;}
+  .anchor-card .ac.ac-ent{border:1px solid #85B7EB;background:#E6F1FB;}
+  .anchor-card .ac.ac-con{border:1px solid #AFA9EC;background:#EEEDFE;}
+  .anchor-card .ac.ac-aidd{border:1px solid #5DCAA5;background:#E1F5EE;}
+  .anchor-card .ac.ac-edge{border:1px solid #F0997B;background:#FAECE7;}
+  .ac-ent .dir{color:#0C447C;}
+  .ac-con .dir{color:#3C3489;}
+  .ac-aidd .dir{color:#085041;}
+  .ac-edge .dir{color:#712B13;}
+  @media(max-width:760px){.flow .step{min-width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>AI 应用细分方向分析 &amp; 匹配基金</h1>
+  <div class="subtitle">付费锚（谁买单）→ 报表收入（已兑现）→ 匹配基金 → 贝塔拆解（怎么跟踪）</div>
+  <div class="meta">净值截至 2026-11-09 · 持仓报告期 2026-09-30 · 行情/资讯截至 2026-11-10 盘中 · 数据源：NeoData、Wind、进门投研、iFinD、域检索 · 红涨绿跌</div>
+</header>
+
+<!-- ==================== 一、基金业绩 ==================== -->
+<h2>一、四类细分方向 · 对应基金及业绩</h2>
+
+<div class="kpi">
+  <div class="box"><div class="v up">+10.78%</div><div class="l">近1周弹性最大 · 王森 · 中航远见领航（021491）</div></div>
+  <div class="box"><div class="v up">+9.88%</div><div class="l">近1月弹性最大 · 文仲阳 · 招商体育文化休闲（001628）</div></div>
+</div>
+
+<table>
+  <tr>
+    <th>方向</th><th>基金 / 经理（代码）</th>
+    <th class="num">近1周</th><th class="num">近1月</th><th class="num">近3月</th><th class="num">今年以来</th><th class="num">任职以来最大回撤</th>
+  </tr>
+
+  <tr class="group"><td colspan="7" class="g-ent">AI应用：企业AI/工业AI方向——为经营效率付费</td></tr>
+  <tr>
+    <td rowspan="4"></td>
+    <td>申万菱信数字产业 · 梁国柱（018048）<br><span style="color:#8a929c;font-size:11px">2023-05-04 任职</span></td>
+    <td class="num up">+1.10%</td><td class="num down">-0.11%</td><td class="num down">-11.54%</td><td class="num down">-12.48%</td><td class="num down">-39.96%</td>
+  </tr>
+  <tr>
+    <td>融通明锐 · 张鹏（017735）<br><span style="color:#8a929c;font-size:11px">2025-02-21 任职</span></td>
+    <td class="num up">+2.39%</td><td class="num down">-2.95%</td><td class="num down">-13.55%</td><td class="num down">-10.49%</td><td class="num down">-40.95%<span class="tag warn">近1年口径</span></td>
+  </tr>
+  <tr>
+    <td>国新国证新锐 · 张洪磊（001068）<br><span style="color:#8a929c;font-size:11px">2021-09-07 任职</span></td>
+    <td class="num up">+3.55%</td><td class="num down">-0.88%</td><td class="num down">-8.59%</td><td class="num down">-10.72%</td><td class="num down">-34.70%<span class="tag warn">近1年口径</span></td>
+  </tr>
+  <tr>
+    <td>广发沪港深精选 · 观富钦（012182）<br><span style="color:#8a929c;font-size:11px">2025-03-06 任职</span></td>
+    <td class="num up">+5.55%</td><td class="num up">+4.75%</td><td class="num down">-4.16%</td><td class="num down">-18.38%</td><td class="num down">-46.20%<span class="tag warn">近1年口径</span></td>
+  </tr>
+  <tr class="bench">
+    <td></td><td class="bn">基准 · 申万计算机（801750）</td>
+    <td class="num up">+6.47%</td><td class="num down">-2.93%</td><td class="num down">-14.11%</td><td class="num">—</td><td class="num">—</td>
+  </tr>
+
+  <tr class="group"><td colspan="7" class="g-con">AI应用：内容创造/营销方向——为创作效率付费</td></tr>
+  <tr>
+    <td rowspan="2"></td>
+    <td>招商体育文化休闲 · 文仲阳（001628）<br><span style="color:#8a929c;font-size:11px">2020-12-02 任职</span></td>
+    <td class="num up">+6.59%</td><td class="num up">+9.88%</td><td class="num up">+6.65%</td><td class="num down">-5.28%</td><td class="num down">-43.17%<span class="tag warn">近1年口径</span></td>
+  </tr>
+  <tr>
+    <td>华安媒体互联网 · 胡宜斌（001071）<br><span style="color:#8a929c;font-size:11px">2015-11-26 任职</span></td>
+    <td class="num up">+8.16%</td><td class="num up">+4.96%</td><td class="num down">-2.81%</td><td class="num down">-0.55%</td><td class="num down">-43.93%</td>
+  </tr>
+  <tr class="bench">
+    <td></td><td class="bn">基准 · 中证传媒（399971）</td>
+    <td class="num up">+12.45%</td><td class="num up">+8.01%</td><td class="num down">-4.41%</td><td class="num">—</td><td class="num">—</td>
+  </tr>
+
+  <tr class="group"><td colspan="7" class="g-aidd">AI应用：AIDD方向——为分子发现付费</td></tr>
+  <tr>
+    <td rowspan="2"></td>
+    <td>泰康医疗健康 · 傅洪哲（015139）<br><span style="color:#8a929c;font-size:11px">2022-03-08 任职</span></td>
+    <td class="num down">-0.54%</td><td class="num down">-15.48%</td><td class="num down">-16.68%</td><td class="num down">-16.64%</td><td class="num down">-43.28%</td>
+  </tr>
+  <tr>
+    <td>长城医疗先锋 · 龙宇飞（028742）<br><span style="color:#8a929c;font-size:11px">2026-09-15 任职</span></td>
+    <td class="num down">-1.02%</td><td class="num down">-18.20%</td><td class="num">—</td><td class="num">—</td><td class="num down">-31.04%</td>
+  </tr>
+  <tr class="bench">
+    <td></td><td class="bn">基准 · 医疗服务指数（871040.TI）</td>
+    <td class="num up">+4.76%</td><td class="num down">-5.63%</td><td class="num down">-2.69%</td><td class="num">—</td><td class="num">—</td>
+  </tr>
+
+  <tr class="group"><td colspan="7" class="g-edge">AI应用：AI端侧/智能穿戴方向——为硬件体验付费</td></tr>
+  <tr>
+    <td rowspan="2"></td>
+    <td>中航远见领航 · 王森（021491）<br><span style="color:#8a929c;font-size:11px">2024-08-30 任职</span></td>
+    <td class="num up">+10.78%</td><td class="num up">+6.44%</td><td class="num up">+0.90%</td><td class="num up">+9.32%</td><td class="num down">-32.71%</td>
+  </tr>
+  <tr>
+    <td>诺安积极回报 · 刘慧影（001706）<br><span style="color:#8a929c;font-size:11px">2023-09-29 任职</span></td>
+    <td class="num up">+2.76%</td><td class="num up">+2.46%</td><td class="num down">-8.61%</td><td class="num down">-12.36%</td><td class="num down">-33.89%<span class="tag warn">近1年口径</span></td>
+  </tr>
+  <tr class="bench">
+    <td></td><td class="bn">基准 · 申万消费电子（801085）</td>
+    <td class="num up">+6.54%</td><td class="num down">-8.15%</td><td class="num down">-19.70%</td><td class="num">—</td><td class="num">—</td>
+  </tr>
+</table>
+
+<!-- ==================== 二、付费锚 ==================== -->
+<h2>二、付费锚视角：谁为 AI 的增益买单</h2>
+
+<div class="flow">
+  <div class="step"><div class="t">有真实付费</div><p>一个方向要能被研究、被跟踪，前提是有付费发生；否则只有主题炒作，没有业绩兑现、没有可验证的超额。</p></div>
+  <div class="arrow">→</div>
+  <div class="step"><div class="t">付费锚清晰</div><p>付费的前提，是"AI 的增益能被买单方感知、量化、定价"。锚越清晰，增益越易变成收入，方向越"实"。</p></div>
+  <div class="arrow">→</div>
+  <div class="step"><div class="t">三个买单主体</div><p>企业（B端降本）、专业个人（生产力提效）、消费者（硬件/体验）——四类方向是这三者在"AI 增益"下的全部有付费能力的落点。</p></div>
+</div>
+
+<div class="anchor-card">
+  <div class="ac ac-ent">
+    <div class="dir">企业AI / 工业AI</div>
+    <div class="row"><b>买单方：</b>企业（B端）· 降本增效</div>
+    <div class="row"><b>付费锚：</b>省人力 / 多赚钱，计费正从「席位」转向「按结果付费」</div>
+  </div>
+  <div class="ac ac-con">
+    <div class="dir">内容创造 / 营销</div>
+    <div class="row"><b>买单方：</b>专业个人 + 企业 · 提效 / 营销 ROI</div>
+    <div class="row"><b>付费锚：</b>创作者时间价值 + 营销转化（B端可量化）</div>
+  </div>
+  <div class="ac ac-aidd">
+    <div class="dir">AIDD（AI 制药）</div>
+    <div class="row"><b>买单方：</b>药企（B端）· 打破 Eroom 定律</div>
+    <div class="row"><b>付费锚：</b>分子发现——AI 大幅提升候选分子设计与命中效率（结合成功率从约 9% 提升至 78.5%），药企为更快找到可验证的候选分子买单，进而压缩研发成本（单药 26.7 亿美元）</div>
+  </div>
+  <div class="ac ac-edge">
+    <div class="dir">AI端侧 / 智能穿戴</div>
+    <div class="row"><b>买单方：</b>消费者（C端）· 硬件溢价 / 体验升级</div>
+    <div class="row"><b>付费锚：</b>约 68% 愿付 20% 溢价，但订阅率 &lt;5%</div>
+  </div>
+</div>
+
+<div class="note"><strong>被排除的方向：</strong>泛聊天 / 纯陪伴 / 纯检索——无明确买单方，7 亿用户付费率仅 9.8%。<br><strong>这条链的价值：</strong>它把"选方向"从"跟着基金持仓倒推"升级为"找付费锚因果先行"，而非因为"有基金这么配"才反过来找理由。</div>
+
+<!-- ==================== 三、报表收入 ==================== -->
+<h2>三、报表端已兑现的 AI 收入</h2>
+<p>四类方向各有一个"AI 已产生真实报表收入"的代表公司，用于验证"付费锚是否真的变成了钱"。</p>
+
+<table>
+  <tr><th>方向</th><th>代表公司</th><th>AI 收入（报表证据）</th></tr>
+  <tr>
+    <td class="cell-ent"><strong>企业AI</strong></td>
+    <td>用友网络<br>600588.SH（A股）</td>
+    <td>AI 相关收入 7.6 亿元（+275.4%）；AI 合同签约 15.4 亿（+108.6%）</td>
+  </tr>
+  <tr>
+    <td class="cell-con"><strong>内容/营销</strong></td>
+    <td>昆仑万维<br>300418.SZ（A股）</td>
+    <td>天工 AI 收入 43.21 亿元（+168.29%）；ARR 超 8 亿美元，毛利率 74.4%；AI 短剧 9 月单月流水近 1 亿美元</td>
+  </tr>
+  <tr>
+    <td class="cell-aidd"><strong>AIDD</strong></td>
+    <td>金斯瑞生物科技<br>01548.HK（港股）</td>
+    <td>AIDD 相关约 4000 万美元（同比翻倍以上），占生命科学板块 12–13%；某全球前 20 大药企单一基地相关服务收入扩大至上一年同期 5 倍</td>
+  </tr>
+  <tr>
+    <td class="cell-edge"><strong>AI端侧</strong></td>
+    <td>恒玄科技<br>688608.SH（A股）</td>
+    <td>智能硬件及其他 16.52 亿（+32.82%），其中智能硬件 4.23 亿（+116.1%）；旗舰芯片独家供应 Meta Ray-Ban 系列——2025 年全球 AI 眼镜出货 870 万副（+232%），IDC 预计 2026 年全球智能眼镜出货超 2369 万台</td>
+  </tr>
+</table>
+
+<div class="note">
+  <strong>口径提示：</strong>① 用友、昆仑万维在报表层面单列 AI 收入，是最硬的证据；② 金斯瑞未单列"AIDD 收入"，4000 万美元为第三方测算，报表仅见"生命科学收入 3.19 亿美元（+28.8%）+ AIDD 翻倍以上"的定性披露；③ 恒玄是下游"智能硬件"品类口径，AI 眼镜收入未单独披露。做跟踪时须区分这几种口径，勿把测算/品类口径当成披露口径。
+</div>
+
+<!-- ==================== 四、贝塔拆解 ==================== -->
+<h2>四、匹配基金与贝塔拆解</h2>
+<p>真正决定收益的"贝塔"应按实际持仓行业拆分后单独选择。</p>
+
+<table>
+  <tr><th>方向</th><th>基金 / 经理（代码）</th><th>2026Q3 前十大重仓结构</th><th>实际贝塔（建议跟踪）</th></tr>
+  <tr>
+    <td rowspan="4" class="cell-ent"><strong>企业AI<br>/工业AI</strong></td>
+    <td>梁国柱 · 数字产业（018048）</td><td>软件 9/10（鼎捷、万兴、福昕、卓易、深信服、致远、汉得、泛微、税友）+ 半导体1</td>
+    <td><strong>申万计算机</strong>（801750）<span class="tag info">纪要确认软件70%+</span></td>
+  </tr>
+  <tr>
+    <td>张鹏 · 融通明锐（017735）</td><td>软件 7/10 + 中控技术（工业自动化）+ 传媒2</td>
+    <td><strong>申万计算机 + 工业软件/自动化</strong></td>
+  </tr>
+  <tr>
+    <td>张洪磊 · 国新新锐（001068）</td><td>软件 9/10（金山办公、福昕、亚信、中望、优刻得、青云等）+ 传媒1</td>
+    <td><strong>申万计算机 / 信创+云计算</strong></td>
+  </tr>
+  <tr>
+    <td>观富钦 · 广发沪港深精选（012182）</td><td>企业软件（深信服、绿盟、网宿、金蝶国际）+ 工业软件（中控技术）+ AI应用（昆仑万维、中文在线、美图、迈富时）</td>
+    <td><strong>申万计算机 + 港股AI应用</strong>（恒生科技）<span class="tag info">含港股</span></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="cell-con"><strong>内容创造<br>/营销</strong></td>
+    <td>文仲阳 · 招商体育（001628）</td><td>传媒 10/10（上海电影、中文在线、值得买、蓝色光标、芒果、易点天下等）</td>
+    <td><strong>中证传媒 / 申万传媒</strong>（基本贴切）</td>
+  </tr>
+  <tr>
+    <td>胡宜斌 · 华安媒体互联网（001071）</td><td>传媒 8/10 + 半导体设备2（拓荆、北方华创）</td>
+    <td><strong>中证传媒 + 半导体设备</strong>（电子暴露偏高）</td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="cell-aidd"><strong>AIDD</strong></td>
+    <td>傅洪哲 · 泰康医疗健康（015139）</td><td>AIDD港股（英矽、剂泰、晶泰、金斯瑞、百奥赛图）+ CXO + 试剂</td>
+    <td><strong>创新药 / AIDD 主题</strong>（比宽医药更纯）</td>
+  </tr>
+  <tr>
+    <td>龙宇飞 · 长城医疗先锋（028742）</td><td>AIDD港股 + 医药科研上游（百普赛斯、义翘、阿拉丁、奥浦迈）</td>
+    <td><strong>AIDD + 科研上游</strong><span class="tag warn">成立2月</span></td>
+  </tr>
+  <tr>
+    <td rowspan="2" class="cell-edge"><strong>AI端侧<br>/智能穿戴</strong></td>
+    <td>王森 · 中航远见领航（021491）</td><td>端侧SoC 7/10（晶晨、乐鑫、瑞芯微、星宸、恒玄、全志、富瀚微）+ 通信模组3</td>
+    <td><strong>端侧AI/消费电子芯片</strong>（纯端侧，弹性最大）</td>
+  </tr>
+  <tr>
+    <td>刘慧影 · 诺安积极回报（001706）</td><td>分散：比亚迪、金山、传音、安克、石头、达梦、海天瑞声等</td>
+    <td><strong>宽基 + AI应用/消费电子</strong>（风格不纯）</td>
+  </tr>
+</table>
+
+<div class="note"><strong>使用提示：</strong>若博端侧催化弹性，王森（021491）是当前贝塔最纯标的；博传媒/内容，文仲阳（001628）与胡宜斌（001071）更贴切；刘慧影（001706）虽归端侧组，但前十大横跨汽车/计算机/消费电子/家电/传媒，非端侧纯贝塔，需注意分组与实际敞口的落差。</div>
+
+<div class="disc">
+  <strong>免责声明</strong>：以上内容基于公开数据和量化分析，仅供参考，不构成投资建议。市场有风险，投资需谨慎。任何投资决策应结合个人风险承受能力、资金状况和投资目标独立判断，必要时咨询持牌专业机构。过往表现不预示未来收益。
+  <br><br>
+  <strong>数据口径与来源</strong>：基金净值/阶段收益/重仓股来自腾讯金融科技 NeoData（净值截至 2026-11-09，持仓报告期 2026-09-30）；基金经理任职日期与合同基准来自 Wind；上市公司 AI 收入来自各公司定期报告及公开披露（用友网络、昆仑万维、恒玄科技 2025 年报或 2026 三季报，金斯瑞 2026 中期业绩，测算口径为华福证券等第三方）；基准指数区间涨跌幅来自 NeoData 行情及 iFinD（医疗服务指数 871040.TI，近1周/近1月/近3月均截至 2026-11-09）；付费意愿与分类框架来自 IDC、中信证券 AI4S、腾讯研究院/花旗调研等公开资料（2026 年）。所有关键数字已标注来源与时点。
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+schema_version: 1
+request_id: liang-guozhu-20261028-173014
+created_at: 2026-10-28T17:30:14+08:00
+updated_at: 2026-10-28T17:41:20+08:00
+
+entry_type: full_pipeline
+stage_chain: [1, 2, 3]
+
+output_docx_path: /Users/yangguang/WorkBuddy/基金经理调研/output/liang-guozhu-20261028-173014/stage3/梁国柱调研纪要_投资框架与组合管理要点_20261027.docx
+output_docx_user_specified: false
+
+current_stage: completed
+
+stages:
+  stage_0:
+    status: completed
+    completed_at: 2026-10-28T17:30:14+08:00
+    decision: full_pipeline
+
+  stage_1:
+    status: completed
+    started_at: 2026-10-28T17:30:40+08:00
+    completed_at: 2026-10-28T17:33:10+08:00
+    output_path: "stage1/final_draft.md"
+    genre: "stock-research"
+    expert_used: "stock-research-report-expert"
+    route_tag: "expert_stock_research"
+
+  stage_2:
+    status: completed
+    started_at: 2026-10-28T17:34:10+08:00
+    completed_at: 2026-10-28T17:41:20+08:00
+    route: html
+    html_sub: template
+    output_path: "stage2/formatted-梁国柱调研纪要要点.html"
+    output_format: html
+    skills_invoked: ["design-token", "doc-typeset", "html-review"]
+    design_tokens_path: null
+    fallback: false
+    fallback_reason: null
+
+  stage_3:
+    status: completed
+    started_at: 2026-10-28T17:41:40+08:00
+    completed_at: 2026-10-28T17:43:05+08:00
+    executor: doc-converter
+    input_format: html
+    output_path: /Users/yangguang/WorkBuddy/基金经理调研/output/liang-guozhu-20261028-173014/stage3/梁国柱调研纪要_投资框架与组合管理要点_20261027.docx
+    skill_used: ["html-to-doc"]
+    present_files_opened: true
+    fallback: false
+    fallback_reason: null
+
+consistency_check:
+  output_files_exist: pass
+  stage_chain_complete: pass
+  last_checked_at: 2026-10-28T17:43:20+08:00
+  errors: []

@@ -1,0 +1,1 @@
+{"code": 1, "msg": "success", "subCode": null, "subMsg": null, "data": {"answer": "|证券代码|证券简称|日期|收盘价（单位：元）|\n|---|---|---|---|\n|000905.SH|中证500|20261117|6283.0115|", "indicators_params": {"收盘价": {"交易日期": "最新"}}}}
