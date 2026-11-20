@@ -320,10 +320,12 @@ def cmd_noon(args):
     src = '逐股快照' if args.snapshot else '预聚合'
     print(f'[{d} 11:30] {src} n={agg["n"]} | p {agg["p"]:.3f}% q {agg["q"]:.3f}% '
           f'G {agg["G"]:+.3f}pp TRIN {agg["trin"]:.4f}')
-    print('  午盘不写 MCL 底库（剔ST池 ≠ 含ST池），只更新资金模块')
+    print('  午盘不写 breadth_daily（MCL 只在收盘定版）；含ST家数写入 noon_breadth 供预览')
     preflight(d, 'noon', args.force)
 
     nb = None
+    nb_src = 'iFinD 11:30 · 含ST（主池+ST补充）'
+    n_st = 0
     if args.st_snapshot:
         st_rows, _ = load_snapshot(args.st_snapshot, args.date, min_rows=50)
         base = {r['code'] for r in (rd(args.snapshot) if args.snapshot else [])}
@@ -336,15 +338,33 @@ def cmd_noon(args):
         prev_n = int(prev['A']) + int(prev['D']) + int(prev['U'])
         if abs(nb['n'] - prev_n) / prev_n > 0.01:
             die(f'含ST合计 {nb["n"]} 与上一交易日 {prev_n} 相差超过 1%，疑似池子不完整')
-        print(f'  含ST口径：A/D/U {nb["A"]}/{nb["D"]}/{nb["U"]}（合计 {nb["n"]}，ST {len(st_rows)} 只）')
+        n_st = len(st_rows)
+        print(f'  含ST口径：A/D/U {nb["A"]}/{nb["D"]}/{nb["U"]}（合计 {nb["n"]}，ST {n_st} 只）')
+    elif args.a and args.d_ and args.u:
+        # 预聚合的含ST家数（扶摇单池快照）：无需 ST 补充池
+        if args.snapshot:
+            die('--a/--d/--u 与 --snapshot 互斥，请二选一')
+        A_, D_, U_ = int(args.a), int(args.d_), int(args.u)
+        if A_ + D_ < 3000:
+            die(f'含ST A+D={A_ + D_} 过小，疑似错列或池子不完整')
+        if U_ < 0:
+            die('平盘家数不能为负')
+        nb = {'A': A_, 'D': D_, 'U': U_, 'n': A_ + D_ + U_}
+        prev = rd(os.path.join(STORE, 'breadth_daily.csv'))[-1]
+        prev_n = int(prev['A']) + int(prev['D']) + int(prev['U'])
+        if abs(nb['n'] - prev_n) / prev_n > 0.01:
+            die(f'含ST合计 {nb["n"]} 与上一交易日 {prev_n} 相差超过 1%，疑似池子不完整')
+        nb_src = args.source or '扶摇 11:30 快照 · 含ST'
+        print(f'  含ST家数 {A_}/{D_}/{U_}（单池含ST，无独立ST补充）')
     if args.dry_run:
         print('DRY-RUN：校验通过，未写入'); return
-    copy_snapshot(args.snapshot, 'noon', d)
+    if args.snapshot:
+        copy_snapshot(args.snapshot, 'noon', d)
     n = append_agg(d, '11:30', 'noon', agg, args.source or 'iFinD · 午盘 · 剔ST', args.force)
     print(f'  daily_agg 现有 {n} 行')
     if nb:
-        ns = append_noon_breadth(d, nb['A'], nb['D'], nb['U'], len(st_rows),
-                                 'iFinD 11:30 · 含ST（主池+ST补充）', args.force)
+        ns = append_noon_breadth(d, nb['A'], nb['D'], nb['U'], n_st,
+                                 nb_src, args.force)
         print(f'  noon_breadth 现有 {ns} 行（用于 MCL 午盘预览）')
     rebuild()
 
@@ -400,6 +420,7 @@ def main():
     s2 = sub.add_parser('noon')
     s2.add_argument('--snapshot')
     s2.add_argument('--p'); s2.add_argument('--q'); s2.add_argument('--n')
+    s2.add_argument('--a'); s2.add_argument('--d', dest='d_'); s2.add_argument('--u')
     s2.add_argument('--st-snapshot')
     s2.add_argument('--date')
     s2.add_argument('--source')

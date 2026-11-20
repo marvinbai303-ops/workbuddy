@@ -398,14 +398,19 @@ payload = {
     'meta': {
         'generated': str(date.today()),
         'asof': mcl[-1]['date'],
-        'eod_date': EOD_DATE,
+        'eod_date': CUR_DATE if CUR_KIND == 'eod' else EOD_DATE,
         'noon_date': NOON_DATE,
         'noon_asof': f'{NOON_DATE} 11:30',
         'universe_mcl': ('沪深A股 · 含ST · '
                          f'{mcl[-1]["A"] + mcl[-1]["D"] + mcl[-1]["U"]:,}家（{mcl[-1]["date"]}）'),
-        'universe_breadth': f'沪深A股 · 剔ST/停牌/零成交 · {agg_eod["n"]:,}家（{EOD_DATE}）',
+        # 收盘口径已由 daily_agg（含ST）接管时，"宽度/量额"必须同步换池标签，
+        # 否则会沿用上一条逐股快照的"剔ST/停牌"口径与旧日期（2026-11-19 实测到 11-18）。
+        'universe_breadth': (
+            f'沪深A股 · 含ST · {int(CUR.get("n") or agg_eod["n"]):,}家（{CUR_DATE}）'
+            if CUR_KIND == 'eod' and CUR_DATE > EOD_DATE
+            else f'沪深A股 · 剔ST/停牌/零成交 · {agg_eod["n"]:,}家（{EOD_DATE}）'),
         'index_name': '沪深300 000300.SH',
-        'sources': '同花顺iFinD（指数/期货日线、选股计数）、万得Wind（交叉核对）',
+        'sources': '同花顺iFinD（指数/期货日线、选股计数）、同花顺扶摇（收盘快照）、万得Wind（交叉核对）',
     },
     'warmup_index': next((i for i, r in enumerate(mcl) if r['warmed']), None),
     'temp': {

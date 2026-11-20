@@ -23,7 +23,8 @@ if __name__ == '__main__' and '--allow-heavy' not in sys.argv:
     sys.exit('[BUDGET] 本脚本走逐股小时频接口，单次约 500 次调用，已默认禁用。\n'
              '         确认要跑请追加 --allow-heavy；日常更新用 update.py + 日更序列脚本。')
 
-DATE = sys.argv[1] if len(sys.argv) > 1 else time.strftime('%Y-%m-%d')
+# 只认第一个非选项参数作为日期；否则 '--allow-heavy' 会被当成日期目录名
+DATE = next((a for a in sys.argv[1:] if not a.startswith('-')), time.strftime('%Y-%m-%d'))
 RAW = P.DATA / 'raw_noon' / DATE
 RAW.mkdir(parents=True, exist_ok=True)
 CONC = 3

@@ -95,6 +95,42 @@ def fetch_query(client, tool, query, cache_key, refresh=False):
     return d
 
 
+def fetch_parsed(client, tool, query, cache_key, refresh, parse, accept,
+                 tries=3, label=''):
+    """取数 → 解析 → 校验，通过后才写缓存。
+
+    供应商会间歇性把「某合约区间收盘价」解析成只含证券代码/简称的实体表
+    （2026-11-19 实测：IF 与 000852 各命中一次），此时 answer 里没有日期/收盘价列。
+    旧逻辑会把这种空结果当成功：既写坏缓存，又让当日该品种无行。
+    这里改为识别空解析并重试，且坏响应不落缓存。
+    """
+    RAW.mkdir(parents=True, exist_ok=True)
+    p = RAW / f'{cache_key}.json'
+    if p.exists() and not refresh:
+        try:
+            got = parse(json.loads(p.read_text(encoding='utf-8')))
+            if accept(got):
+                return got
+        except Exception:
+            pass                                   # 历史坏缓存：忽略并重取
+    last = None
+    for k in range(tries):
+        try:
+            d = client.call(tool, {'query': query}, timeout=180)
+            got = parse(d)
+            if accept(got):
+                p.write_text(json.dumps(d, ensure_ascii=False), encoding='utf-8')
+                return got
+            last = '返回表缺少日期/收盘价列'
+        except Exception as e:
+            last = str(e)[:80]
+            client.handshake()
+        if k < tries - 1:
+            time.sleep(1.2 * (k + 1))
+    print(f'  {label} 重试 {tries} 次仍失败：{last}')
+    return {}
+
+
 def cn(d):
     y, m, dd = d.split('-')
     return f'{y}年{int(m)}月{int(dd)}日'
@@ -136,13 +172,26 @@ def midrank(series, v):
 
 
 def save_rows(rows, start, end, idx=None):
-    """合并写盘并在合并后的整段上重算 200 日分位。"""
+    """合并写盘并在合并后的整段上重算 200 日分位。
+
+    只替换本次真正取到的 (date, product)；取数失败的品种沿用原值，
+    避免 --refresh 局部失败把当日已有的行删掉（2026-11-19 实测过）。
+    """
     path = STORE / 'futures_basis.csv'
-    kept = []
+    covered = {(r['date'], r['product']) for r in rows}
+    kept, stale = [], []
     if path.exists():
         with open(path, encoding='utf-8-sig') as f:
-            kept = [r for r in csv.DictReader(f) if not (start <= r['date'] <= end)]
+            for r in csv.DictReader(f):
+                if not (start <= r['date'] <= end):
+                    kept.append(r)
+                elif (r['date'], r['product']) not in covered:
+                    kept.append(r)
+                    stale.append(r)
     merged = sorted(kept + rows, key=lambda r: (r['date'], r['product']))
+    if stale:
+        dts = sorted({r['date'] for r in stale})
+        print(f'  ⚠ 以下日期未取到新值，沿用原记录：{", ".join(dts)}（{len(stale)} 行）')
 
     for prod in PRODUCTS:
         seg = [r for r in merged if r['product'] == prod]
@@ -246,8 +295,9 @@ def run_fast(ds, refresh=False):
         if code in idx and idx[code]:
             continue
         q = f'{INDEX_NAMES[code]}指数{code}，{cn(lo)}至{cn(ds)}每个交易日的收盘价'
-        d = fetch_query(ix, 'index_data', q, f'fast_idx_{code}_{ds}', refresh)
-        got = series_from(d, need_vol=False)
+        got = fetch_parsed(ix, 'index_data', q, f'fast_idx_{code}_{ds}', refresh,
+                           lambda d: series_from(d, need_vol=False),
+                           lambda g: ds in g, label=f'{code} {INDEX_NAMES[code]}')
         if ds in got:
             idx[code][ds] = got[ds][0]
         print(f'  {code} {INDEX_NAMES[code]}: {"OK" if ds in got else "缺"}')
@@ -258,12 +308,8 @@ def run_fast(ds, refresh=False):
     for prod, spot in PRODUCTS.items():
         codes = month_codes(prod, d0)
         q = '、'.join(f'{c}.CFE' for c in codes) + f'，{cn(lo)}至{cn(ds)}每个交易日的收盘价和成交量'
-        try:
-            d = fetch_query(fx, 'future_quotes', q, f'fast_{prod}_{ds}', refresh)
-            got = per_code(d, ds)
-        except Exception as e:
-            print(f'  {prod} 取数失败：{str(e)[:60]}')
-            continue
+        got = fetch_parsed(fx, 'future_quotes', q, f'fast_{prod}_{ds}', refresh,
+                           lambda d: per_code(d, ds), lambda g: bool(g), label=prod)
         cand = [(v, c, k, (expiry(k) - d0).days) for k, (v, c) in got.items() if v > 0]
         band = [x for x in cand if 25 <= x[3] <= 130]
         pick = sorted(band, reverse=True)[0] if band else (sorted(cand, reverse=True)[0] if cand else None)
