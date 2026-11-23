@@ -25,7 +25,25 @@ _tr_cmp = ('单日在均值之上，短线情绪偏热' if TRJ and TRJ['ma20'] i
 CUR_L = CUR['label']                # 例：2026-11-18 11:30
 ASOF = META['asof']; ASOF_S = ASOF[5:]
 CUR_S = CUR['date'][5:]
-EOD_S = META['eod_date'][5:]
+EOD_S = META['eod_date'][5:]        # 逐股快照日（结构章节用）
+# 日终参照点：取 daily_agg 最新收盘（含ST），而不是逐股快照的 agg_eod。
+# 两者的日期可以不同：结构章节只能用逐股快照，象限对比应该跟最新收盘。
+EREF = D.get('eod_ref') or D['eod']
+EREF_S = EREF['date'][5:]
+# 午盘逐股快照的落盘位置随取数通道变化：扶摇写 hithink_snapshots/noon_snap_*.csv，
+# 旧 iFinD 通道写 snapshots/noon_*.csv。底稿里按实际存在的文件给出路径。
+_HX_NOON = os.path.join(P.DATA, 'store', 'hithink_snapshots', f'noon_snap_{META["noon_date"]}.csv')
+NOON_SNAP_PATH = (f'data/store/hithink_snapshots/noon_snap_{META["noon_date"]}.csv'
+                  if os.path.exists(_HX_NOON)
+                  else f'data/store/snapshots/noon_{META["noon_date"]}.csv')
+NOON_SNAP_NOTE = ('扶摇一次全市场快照（沪深A股含ST），落盘逐股明细'
+                  if os.path.exists(_HX_NOON)
+                  else '10:30/11:30 两根已完成小时K，剔除停牌')
+
+# 午盘跑的时候成交分布比广度底库新一天：此时不能说“盘中读数先于收盘值”。
+_TIME_NOTE = ('成交分布已到今日午盘，广度仍停在上一收盘——两者不是同一时点，不能合并成一个结论。'
+              if CUR['date'] > ASOF
+              else '盘中读数先于收盘值，不能当作同一时点的结论。')
 
 def quadrant(p, g):
     if p >= 50 and g >= 0: return ('全面进攻', '普涨且成交额跟随，是最健康的状态')
@@ -101,7 +119,7 @@ HERO = f'''
 </section>'''
 
 CONCL = f'''<section class="concl">
-  <div class="concl-i"><span>01</span><p><b>温度 {T['total']:.0f}，落在“{T['label']}”。</b>两个模块的时点不同：广度取 {ASOF} 收盘（涨家占比分位 {T['pct_p']:.0f}、MCL 分位 {T['pct_mcl']:.0f}），成交分布取 <b>{CUR_L}</b>（{CUR['kind'] == 'noon' and '午盘' or '日终'}口径）。盘中读数先于收盘值，不能当作同一时点的结论。</p></div>
+  <div class="concl-i"><span>01</span><p><b>温度 {T['total']:.0f}，落在“{T['label']}”。</b>两个模块的时点不同：广度取 {ASOF} 收盘（涨家占比分位 {T['pct_p']:.0f}、MCL 分位 {T['pct_mcl']:.0f}），成交分布取 <b>{CUR_L}</b>（{CUR['kind'] == 'noon' and '午盘' or '日终'}口径）。{_TIME_NOTE}</p></div>
   <div class="concl-i"><span>02</span><p><b>{CUR_L} 的成交分布：{quadrant(CUR['p'], CUR['G'])[0]}。</b>涨家占比 {CUR['p']:.1f}%、涨额占比 {CUR['q']:.1f}%、额价差 {CUR['G']:+.2f}pp、成交额 TRIN {CUR['trin_e']:.2f}。{quadrant(CUR['p'], CUR['G'])[1]}；判断标准是成交额份额有没有跟上家数份额。</p></div>
   <div class="concl-i"><span>03</span><p><b>广度仍在收缩：{ASOF} 收盘涨家占比 {D['series']['p_series'][-1][1]:.1f}%、MCL {num(S['mcl_last'])}{('（午盘预览 ' + num(PREV['mcl']) + '）') if PREV else ''}。</b>{'MCL 从正转负后继续走低，参与面动量未修复。' if S['mcl_last'] < 0 else 'MCL 为正，参与面动量尚可。'}趋势层同样弱：{MA['last_date']} 站上 MA20 的只有 <b>{P20['pct']:.1f}%</b>、MA250 之上 <b>{P250['pct']:.1f}%</b>。单日极值不可外推——近 {len(D['series']['p_series'])} 日涨家占比单日平均变动 27pp，必须配 20 日均值读。</p></div>
 </section>'''
@@ -116,8 +134,8 @@ CARDS = [
  ('站上 MA20 比例','100','选股计数 · 逐日',f'{P20["pct"]:.1f}<i>%</i>','分位',P20TXT,'#31556e',f'{P20["num"]:,} / {P20["den"]:,} 只；同口径 P60 {P60["pct"]:.1f}%、P250 {P250["pct"]:.1f}%。'),
  ('成交额 TRIN','95','量版原式＋金额口径',f'{CUR["trin_e"]:.3f}','倍数',f'{1/CUR["trin_e"]:.2f}×','#1f6b52',f'上涨组平均成交额是下跌组的 {1/CUR["trin_e"]:.2f} 倍。'),
  ('额价差 G','90','终端输出确认',f'{CUR["G"]:+.2f}<i>pp</i>','占上限',f'{100*CUR["G"]/T["g_max"]:.0f}%','#c08b3e',f'q−p；占该 p 下理论上限的 {100*CUR["G"]/T["g_max"]:.0f}%。'),
- ('VW-MACD（沪深300）','100','参数 12/26/9',num(S["vw_hist_last"],1,True),'柱体分位',f'{S["vw_hist_pct"]:.0f}','#c08b3e',f'日线柱连 {S["vw_hist_streak"]} 日为正、跌势动能衰减；DIF/DEA 仍在零轴下，周线柱仍为负。'),
- ('IF 年化基差','100','主力合约 · 200日分位',f'{D["fut"]["IF"]["ann"]:+.1f}<i>%</i>','分位',f'{D["fut"]["IF"]["pct"]:.0f}','#31556e',f'贴水 {abs(D["fut"]["IF"]["basis"]):.1f} 点；IC {D["fut"]["IC"]["ann"]:+.1f}%、IM {D["fut"]["IM"]["ann"]:+.1f}%，三品种同处一年最深区间。'),
+ ('VW-MACD（沪深300）','100',f'参数 12/26/9 · {SER["vw_close"][-1][0][5:]} 收盘',num(S["vw_hist_last"],1,True),'柱体分位',f'{S["vw_hist_pct"]:.0f}','#c08b3e',f'日线柱连 {S["vw_hist_streak"]} 日为正、跌势动能衰减；DIF/DEA 仍在零轴下，周线柱仍为负。'),
+ ('IF 年化基差','100',f'主力合约 · 200日分位 · {D["fut"]["IF"]["date"][5:]} 收盘',f'{D["fut"]["IF"]["ann"]:+.1f}<i>%</i>','分位',f'{D["fut"]["IF"]["pct"]:.0f}','#31556e',f'贴水 {abs(D["fut"]["IF"]["basis"]):.1f} 点；IC {D["fut"]["IC"]["ann"]:+.1f}%、IM {D["fut"]["IM"]["ann"]:+.1f}%，三品种同处一年最深区间。'),
  ('三只宽基 ETF / MA20','100','指定三只代码',f'{S["etf_ratio_last"]:.2f}','分位',f'{S["etf_ratio_pct"]:.0f}','#3c8f6e',(f'合计额 {D["series"]["etf_amt"][-1][1]:.0f} 亿，为 20 日均额的 {S["etf_ratio_last"]:.2f} 倍；' + ('宽基无增量，不能证明“国家队”。' if S["etf_ratio_last"] < 1 else '宽基放量，但仍推不出资金身份。'))),
  ('换手率&gt;5% 占比','75','定义可数学化',f'{TRJ["pct"]:.2f}<i>%</i>','分位',f'{TRJ["pct_rank"]:.0f}','#b3372c',f'{TRJ["date"][5:]} 收盘 {TRJ["n5"]:,}/{TRJ["nb"]:,}；20 日均值 {_tr_ma}。'),
 ]
@@ -146,7 +164,7 @@ def _frow(name, date, note, fixed_badge=None):
 fresh_table = ('<div class="table-wrap"><table class="tb"><thead><tr>'
                '<th style="width:30%">模块</th><th style="width:16%">数据时点</th>'
                '<th style="width:12%">状态</th><th>说明</th></tr></thead><tbody>'
-               + _frow('MCL / 涨家占比（含ST）', ASOF, 'Wind 一次查询（家数+金额）')
+               + _frow('MCL / 涨家占比（含ST）', ASOF, META.get('close_source') or '日终收盘快照')
                + _frow('均线广度 P20/60/250', MA['last_date'], '选股计数')
                + _frow('成交分布 TRIN / 额价差', CUR['date'],
                        ('午盘 11:30 快照，非收盘口径' if CUR['kind'] == 'noon' else '日终快照'),
@@ -180,11 +198,11 @@ MATRIX = f'''<section class="sec" id="s1"><div class="sec-h"><span class="no">�
   <div class="mx-cell q3"><b>冰点</b><span>普跌且成交额也不向上涨组集中，通常伴随缩量。</span></div>
   <div class="mx-cell q4"><b>反弹待确认</b><span>价格普涨但成交额没跟上，常见于超跌反弹第一波。</span></div>
   <div class="mx-axis-x"></div><div class="mx-axis-y"></div>
-  {dot(CUR['p'],CUR['G'],CUR_S+' 当前','#2b2a26')}{dot(EOD['p'],EOD['G'],EOD_S+' 日终','#9c968a')}
+  {dot(CUR['p'],CUR['G'],CUR_S+' 当前','#2b2a26')}{dot(EREF['p'],EREF['G'],EREF_S+' 日终','#9c968a')}
 </div><div class="mx-lg">
   <div><i style="background:#2b2a26"></i>{CUR_L}（当前）：p {CUR['p']:.1f}%，G {CUR['G']:+.1f}pp</div>
-  <div><i style="background:#9c968a"></i>{META['eod_date']} 收盘：p {EOD['p']:.1f}%，G {EOD['G']:+.1f}pp</div>
-  <p>纵轴 −30 ~ +30pp，横轴 0 ~ 100%。灰线为 p=50%、G=0 的分界。午盘读数不进日终序列。</p>
+  <div><i style="background:#9c968a"></i>{EREF['date']} 收盘：p {EREF['p']:.1f}%，G {EREF['G']:+.1f}pp</div>
+  <p>纵轴 −30 ~ +30pp，横轴 0 ~ 100%。灰线为 p=50%、G=0 的分界。午盘读数不进日终序列。{('结构（市值五分位 / CR / 涨跌分布）另需逐股明细，停在 ' + META['eod_date'] + ' 的逐股快照，与本图无关。') if META['eod_date'] < EREF['date'] else ''}</p>
 </div></div></section>'''
 
 # ---------------------------------------------------------------- 子项
@@ -220,13 +238,13 @@ S_MCL = f'''<section class="sec ind" id="s2">{s_head('01','MCL 麦克连摆','10
 </div></section>'''
 
 S_P = f'''<section class="sec ind" id="s3">{s_head('02','涨家占比 p','90',f'{len(D["series"]["p_series"])}个交易日 · 含ST')}
-{kpi([(f'{CUR_L} · 含ST',f'{CUR["p"]:.1f}%','#b3372c'),('同日 · 含ST 序列',f'{D["series"]["p_series"][-1][1]:.1f}%','#8d8779'),('当日分位',f'{T["pct_p_cur"]:.0f}','#5c7f96'),(f'{len(D["series"]["p_series"])}日区间',f'{min(x[1] for x in D["series"]["p_series"]):.1f}% – {max(x[1] for x in D["series"]["p_series"]):.1f}%','#5f5b52')])}
+{kpi([(f'{CUR_L} · 含ST',f'{CUR["p"]:.1f}%','#b3372c'),(f'{ASOF_S} 收盘 · 含ST 序列',f'{D["series"]["p_series"][-1][1]:.1f}%','#8d8779'),('当日分位',f'{T["pct_p_cur"]:.0f}','#5c7f96'),(f'{len(D["series"]["p_series"])}日区间',f'{min(x[1] for x in D["series"]["p_series"]):.1f}% – {max(x[1] for x in D["series"]["p_series"]):.1f}%','#5f5b52')])}
 <div class="legend"><i class="ln" style="background:#b9c2c9"></i>单日涨家占比 p<i class="ln" style="background:#31556e"></i>20 日均值<span class="lg-note">单日 p 平均变动 27pp，趋势看 20 日均值</span></div>
 <div class="chart" id="c-p" style="height:280px"></div>
 <p class="cap">图中序列与当前读数同为<b>含ST池</b>（沪深A股，不含北交所）。2026-11-19 起成交分布也改用同一口径，不再维护剔ST的第二套数：两池实测差 0.05~0.5pp，分位与温度不受影响。</p>
 <div class="cols">
   <div><h4>公式与口径</h4>{formula(['p = 100 × A / (A + D)','A＝上涨家数  D＝下跌家数','平盘 U 不进分母'])}
-  <p>同源数值反算：4,381/(4,381+1,035)=80.8900%，与公开读数 80.89% 一致。⚠ 本看板 p 有两个池：MCL 用含 ST 的 5,217 家，TRIN/额价差用剔 ST 的 5,027 家，同一天可差 0.4–0.5pp。</p></div>
+  <p>同源数值反算：4,381/(4,381+1,035)=80.8900%，与公开读数 80.89% 一致。⚠ 2026-11-19 之前 p 有两个池：MCL 用含 ST 的 5,217 家，TRIN/额价差用剔 ST 的 5,027 家，同一天可差 0.4–0.5pp；现统一为含 ST 单池。</p></div>
   <div><h4>怎么读</h4><ul>
     <li><b>20% 以下</b>：普跌，参与面极窄；<b>80% 以上</b>：普涨。</li>
     <li>50% 附近为多空均衡，但 A 股极少停在均衡位。</li>
@@ -459,10 +477,16 @@ sq_rows = ''.join(f'''<div class="sq-row"><span class="sq-l">{q['label']}</span>
   <div class="sq-bar"><i style="width:{q['up_pct']:.1f}%"></i><em>{q['up_pct']:.1f}%</em></div>
   <span class="sq-m">{q['mcap_lo']/1e8:.0f}–{q['mcap_hi']/1e8:.0f}亿 · 中位 {q['med_ret']:+.2f}%</span></div>''' for q in SQ)
 
+# 结构章节的成交额对照：官方两市合计取同一快照日，不用硬编码的外部数字（会随日期漂移）
+_mkt_map = dict(D['series'].get('mkt_amt') or [])
+_amt_snap = _mkt_map.get(META['eod_date'])
+_amt_note = (f'同日沪深京两市合计 {_amt_snap * 1e4:,.0f} 亿元；差额来自池子口径（本节剔除 ST/停牌）与平盘个股。'
+             if _amt_snap else '')
+
 S_STRUCT = f'''<section class="sec" id="s10"><div class="sec-h"><span class="no">结构</span><div><h2>{META['eod_date']} 的钱去了哪里</h2>
 <span class="badge warn">{META['eod_date']} 逐股快照</span>
 <p>同一天拆开看：下跌是全面的，但不同市值组的跌幅与上涨比例差异明显。这一层解释了“指数跌幅小于个股中位跌幅”的背离。
-  <b>本节需要逐股明细，停在最近一次取到快照的 {META['eod_date']}</b>；取不到的日子里它不更新，其余模块照常。涨跌家数、均线广度、换手率占比与分布、ETF、期货基差都不依赖逐股明细，已更新到最新交易日。</p></div></div>
+  <b>本节需要逐股明细，停在最近一次取到快照的 {META['eod_date']}</b>；取不到的日子里它不更新，其余模块照常。涨跌家数、均线广度、换手率占比与分布、ETF、期货基差都不依赖逐股明细，已更新到 {EREF['date']} 收盘。</p></div></div>
 <div class="grid2 wide">
   <div><div class="sub-h">按流通市值五等分：上涨家数占比</div>{sq_rows}
     <p class="cap">最大的一组上涨占比 {SQ[0]['up_pct']:.1f}%，最小的一组仅 {SQ[-1]['up_pct']:.1f}%；中位涨跌幅从 {SQ[0]['med_ret']:+.2f}% 递减到 {SQ[-1]['med_ret']:+.2f}%。市值由“不复权收盘价 × 当日成交股数/换手率”推算，仅用于分组，不作精确市值。</p></div>
@@ -473,7 +497,7 @@ S_STRUCT = f'''<section class="sec" id="s10"><div class="sec-h"><span class="no"
       <div><b>{CR['100']:.1f}%</b><span>前 100 只</span></div>
     </div>
     <p class="cap">前 10 只股票占全市场成交额 {CR['10']:.1f}%，前 100 只占 {CR['100']:.1f}%。集中度本身没有方向，需与 p、额价差一起读：<b>集中度高 + p 低 = 抱团</b>。</p>
-    <div class="callout">同日全市场成交额 {EOD['total_amt']/1e8:,.0f} 亿元，与外部同期复盘记录的 14,939 亿同一量级（股票池与口径略有差异）。</div>
+    <div class="callout">本节股票池 {EOD['n']:,} 只合计成交额 {EOD['total_amt']/1e8:,.0f} 亿元。{_amt_note}</div>
   </div>
 </div></section>'''
 
@@ -531,7 +555,7 @@ WORKFLOW = f'''<section class="sec" id="s13"><div class="sec-h"><span class="no"
 STATUS = [
  ('MCL 底库（含ST）', 'data/store/breadth_daily.csv', f'{len(D["series"]["mcl"])} 行', 'iFinD 报表口径，日更追加；MCL 每次全量重算 EMA。2026-11-17 为 Wind 回补（A/D 已用 11-16 与 iFinD 对齐验证）', 'ok'),
  ('日终逐股快照', f'data/store/snapshots/eod_{META["eod_date"]}.csv', f'{EOD["n"]:,} 行', '逐股复算与供应商汇总一致', 'ok'),
- ('午盘逐股快照', f'data/store/snapshots/noon_{META["noon_date"]}.csv', f'{NOON["n"]:,} 行', '10:30/11:30 两根已完成小时K，剔除停牌', 'ok'),
+ ('午盘逐股快照', NOON_SNAP_PATH, f'{NOON["n"]:,} 行', NOON_SNAP_NOTE, 'ok'),
  ('成交分布观测日志', 'data/store/daily_agg.csv', f'{len(D["obs"])} 条近期', '每次更新追加一行，含 p/q/TRIN/额价差', 'ok'),
  ('均线广度 P20/60/250', 'data/store/ma_breadth.csv', f'{MA["days"]} 日 × 3', '逐日两次选股计数（分子/分母）；与三只个股双向抽查一致；供应商筛选值，未逐股复算', 'ok'),
  ('沪深300日线', 'data/store/index_daily.csv', f'{len(SER["vw_close"])} 行', 'iFinD 指数日线（2025-03 起，多取 40 根做预热）；收盘与 Wind 逐日核对一致；VW-MACD 自算', 'ok'),
@@ -550,13 +574,13 @@ S_STATUS = f'''<section class="sec" id="s14"><div class="sec-h"><span class="no"
 <div class="fresh-wrap" id="fresh"><div class="sub-h">各模块的数据时点</div>
 <p class="cap" style="margin:0 0 8px">同一天里不同模块可能停在不同日期。这里把每块的数据时点摊开；标“滞后”的表示该模块落后于最近一个已收盘交易日。</p>
 {fresh_table}</div>
-<p class="cap"><b>自动更新</b>：交易日 17:00 一次（iFinD 按调用次数计费，单日预算 30 次）。广度与成交分布用 <b>1 次 Wind 查询</b>（含ST家数与涨跌组成交额），均线广度 6 次、换手率占比 2 次、分布 9 桶 9 次、沪深300 日线 1 次、两市成交额 1 次、期货基差 5 次（<code>--fast</code>，只取当月/下月/当季）。逐股接口（小时频，单次 500+ 调用）已退出日常流程，只保留按需人工触发：<code>python3 fetch_eod.py --allow-heavy</code> 用于刷新市值结构与逐股明细（约 520 次调用）。所有写入由 <code>update.py</code> 校验后落盘并重建本页；校验不通过则整次拒绝，不会写入半截数据。手动重建：<code>python3 compute.py &amp;&amp; python3 render.py</code>；查看数据状态与当日调用数：<code>python3 update.py status</code>。温度计与所有分位为<b>本看板自算</b>：分位＝中位秩（小于当前值的个数＋0.5×相等个数）÷窗口长度；窗口 {T['window']} 个交易日。资金温度＝50 + 50 × 额价差 ÷ 给定 p 下的额价差理论上限。广度温度 v2＝涨家占比分位、MCL 分位、P20 分位三者等权（v1 为前两者等权，页内仍并列给出）。综合温度＝广度与资金等权。这些是本看板的显式约定，不是任何外部评分模型。</p></section>'''
+<p class="cap"><b>自动更新</b>：交易日 17:00 一次（iFinD 按调用次数计费，单日预算 30 次）。广度与成交分布用 <b>{'1 次扶摇全市场快照（含ST家数与涨跌组成交额，不占 iFinD 额度）' if '扶摇' in (META.get('close_source') or '') else '1 次 Wind 查询（含ST家数与涨跌组成交额）'}</b>，均线广度 6 次、换手率占比 2 次、分布 9 桶 9 次、沪深300 日线 1 次、两市成交额 1 次、期货基差 5 次（<code>--fast</code>，只取当月/下月/当季）。逐股接口（小时频，单次 500+ 调用）已退出日常流程，只保留按需人工触发：<code>python3 fetch_eod.py --allow-heavy</code> 用于刷新市值结构与逐股明细（约 520 次调用）。所有写入由 <code>update.py</code> 校验后落盘并重建本页；校验不通过则整次拒绝，不会写入半截数据。手动重建：<code>python3 compute.py &amp;&amp; python3 render.py</code>；查看数据状态与当日调用数：<code>python3 update.py status</code>。温度计与所有分位为<b>本看板自算</b>：分位＝中位秩（小于当前值的个数＋0.5×相等个数）÷窗口长度；窗口 {T['window']} 个交易日。资金温度＝50 + 50 × 额价差 ÷ 给定 p 下的额价差理论上限。广度温度 v2＝涨家占比分位、MCL 分位、P20 分位三者等权（v1 为前两者等权，页内仍并列给出）。综合温度＝广度与资金等权。这些是本看板的显式约定，不是任何外部评分模型。</p></section>'''
 
 FOOT = f'''<footer>
   <div class="ft-l"><b>聪明钱温度计</b><span>数据截止 {META['asof']}（日终）／{META['noon_date']} 11:30（午盘）</span></div>
   <div class="ft-r"><span>数据来源：{META['sources']}</span>
   <span>股票池：MCL {META['universe_mcl']}；宽度/量额 {META['universe_breadth']}</span>
-  <span>{('<em>逐股快照截至 ' + META['eod_date'] + '（换手率分布、市值结构用），该类数据自 2026-11-17 起不可回补；其余日终序列已到 ' + META['asof'] + '。</em>')}</span>
+  <span>{('<em>逐股快照截至 ' + META['eod_date'] + '（市值结构用），该类数据自 2026-11-17 起不可回补；换手率分布改用选股计数按日更新，其余日终序列已到 ' + META['asof'] + '。</em>')}</span>
   <span>本页为研究记录，不构成投资建议。指标描述状态，不预测收益率。</span></div>
 </footer>'''
 
@@ -1080,7 +1104,7 @@ HEAD = f'''<div class="mast"><div><b>交易信号研究</b> &nbsp;/&nbsp; 聪明
   读数用工作区已验收的行情数据复算；两处不一致的地方在“对照”一节逐条列出。</p>
   <p class="note">所谓“聪明钱”，在这套指标里只能观测到<b>行为结果</b>——哪些股票在被买、成交额流向哪一组——观测不到账户身份。
   这不是机构资金流，也不是内幕信息，读数的边界由此决定。</p>
-  <div class="chips"><span>沪深A股 5,027 家</span><span>{len(D['series']['mcl'])} 个交易日</span><span>9 项指标</span>
+  <div class="chips"><span>沪深A股 {int(CUR['n']):,} 家（含ST）</span><span>{len(D['series']['mcl'])} 个交易日</span><span>9 项指标</span>
   <span>日终 + 午盘双时点</span></div>
 </div>'''
 

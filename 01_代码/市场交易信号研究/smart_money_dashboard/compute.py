@@ -106,8 +106,19 @@ def to_weekly(seq):
 
 vw = vw_macd(csi)                                    # 日线
 vw_valid = [r for r in vw if r['hist'] is not None]
-# 周线：剔除最后一根未完成周（2026-11-16 为周一）
-csi_w = [(w['date'], w['close'], w['volume']) for w in to_weekly(csi)[:-1]]
+# 周线：只在「该周交易日已走完」时纳入最后一根。
+# 旧写法无条件丢弃最后一周，导致周五收盘后周线仍停在上周（2026-11-20 实测停在 11-13）。
+def _week_done(week_key, last_date):
+    y, w = week_key.split('-W')
+    fri = date.fromisocalendar(int(y), int(w), 5)
+    return last_date >= fri or date.today() > fri
+
+_wk = to_weekly(csi)
+if _wk:
+    _last = date.fromisoformat(csi[-1][0])
+    if not _week_done(_wk[-1]['week'], _last):
+        _wk = _wk[:-1]          # 当周未走完：本周是进行中的半根，不进 EMA
+csi_w = [(w['date'], w['close'], w['volume']) for w in _wk]
 vww_all = vw_macd(csi_w)
 vww = [r for r in vww_all if r['hist'] is not None]  # 仅保留有效周（26 周预热后）
 
@@ -152,7 +163,8 @@ def latest_snapshot(kind):
     return os.path.basename(files[-1]).split('_')[1].replace('.csv', ''), files[-1]
 
 EOD_DATE, EOD_PATH = latest_snapshot('eod')
-NOON_DATE, NOON_PATH = latest_snapshot('noon')
+NOON_SNAP_DATE, NOON_PATH = latest_snapshot('noon')   # 仅作兜底：扶摇午盘场次不落 snapshots/
+NOON_DATE = NOON_SNAP_DATE
 eod = load_universe(EOD_PATH, 'return_pct', 'turnover_pct')
 noon = load_universe(NOON_PATH, 'return_pct', 'vendor_hourly_turnover_pct')
 
@@ -179,7 +191,31 @@ def aggregate(rows):
     }
 
 agg_eod = aggregate(eod)
-agg_noon = aggregate(noon)
+agg_noon_snap = aggregate(noon)
+
+# 午盘观测点的权威来源是正式库 daily_agg(kind=noon)：
+# 扶摇午盘场次（fetch_hithink.py --session noon --promote）只写 daily_agg + noon_breadth，
+# 不落 snapshots/noon_*.csv。若仍以快照文件名定 NOON_DATE，午盘 MCL 预览会取不到基准
+# （2026-11-20 实测：preview=None、"午盘预览 —"、成交分布停在上一收盘）。
+_agg_all = rd(os.path.join(STORE, 'daily_agg.csv'))
+_noon_db = None
+for _r in _agg_all:
+    if _r.get('kind') == 'noon' and (_noon_db is None or _r['date'] > _noon_db['date']):
+        _noon_db = _r
+agg_noon = dict(agg_noon_snap)          # 兜底仅快照才有的 E_up/E_dn/h5
+if _noon_db and _noon_db['date'] >= NOON_SNAP_DATE:
+    NOON_DATE = _noon_db['date']
+    agg_noon.update({
+        'n': int(_noon_db['n']), 'p': float(_noon_db['p']), 'q': float(_noon_db['q']),
+        'G': float(_noon_db['G']), 'trin_e': float(_noon_db['trin_e']),
+    })
+    _nb_row = next((r for r in rd(os.path.join(STORE, 'noon_breadth.csv'))
+                    if r['date'] == NOON_DATE), None)
+    if _nb_row:
+        agg_noon.update({'A': int(_nb_row['A']), 'D': int(_nb_row['D']),
+                         'U': int(_nb_row['U'])})
+else:
+    NOON_DATE = NOON_SNAP_DATE
 
 # 午盘 MCL 预览：当日 11:30 的含ST家数，从上一收盘的 EMA 递推**一步**。
 # 只做预览，绝不写入 breadth_daily —— 收盘时仍从同一个前日状态重算，不把午盘当成额外一日。
@@ -328,32 +364,58 @@ p_win = [r['p'] for r in mcl[-WIN:]]
 pct_mcl = midrank_pct(mcl_win, mcl[-1]['mcl'])
 pct_p = midrank_pct(p_win, mcl[-1]['p'])
 
-# 当前口径：优先取 daily_agg 里最新的「收盘」记录（含ST，收盘后即终值）。
-# 午盘快照虽然“日期更新”，但同一天 11:30 早于 15:00 收盘，不能用午盘盖收盘；
-# 只有收盘记录缺失（或落后于快照日期）时才退回快照。
+# 当前口径：在「最近收盘」与「最近午盘」两个观测点里取时间上更晚的那个。
+# 同一日期 15:00 > 11:30，午盘不能盖收盘；跨日期则后一日的 11:30 晚于前一日的 15:00，
+# 午盘优先（例：11-20 11:30 应盖过 11-19 收盘，而不是反过来）。
 db_eod = None
 for _r in agg_rows:
     if _r['kind'] == 'eod':
         db_eod = _r
-if db_eod and db_eod['date'] >= max(EOD_DATE, NOON_DATE):
-    CUR = dict(agg_eod)                      # 兜底字段（E_up/E_dn/h5 等）
-    CUR.update({
-        'n': int(db_eod['n']) if db_eod.get('n') else agg_eod['n'],
-        'p': float(db_eod['p']), 'q': float(db_eod['q']),
-        'G': float(db_eod['G']), 'trin_e': float(db_eod['trin_e']),
+
+def eod_from_db(row):
+    cur = dict(agg_eod)                      # 兜底字段（E_up/E_dn/h5 等）
+    cur.update({
+        'n': int(row['n']) if row.get('n') else agg_eod['n'],
+        'p': float(row['p']), 'q': float(row['q']),
+        'G': float(row['G']), 'trin_e': float(row['trin_e']),
     })
+    # 金额字段只有逐股快照才给得出。快照日与 db 收盘日不同时，留着上一份快照的
+    # 绝对值会被误读成当日的 E+/E-（2026-11-20 实测：快照停 11-18，金额差了 68bn），
+    # 宁可置空，让误用当场暴露。
+    if row['date'] != EOD_DATE:
+        cur.update({'E_up': None, 'E_dn': None, 'total_amt': None})
     _b = next((r for r in rd(os.path.join(STORE, 'breadth_daily.csv'))
-               if r['date'] == db_eod['date']), None)
+               if r['date'] == row['date']), None)
     if _b:
-        CUR.update({'A': int(_b['A']), 'D': int(_b['D']), 'U': int(_b['U'])})
-    if TR_LAST and TR_LAST['date'] == db_eod['date']:
-        CUR.update({'h5_count': TR_LAST['n5'], 'h5_pct': TR_LAST['pct']})
-    CUR_DATE, CUR_KIND = db_eod['date'], 'eod'
-elif NOON_DATE > EOD_DATE:
+        cur.update({'A': int(_b['A']), 'D': int(_b['D']), 'U': int(_b['U'])})
+    if TR_LAST and TR_LAST['date'] == row['date']:
+        cur.update({'h5_count': TR_LAST['n5'], 'h5_pct': TR_LAST['pct']})
+    return cur
+
+_eod_ok = bool(db_eod) and db_eod['date'] >= max(EOD_DATE, NOON_SNAP_DATE)
+_noon_ok = bool(NOON_DATE) and (not _eod_ok or NOON_DATE > db_eod['date'])
+if _noon_ok:
     CUR, CUR_DATE, CUR_KIND = agg_noon, NOON_DATE, 'noon'
-else:
+elif _eod_ok:
+    CUR, CUR_DATE, CUR_KIND = eod_from_db(db_eod), db_eod['date'], 'eod'
+elif EOD_DATE >= NOON_DATE:
     CUR, CUR_DATE, CUR_KIND = agg_eod, EOD_DATE, 'eod'
+else:
+    CUR, CUR_DATE, CUR_KIND = agg_noon, NOON_DATE, 'noon'
 CUR_LABEL = f'{CUR_DATE} 11:30' if CUR_KIND == 'noon' else f'{CUR_DATE} 收盘'
+
+# 日终参照点：daily_agg 里最新一条「收盘」（含ST，与 MCL 同池）。
+# 只给象限对比、图例这类"拿最近收盘做参照"的位置用；逐股快照口径的 agg_eod 仍供「结构」章节
+# （市值五分位/CR/换手率九桶需要流通股本与换手率，只能来自逐股快照，日期可能更早）。
+# 两者日期不同是正常状态，页面必须分别标注，不能用一个 eod_date 概括。
+if db_eod:
+    EREF = eod_from_db(db_eod)
+    EREF['date'] = EREF_DATE = db_eod['date']
+else:
+    EREF = dict(agg_eod)
+    EREF['date'] = EREF_DATE = EOD_DATE
+EREF['label'] = f'{EREF_DATE} 收盘'
+EREF['kind'] = 'eod'
 
 # 广度 v1（旧口径）= p 分位与 MCL 分位等权；v2 = 再加入 P20 分位（三者等权）
 pct_p20 = ma_pct_win[20]
@@ -398,16 +460,21 @@ payload = {
     'meta': {
         'generated': str(date.today()),
         'asof': mcl[-1]['date'],
-        'eod_date': CUR_DATE if CUR_KIND == 'eod' else EOD_DATE,
+        # 逐股快照日（结构章节与数据表路径用）：必须与 snapshots/eod_*.csv 同名，
+        # 不能拿 daily_agg 的收盘日顶替（2026-11-20 实测：快照停 11-18，页面却标 11-20）。
+        'eod_date': EOD_DATE,
+        'close_date': CUR_DATE if CUR_KIND == 'eod' else EOD_DATE,
+        # 当日闭合数据取自哪条通道（扶摇快照 / Wind 家数金额 / iFinD 逐股），供页面标注来源
+        'close_source': (db_eod or {}).get('source', ''),
         'noon_date': NOON_DATE,
         'noon_asof': f'{NOON_DATE} 11:30',
         'universe_mcl': ('沪深A股 · 含ST · '
                          f'{mcl[-1]["A"] + mcl[-1]["D"] + mcl[-1]["U"]:,}家（{mcl[-1]["date"]}）'),
-        # 收盘口径已由 daily_agg（含ST）接管时，"宽度/量额"必须同步换池标签，
-        # 否则会沿用上一条逐股快照的"剔ST/停牌"口径与旧日期（2026-11-19 实测到 11-18）。
+        # 成交分布已由 daily_agg（含ST）接管时，"宽度/量额"必须同步换池标签，
+        # 否则会沿用逐股快照的"剔ST/停牌"口径与旧日期（2026-11-19 实测到 11-18）。
         'universe_breadth': (
             f'沪深A股 · 含ST · {int(CUR.get("n") or agg_eod["n"]):,}家（{CUR_DATE}）'
-            if CUR_KIND == 'eod' and CUR_DATE > EOD_DATE
+            if CUR_KIND == 'noon' or (CUR_KIND == 'eod' and CUR_DATE > EOD_DATE)
             else f'沪深A股 · 剔ST/停牌/零成交 · {agg_eod["n"]:,}家（{EOD_DATE}）'),
         'index_name': '沪深300 000300.SH',
         'sources': '同花顺iFinD（指数/期货日线、选股计数）、同花顺扶摇（收盘快照）、万得Wind（交叉核对）',
@@ -449,7 +516,8 @@ payload = {
         } if ma_last[n] else None) for n in MA},
     },
     'preview': preview,
-    'eod': agg_eod,
+    'eod': agg_eod,                 # 逐股快照口径（结构章节用，日期可能早于最新收盘）
+    'eod_ref': EREF,                # 最新收盘口径（含ST，象限对比/图例用）
     'noon': agg_noon,
     'obs': obs, 'blogger': blogger,
     'size': {'quintiles': size_quint, 'cr': cr, 'n': len(sized)},
