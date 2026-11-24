@@ -118,11 +118,37 @@ HERO = f'''
   </div>
 </section>'''
 
+_p_now = D['series']['p_series'][-1][1]
+_p_prev = D['series']['p_series'][-2][1]
+_p_chg = _p_now - _p_prev
+_h3 = ('广度单日反转' if _p_chg >= 20 else '广度回升' if _p_chg >= 5
+       else '广度仍在收缩' if _p_now < 40 else '广度持稳')
+_mcl_prev = D['series']['mcl'][-2][1]
+if S['mcl_last'] >= 0:
+    _mcl_note = 'MCL 为正，参与面动量尚可。'
+elif S['mcl_last'] > _mcl_prev:
+    _mcl_note = f'MCL 仍为负，但较前值 {num(_mcl_prev)} 回升 {S["mcl_last"] - _mcl_prev:+.0f}，恶化速度放缓，尚未修复。'
+else:
+    _mcl_note = 'MCL 从正转负后继续走低，参与面动量未修复。'
+
 CONCL = f'''<section class="concl">
   <div class="concl-i"><span>01</span><p><b>温度 {T['total']:.0f}，落在“{T['label']}”。</b>两个模块的时点不同：广度取 {ASOF} 收盘（涨家占比分位 {T['pct_p']:.0f}、MCL 分位 {T['pct_mcl']:.0f}），成交分布取 <b>{CUR_L}</b>（{CUR['kind'] == 'noon' and '午盘' or '日终'}口径）。{_TIME_NOTE}</p></div>
   <div class="concl-i"><span>02</span><p><b>{CUR_L} 的成交分布：{quadrant(CUR['p'], CUR['G'])[0]}。</b>涨家占比 {CUR['p']:.1f}%、涨额占比 {CUR['q']:.1f}%、额价差 {CUR['G']:+.2f}pp、成交额 TRIN {CUR['trin_e']:.2f}。{quadrant(CUR['p'], CUR['G'])[1]}；判断标准是成交额份额有没有跟上家数份额。</p></div>
-  <div class="concl-i"><span>03</span><p><b>广度仍在收缩：{ASOF} 收盘涨家占比 {D['series']['p_series'][-1][1]:.1f}%、MCL {num(S['mcl_last'])}{('（午盘预览 ' + num(PREV['mcl']) + '）') if PREV else ''}。</b>{'MCL 从正转负后继续走低，参与面动量未修复。' if S['mcl_last'] < 0 else 'MCL 为正，参与面动量尚可。'}趋势层同样弱：{MA['last_date']} 站上 MA20 的只有 <b>{P20['pct']:.1f}%</b>、MA250 之上 <b>{P250['pct']:.1f}%</b>。单日极值不可外推——近 {len(D['series']['p_series'])} 日涨家占比单日平均变动 27pp，必须配 20 日均值读。</p></div>
+  <div class="concl-i"><span>03</span><p><b>{_h3}：{ASOF} 收盘涨家占比 {_p_now:.1f}%（前值 {_p_prev:.1f}%，{_p_chg:+.1f}pp）、MCL {num(S['mcl_last'])}{('（午盘预览 ' + num(PREV['mcl']) + '）') if PREV else ''}。</b>{_mcl_note}趋势层仍弱：{MA['last_date']} 站上 MA20 的只有 <b>{P20['pct']:.1f}%</b>、MA250 之上 <b>{P250['pct']:.1f}%</b>。单日极值不可外推——近 {len(D['series']['p_series'])} 日涨家占比单日平均变动 27pp，必须配 20 日均值读。</p></div>
 </section>'''
+
+def _fut_deep_note(limits=10.0):
+    """按三品种各自的分位描述贴水深度，不预设三品种同向。"""
+    ks = ['IF', 'IC', 'IM']
+    deep = [k for k in ks if D['fut'][k]['pct'] <= limits]
+    rest = [k for k in ks if k not in deep]
+    if not deep:
+        return f'三品种分位均未进入一年最深 {limits:.0f}%。'
+    if not rest:
+        return f'三品种均处一年最深 {limits:.0f}% 区间。'
+    rest_txt = '、'.join('{:.0f}'.format(D['fut'][k]['pct']) for k in rest)
+    return '{deep} 处一年最深 {lim:.0f}% 区间；{rest} 分位 {rt}，贴水相对偏浅。'.format(
+        deep='/'.join(deep), lim=limits, rest='/'.join(rest), rt=rest_txt)
 
 CARDS = [
  ('MCL 麦克连摆','100','公式与原始定义一致',
@@ -135,7 +161,7 @@ CARDS = [
  ('成交额 TRIN','95','量版原式＋金额口径',f'{CUR["trin_e"]:.3f}','倍数',f'{1/CUR["trin_e"]:.2f}×','#1f6b52',f'上涨组平均成交额是下跌组的 {1/CUR["trin_e"]:.2f} 倍。'),
  ('额价差 G','90','终端输出确认',f'{CUR["G"]:+.2f}<i>pp</i>','占上限',f'{100*CUR["G"]/T["g_max"]:.0f}%','#c08b3e',f'q−p；占该 p 下理论上限的 {100*CUR["G"]/T["g_max"]:.0f}%。'),
  ('VW-MACD（沪深300）','100',f'参数 12/26/9 · {SER["vw_close"][-1][0][5:]} 收盘',num(S["vw_hist_last"],1,True),'柱体分位',f'{S["vw_hist_pct"]:.0f}','#c08b3e',f'日线柱连 {S["vw_hist_streak"]} 日为正、跌势动能衰减；DIF/DEA 仍在零轴下，周线柱仍为负。'),
- ('IF 年化基差','100',f'主力合约 · 200日分位 · {D["fut"]["IF"]["date"][5:]} 收盘',f'{D["fut"]["IF"]["ann"]:+.1f}<i>%</i>','分位',f'{D["fut"]["IF"]["pct"]:.0f}','#31556e',f'贴水 {abs(D["fut"]["IF"]["basis"]):.1f} 点；IC {D["fut"]["IC"]["ann"]:+.1f}%、IM {D["fut"]["IM"]["ann"]:+.1f}%，三品种同处一年最深区间。'),
+ ('IF 年化基差','100',f'主力合约 · 200日分位 · {D["fut"]["IF"]["date"][5:]} 收盘',f'{D["fut"]["IF"]["ann"]:+.1f}<i>%</i>','分位',f'{D["fut"]["IF"]["pct"]:.0f}','#31556e',f'贴水 {abs(D["fut"]["IF"]["basis"]):.1f} 点；IC {D["fut"]["IC"]["ann"]:+.1f}%（分位 {D["fut"]["IC"]["pct"]:.0f}）、IM {D["fut"]["IM"]["ann"]:+.1f}%（分位 {D["fut"]["IM"]["pct"]:.0f}）。' + _fut_deep_note()),
  ('三只宽基 ETF / MA20','100','指定三只代码',f'{S["etf_ratio_last"]:.2f}','分位',f'{S["etf_ratio_pct"]:.0f}','#3c8f6e',(f'合计额 {D["series"]["etf_amt"][-1][1]:.0f} 亿，为 20 日均额的 {S["etf_ratio_last"]:.2f} 倍；' + ('宽基无增量，不能证明“国家队”。' if S["etf_ratio_last"] < 1 else '宽基放量，但仍推不出资金身份。'))),
  ('换手率&gt;5% 占比','75','定义可数学化',f'{TRJ["pct"]:.2f}<i>%</i>','分位',f'{TRJ["pct_rank"]:.0f}','#b3372c',f'{TRJ["date"][5:]} 收盘 {TRJ["n5"]:,}/{TRJ["nb"]:,}；20 日均值 {_tr_ma}。'),
 ]
@@ -241,10 +267,10 @@ S_P = f'''<section class="sec ind" id="s3">{s_head('02','涨家占比 p','90',f'
 {kpi([(f'{CUR_L} · 含ST',f'{CUR["p"]:.1f}%','#b3372c'),(f'{ASOF_S} 收盘 · 含ST 序列',f'{D["series"]["p_series"][-1][1]:.1f}%','#8d8779'),('当日分位',f'{T["pct_p_cur"]:.0f}','#5c7f96'),(f'{len(D["series"]["p_series"])}日区间',f'{min(x[1] for x in D["series"]["p_series"]):.1f}% – {max(x[1] for x in D["series"]["p_series"]):.1f}%','#5f5b52')])}
 <div class="legend"><i class="ln" style="background:#b9c2c9"></i>单日涨家占比 p<i class="ln" style="background:#31556e"></i>20 日均值<span class="lg-note">单日 p 平均变动 27pp，趋势看 20 日均值</span></div>
 <div class="chart" id="c-p" style="height:280px"></div>
-<p class="cap">图中序列与当前读数同为<b>含ST池</b>（沪深A股，不含北交所）。2026-11-19 起成交分布也改用同一口径，不再维护剔ST的第二套数：两池实测差 0.05~0.5pp，分位与温度不受影响。</p>
+<p class="cap">图中序列与当前读数同为<b>含ST池</b>（沪深A股，不含北交所）。2026-11-19 起成交分布也改用同一口径，MCL 与 p/q/TRIN 同池同源，不再维护剔ST的第二套数。</p>
 <div class="cols">
   <div><h4>公式与口径</h4>{formula(['p = 100 × A / (A + D)','A＝上涨家数  D＝下跌家数','平盘 U 不进分母'])}
-  <p>同源数值反算：4,381/(4,381+1,035)=80.8900%，与公开读数 80.89% 一致。⚠ 2026-11-19 之前 p 有两个池：MCL 用含 ST 的 5,217 家，TRIN/额价差用剔 ST 的 5,027 家，同一天可差 0.4–0.5pp；现统一为含 ST 单池。</p></div>
+  <p>同源数值反算：4,381/(4,381+1,035)=80.8900%，与公开读数 80.89% 一致。⚠ 2026-11-19 之前 p 有两个池（MCL 含 ST、TRIN/额价差剔 ST）；现统一为含 ST 单池，本页所有读数同池同源，不再做跨池比较。</p></div>
   <div><h4>怎么读</h4><ul>
     <li><b>20% 以下</b>：普跌，参与面极窄；<b>80% 以上</b>：普涨。</li>
     <li>50% 附近为多空均衡，但 A 股极少停在均衡位。</li>
