@@ -56,8 +56,24 @@ def parse_table(answer):
     return head, rows
 
 
-def num(txt):
-    """把『179.2629亿』『1234万』『3976.4629』统一成浮点数"""
+UNIT = {'亿': 1e8, '万': 1e4}
+
+
+def unit_mult(head_cell):
+    """表头单位倍数：『成交量（单位：亿）』→ 1e8。
+
+    2026-11-24 实测：供应商把单位从单元格（「203.9433亿」）挪进表头
+    （「成交量（单位：亿）」），单元格只剩「197.3812」，只按单元格解析
+    会把 197.38 亿股写成 197 股，VW-MACD 的成交量权重随之失效。
+    """
+    m = re.search(r'单位[:：]\s*(亿|万)?股?', head_cell or '')
+    if not m:
+        return None
+    return UNIT.get(m.group(1), 1.0)
+
+
+def num(txt, default_mult=1.0):
+    """把『179.2629亿』『1234万』『3976.4629』统一成浮点数；无后缀时用表头倍数"""
     t = txt.replace(',', '').strip()
     if not t:
         return None
@@ -65,7 +81,7 @@ def num(txt):
     if not m:
         return None
     v = float(m.group(1))
-    return v * {'亿': 1e8, '万': 1e4, None: 1}[m.group(2)]
+    return v * (UNIT[m.group(2)] if m.group(2) else default_mult)
 
 
 def main():
@@ -109,14 +125,18 @@ def main():
         ic = next((i for i, h in enumerate(head) if '收盘价' in h), None)
         iv = next((i for i, h in enumerate(head) if '成交量' in h), None)
         id_ = next((i for i, h in enumerate(head) if '日期' in h), None)
+        mv = unit_mult(head[iv]) or 1.0 if iv is not None else 1.0
         for r in rows:
             ds = re.sub(r'\D', '', r[id_])[:8]
             if len(ds) != 8:
                 continue
             key = f'{ds[:4]}-{ds[4:6]}-{ds[6:]}'
-            c, v = num(r[ic]), num(r[iv])
+            c, v = num(r[ic]), num(r[iv], mv)
             if c is None or v is None:
                 continue        # 非交易日回填行：成交量空
+            if not (1e8 <= v <= 1e11):
+                print(f'  !! {key} 成交量 {v:.0f} 不在合理区间（1 亿–1000 亿股），已跳过')
+                continue
             acc[key] = (c, v)
 
     path = STORE / 'index_daily.csv'

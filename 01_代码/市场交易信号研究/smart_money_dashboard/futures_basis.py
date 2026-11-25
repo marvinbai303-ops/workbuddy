@@ -311,7 +311,11 @@ def run_fast(ds, refresh=False):
         got = fetch_parsed(fx, 'future_quotes', q, f'fast_{prod}_{ds}', refresh,
                            lambda d: per_code(d, ds), lambda g: bool(g), label=prod)
         cand = [(v, c, k, (expiry(k) - d0).days) for k, (v, c) in got.items() if v > 0]
-        band = [x for x in cand if 25 <= x[3] <= 130]
+        # 主力 = 成交量最大的合约；band 只剔除临到期（年化失真）与过远月份。
+        # 2026-11-24 实测：25 日下限会在到期前一个月把仍在放量的当月合约踢掉
+        # （IF2612 剩 24 日、成交 75,112 手 vs IF2703 20,958 手），三品种同时
+        # 跳到季月，使年化基差序列断层。下限放宽到 5 日，让成交量决定换月。
+        band = [x for x in cand if 5 <= x[3] <= 130]
         pick = sorted(band, reverse=True)[0] if band else (sorted(cand, reverse=True)[0] if cand else None)
         print(f'  {prod}: {len(got)} 个合约有量，选 {pick[2] if pick else "—"}')
         if not pick or spot not in idx or ds not in idx[spot]:

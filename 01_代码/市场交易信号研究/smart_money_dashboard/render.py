@@ -331,21 +331,23 @@ S_MA = f'''<section class="sec ind" id="s4">{s_head('03','站上均线比例 P20
 </div></section>'''
 
 OBS_ROWS = ''.join(
-    f'<tr><td>{o["date"]}</td><td>{o["src"]}</td><td>{o["p"]:.1f}%</td><td>{o["q"]:.1f}%</td>'
-    f'<td class="{"pos" if o["G"]>0 else "neg"}">{o["G"]:+.2f}</td><td>{o["trin"]:.3f}</td></tr>' for o in D['obs'])
-BLG_ROWS = ''.join(
-    f'<tr><td>{b["date"]}</td><td>外部同期读数</td><td>{b["p"]:.2f}%</td><td>{b["q"]:.2f}%</td>'
-    f'<td class="{"pos" if b["G"]>0 else "neg"}">{b["G"]:+.2f}</td><td>{b["trin"]:.2f}</td></tr>' for b in D['blogger'])
+    f'<tr><td>{o["date"]}</td><td>{"11:30 盘中" if o["kind"] == "noon" else "15:00 收盘"}</td>'
+    f'<td>{o["p"]:.1f}%</td><td>{o["q"]:.1f}%</td>'
+    f'<td class="{"pos" if o["G"]>0 else "neg"}">{o["G"]:+.2f}</td><td>{o["trin"]:.3f}</td></tr>'
+    for o in D['obs'])
 
-S_TRIN = f'''<section class="sec ind" id="s5">{s_head('04','成交分布：TRIN 与额价差','95',f'{len(D["obs"])}个近期观测 · 尚无连续日序列','warn')}
+S_TRIN = f'''<section class="sec ind" id="s5">{s_head('04','成交分布：TRIN 与额价差','95',f'近一周 {len(D["obs"])} 个观测 · 盘中＋收盘','ok')}
 {kpi([(f'TRIN_E · {CUR_S}',f'{CUR["trin_e"]:.3f}','#1f6b52'),('额价差',f'{CUR["G"]:+.2f}pp','#c08b3e'),('涨额占比 q',f'{CUR["q"]:.1f}%','#b3372c'),('涨家占比 p',f'{CUR["p"]:.1f}%','#5c7f96')])}
 <div class="grid2">
-  <div><div class="sub-h">涨家占比 p 与涨额占比 q（同一时点两把尺）</div><div class="chart" id="c-obs" style="height:250px"></div></div>
-  <div><div class="sub-h">p–G 象限：观测点位置（浅色空心＝外部同日读数）</div><div class="chart" id="c-quad" style="height:250px"></div></div>
+  <div><div class="sub-h">涨家占比 p 与涨额占比 q（同一时点两把尺）</div>
+    <div class="legend"><i class="ln" style="background:#31556e"></i>涨家占比 p<i class="ln" style="background:#b3372c"></i>涨额占比 q
+    <span class="lg-note">x 轴：日期＋午/收</span></div>
+    <div class="chart" id="c-obs" style="height:250px"></div></div>
+  <div><div class="sub-h">p–G 象限：近一周观测点的位置（深色＝最新）</div><div class="chart" id="c-quad" style="height:250px"></div></div>
 </div>
-<div class="table-wrap"><table class="tb"><thead><tr><th>日期</th><th>来源</th><th>涨家占比 p</th><th>涨额占比 q</th><th>额价差 pp</th><th>TRIN_E</th></tr></thead>
-<tbody>{OBS_ROWS}{BLG_ROWS}</tbody></table></div>
-<p class="cap">前 3 行为本看板复算（均用逐股明细独立重算并与供应商汇总对账）；后 3 行为外部公开的同期复盘读数，用于口径比对，不并入本序列。</p>
+<div class="table-wrap"><table class="tb"><thead><tr><th>日期</th><th>时点</th><th>涨家占比 p</th><th>涨额占比 q</th><th>额价差 pp</th><th>TRIN_E</th></tr></thead>
+<tbody>{OBS_ROWS}</tbody></table></div>
+<p class="cap">近 5 个交易日的<b>盘中与收盘两组读数</b>，同日两行便于看日内到收盘的收敛方向。11-19 起为扶摇快照（含ST，与 MCL 同池）；11-18 及以前为 iFinD/Wind（剔ST），跨这两段比较 p 时约有 0.1~0.5pp 的口径差。</p>
 
 <div class="explain">
   <div class="ex-h"><span>概念</span><h3>额价差到底在说什么</h3></div>
@@ -424,7 +426,7 @@ S_FUT = f'''<section class="sec ind" id="s7">{s_head('06','股指期货基差与
 <tbody>{fut_rows}</tbody></table></div>
 <p class="cap">三品种全部为贴水，且贴水处在近一年的底部区间：IF 的分位 {FIF["pct"]:.0f}、IC {FIC["pct"]:.0f}、IM {FIM["pct"]:.0f}（0＝一年来最深）。IC/IM 的贴水历来比 IF 深，因为中性策略与雪球等产品的对冲盘集中在中小盘；<b>三个品种之间的相对高低比绝对水平更有信息量</b>。</p>
 <div class="cols">
-  <div><h4>公式与口径</h4>{formula(['基差(点)   = 期货主力收盘 − 指数收盘','基差率     = 基差 ÷ 指数收盘','年化基差率 = 基差率 × 365 ÷ 剩余自然日','分位       = 过去 200 个交易日的中位秩','主力       = 当日成交量最大、且剩余 25–130 日的合约'])}
+  <div><h4>公式与口径</h4>{formula(['基差(点)   = 期货主力收盘 − 指数收盘','基差率     = 基差 ÷ 指数收盘','年化基差率 = 基差率 × 365 ÷ 剩余自然日','分位       = 过去 200 个交易日的中位秩','主力       = 当日成交量最大、且剩余 5–130 日的合约'])}
   <p>年化用<b>自然日 365</b>，不是交易日 250；分母是“到期日 − 当日”的自然日差。期货取日线收盘，现货取同日指数收盘。剩余自然日不足 25 日的合约不进年化：分母太小时，同样的基差点数会被放大成几倍的假信号。</p></div>
   <div><h4>怎么读</h4><ul>
     <li><b>负值＝贴水</b>：期货比现货便宜。持有期货到期可少付这部分，本质是空头/对冲方愿意付的“保险费”。</li>
@@ -585,7 +587,7 @@ STATUS = [
  ('成交分布观测日志', 'data/store/daily_agg.csv', f'{len(D["obs"])} 条近期', '每次更新追加一行，含 p/q/TRIN/额价差', 'ok'),
  ('均线广度 P20/60/250', 'data/store/ma_breadth.csv', f'{MA["days"]} 日 × 3', '逐日两次选股计数（分子/分母）；与三只个股双向抽查一致；供应商筛选值，未逐股复算', 'ok'),
  ('沪深300日线', 'data/store/index_daily.csv', f'{len(SER["vw_close"])} 行', 'iFinD 指数日线（2025-03 起，多取 40 根做预热）；收盘与 Wind 逐日核对一致；VW-MACD 自算', 'ok'),
- ('股指期货基差', 'data/store/futures_basis.csv', f'{len(SER["fut_ann_IF"])} 日 × 3', '逐合约日线（成交量选主力，限 25–130 日）；11-02 一行与公开表对照：基差 −42.12、年化 −8.32% 完全吻合', 'ok'),
+ ('股指期货基差', 'data/store/futures_basis.csv', f'{len(SER["fut_ann_IF"])} 日 × 3', '逐合约日线（成交量选主力，限 5–130 日）；11-02 一行与公开表对照：基差 −42.12、年化 −8.32% 完全吻合', 'ok'),
  ('两市合计成交额（沪深京）', 'data/store/market_amount.csv', f'{AMT["days"]} 行', 'iFinD 板块 001005010 全部A股；11-16 为 1.4942 万亿，与逐股快照汇总 1.4939 万亿相差 30 亿以内', 'ok'),
  ('三只 ETF 合计', 'data/store/etf_daily.csv', f'{len(SER["etf_amt"])} 行', '日更追加，MA20 每次现算', 'ok'),
  ('换手率&gt;5% 占比', 'data/store/turnover_daily.csv', f'{TRJ["days"]} 日', '选股计数（2 次/日）；11-16 与逐股复算一致 677/5,027', 'ok'),
@@ -1049,22 +1051,26 @@ function build() {
              { name: "20日均值", color: "#31556e", w: 1.9, data: ma20 }]
   });
 
-  const items = [];
-  D.blogger.forEach(b => items.push({ d: b.date, tag: "外部", p: b.p, q: b.q, G: b.G, blog: 1 }));
-  D.obs.forEach(o => items.push({ d: o.date, tag: o.kind === "noon" ? "午盘" : "本池", p: o.p, q: o.q, G: o.G, blog: 0 }));
-  items.sort((x, y) => x.d < y.d ? -1 : 1);
-  const obsLbl = items.map(x => x.d.slice(5) + " " + x.tag);
-  const obsP = items.map(x => x.p), obsQ = items.map(x => x.q), obsG = items.map(x => x.G);
-  add("c-obs", barChart, {
-    h: 250, labels: obsLbl, showVal: true, vfmt: v => v.toFixed(1), ml: 44,
-    series: [{ name: "涨家占比 p", color: "#9c968a", data: obsP }, { name: "涨额占比 q", color: "#b3372c", data: obsQ }],
-    notes: obsG.map((g, i) => ({ i: i, text: (g > 0 ? "+" : "") + g.toFixed(1) + "pp", color: g > 0 ? "#b3372c" : "#1f6b52" }))
+  const items = D.obs.map(o => ({
+    lbl: o.date.slice(5) + (o.kind === "noon" ? "午" : "收"),
+    p: o.p, q: o.q, G: o.G, kind: o.kind
+  }));
+  const obsLbl = items.map(x => x.lbl);
+  const obsP = items.map(x => [x.lbl, x.p]);
+  const obsQ = items.map(x => [x.lbl, x.q]);
+  add("c-obs", lineChart, {
+    h: 250, x: obsLbl, ml: 44, xlab: 6, xfmt: v => v,
+    yfmt: v => v.toFixed(0), lastSeries: 0, lastLabel: v => v.toFixed(1) + "%",
+    refs: [{ y: 50, label: "50% 均衡", color: "#c9c3b6", lc: "#77716a", side: "left" }],
+    series: [{ name: "涨家占比 p", color: "#31556e", w: 1.8, data: obsP },
+             { name: "涨额占比 q", color: "#b3372c", w: 1.8, data: obsQ }]
   });
 
-  const qp = [];
-  D.blogger.slice(1).forEach(b => qp.push({ x: b.p, y: b.G, label: "", color: "#d8d2c4", hollow: 1 }));
-  D.obs.forEach((o, i) => qp.push({ x: o.p, y: o.G, label: o.date.slice(5) + (o.kind === "noon" ? " 午盘" : ""),
-    color: i === D.obs.length - 1 ? "#2b2a26" : "#9c968a" }));
+  const qp = D.obs.map((o, i) => ({
+    x: o.p, y: o.G,
+    label: i === D.obs.length - 1 ? o.date.slice(5) + (o.kind === "noon" ? " 午" : " 收") : "",
+    color: i === D.obs.length - 1 ? "#2b2a26" : (o.kind === "noon" ? "#8fa3b0" : "#9c968a")
+  }));
   add("c-quad", scatterChart, { h: 250, xr: [0, 100], yr: [-30, 30], points: qp });
 
   add("c-vwpx", lineChart, { h: 180, x: vwX, ml: 50, noLast: false, lastLabel: v => v.toFixed(0),

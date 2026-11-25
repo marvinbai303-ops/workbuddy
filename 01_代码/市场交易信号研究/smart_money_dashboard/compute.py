@@ -346,11 +346,15 @@ AMT_VALS = [x['amt'] for x in AMT]
 # ---------------------------------------------------------------- 5. 观测点（TRIN/额价差）
 agg_rows = rd(os.path.join(STORE, 'daily_agg.csv'))
 agg_rows.sort(key=lambda r: (r['date'], r['time']))
+# 近 5 个交易日的日中（11:30）与日终（close）全部观测，按时间升序
 obs = []
-for r in agg_rows[-3:]:
-    obs.append({'date': r['date'], 'p': float(r['p']), 'q': float(r['q']),
-                'trin': float(r['trin_e']), 'G': float(r['G']),
-                'src': r['source'], 'kind': r['kind']})
+_obs_dates = sorted({r['date'] for r in agg_rows})[-5:]
+for _d in _obs_dates:
+    for r in sorted((x for x in agg_rows if x['date'] == _d),
+                    key=lambda x: 0 if x['kind'] == 'noon' else 1):
+        obs.append({'date': r['date'], 'p': float(r['p']), 'q': float(r['q']),
+                    'trin': float(r['trin_e']), 'G': float(r['G']),
+                    'src': r['source'], 'kind': r['kind']})
 
 blogger = [
     {'date': '2026-11-12', 'p': 15.81, 'q': 28.84, 'G': 13.03, 'trin': 0.46, 'trin_v': 0.50, 'mcl': 116.2},

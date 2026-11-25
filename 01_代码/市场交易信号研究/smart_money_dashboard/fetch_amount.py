@@ -68,15 +68,32 @@ def parse_table(answer):
     return head, rows
 
 
-def amount(txt):
-    """『1.4675万亿』『99.9218亿』『1.2万』→ 元"""
+UNIT = {'万亿': 1e12, '亿': 1e8, '万': 1e4}
+
+
+def unit_mult(head_cell):
+    """从表头取单位倍数：『成交金额(合计)（单位：万亿元）』→ 1e12。
+
+    2026-11-24 实测：接口把单位从单元格文字（「1.564万亿」）挪到了表头
+    （「（单位：万亿元）」），单元格只剩「1.6678」，只按单元格解析会把
+    1.6678 当成 1.6678 元写入。
+    """
+    m = re.search(r'单位[:：]\s*(万亿|亿|万)?元?', head_cell or '')
+    if not m:
+        return None
+    return UNIT.get(m.group(1), 1.0)
+
+
+def amount(txt, default_mult=1.0):
+    """『1.4675万亿』『99.9218亿』『1.2万』→ 元；无单位后缀时用表头倍数。"""
     t = txt.replace(',', '').strip()
     if not t:
         return None
     m = re.match(r'^(-?[\d.]+)\s*(万亿|亿|万)?$', t)
     if not m:
         return None
-    return float(m.group(1)) * {'万亿': 1e12, '亿': 1e8, '万': 1e4, None: 1}[m.group(2)]
+    mult = UNIT[m.group(2)] if m.group(2) else default_mult
+    return float(m.group(1)) * mult
 
 
 def main():
@@ -120,10 +137,14 @@ def main():
             print(f'  !! {a_}~{b_} 返回表缺少成交金额列，跳过')
             continue
         di = next((i for i, h in enumerate(head) if '日期' in h), None)
+        mult = unit_mult(head[ai]) or 1.0
         for r in rows:
             # 单日窗口时接口只回一行、不带日期列（2026-11-19 实测），日期取窗口起点
             ds = re.sub(r'\D', '', r[di])[:8] if di is not None else re.sub(r'\D', '', a_)[:8]
-            v = amount(r[ai])
+            v = amount(r[ai], mult)
+            if v and not (2e11 <= v <= 1e13):
+                print(f'  !! {a_} 成交额 {v:.0f} 元不在合理区间（0.2–10 万亿），已跳过')
+                continue
             if len(ds) == 8 and v:
                 acc[f'{ds[:4]}-{ds[4:6]}-{ds[6:]}'] = v
 
