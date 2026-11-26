@@ -347,7 +347,7 @@ S_TRIN = f'''<section class="sec ind" id="s5">{s_head('04','成交分布：TRIN 
 </div>
 <div class="table-wrap"><table class="tb"><thead><tr><th>日期</th><th>时点</th><th>涨家占比 p</th><th>涨额占比 q</th><th>额价差 pp</th><th>TRIN_E</th></tr></thead>
 <tbody>{OBS_ROWS}</tbody></table></div>
-<p class="cap">近 5 个交易日的<b>盘中与收盘两组读数</b>，同日两行便于看日内到收盘的收敛方向。11-19 起为扶摇快照（含ST，与 MCL 同池）；11-18 及以前为 iFinD/Wind（剔ST），跨这两段比较 p 时约有 0.1~0.5pp 的口径差。</p>
+<p class="cap">近 5 个交易日的<b>盘中与收盘两组读数</b>，同日两行便于看日内到收盘的收敛方向。11-19 起为扶摇快照（含ST，与 MCL 同池、同源）；11-18 及以前为 iFinD/Wind（剔ST），属历史序列断点，跨这两段只比方向、不做数值对齐。</p>
 
 <div class="explain">
   <div class="ex-h"><span>概念</span><h3>额价差到底在说什么</h3></div>
